@@ -1,0 +1,167 @@
+body
+{
+    background: #E5E5E5; /* TODO Add an bg image*/
+}
+
+.x-border-layout-ct
+{
+    
+    background-color: #FFFFFF !important;
+}
+
+/*******************************************************************************
+ * ExtJs toolbar icon color
+ ******************************************************************************/
+.x-toolbar-default-docked-top .x-btn .x-btn-icon-el
+{
+    color : #999999;
+    font-size: 16px;
+}
+
+/*******************************************************************************
+ * Application navigation
+ ******************************************************************************/
+
+#BM-navigation
+{
+    background-color: #157FCC;
+    padding: 0px; 
+}
+
+#BM-navigation .x-btn-default-toolbar-medium
+{
+    border: none;
+    background: none;
+    min-width: 64px;
+    height: 65px;
+    /*padding: 0 7px;*/
+    color: #89BEE5;
+}
+
+#BM-navigation .x-btn-default-toolbar-medium:hover
+{
+    color: #A5CDEC;
+}
+
+#BM-navigation .x-btn-inner
+{
+    font-size: 10px;
+    padding: 38px 0 0 0;
+    color: inherit;
+}
+
+#BM-navigation .x-btn-icon-el
+{
+    height: 38px;
+    font-size: 40px;
+    padding-left: 10px;
+}
+
+#BM-navigation .x-btn-arrow-bottom
+{
+    padding-bottom: 16px;
+}
+
+#BM-navigation .BM-navigation-active-module,
+#BM-navigation .x-btn-default-toolbar-medium-pressed
+{
+    background: #1574CC;
+    border: #1591CC inset 1px;
+    color: #A5CDEC;
+}
+
+/*******************************************************************************
+ * Application header
+ ******************************************************************************/
+
+#BM-workspace-toolbar
+{
+    background-color: #157FCC;
+    padding: 0;
+    color: #FFFFFF;
+}
+
+#BM-workspace-toolbar .x-tab-bar
+{
+    top : 5px !important;
+    left : 1px !important;
+}
+#BM-workspace-toolbar .x-tab-bar-strip
+{
+    display: none;
+}
+#BM-workspace-toolbar .x-tab-active
+{
+    background-color: #FFFFFF;
+}
+#BM-workspace-toolbar .x-tab-active .x-tab-icon-el
+{
+    color : #157fcc;
+}
+#BM-workspace-toolbar .x-tab-active .x-tab-close-btn
+{
+    background-position: -12px 0;
+}
+
+#BM-workspace-toolbar-text
+{
+/*    color: inherit;
+    font-size: 13px;
+    font-weight: bold;
+    font-family: arial,helvetica,verdana,sans-serif;
+    text-transform: none;*/
+}
+
+#BM-title-throbber
+{}
+
+#BM-title-notification
+{}
+
+#BM-workspace-toolbar-avatar
+{
+    padding: 0;
+}
+#BM-workspace-toolbar-avatar .x-btn-icon-el
+{
+    height: 35px;
+    width: 35px;
+}
+#BM-workspace-toolbar-avatar .x-btn-inner
+{
+    color: inherit;
+    padding-left: 37px;
+}
+
+#BM-workspace-toolbar-notification,
+#BM-workspace-toolbar-avatar
+{
+    background: none;
+    border: none;
+    color: inherit;
+}
+
+/*******************************************************************************
+ * Application footer
+ ******************************************************************************/
+#BM-PB
+{
+    background: #157FCC url("/resources/images/application/WS-small.png") no-repeat left;
+    padding: 0 3px 0 17px;
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    z-index: 100000;
+}
+#BM-PB p
+{
+    color: #FFFFFF;
+    font-size: 10px;
+    font-family: arial,helvetica,verdana,sans-serif;
+    margin: 0;
+}
+#BM-PB p a
+{
+    color: #FFFFFF;
+    text-decoration: none;
+}

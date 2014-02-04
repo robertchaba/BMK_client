@@ -1,0 +1,6 @@
+[submodule "app/module/user"]
+	path = app/module/user
+	url = https://github.com/WitteStier/BMC_Module_User.git
+[submodule "app/module/admin"]
+	path = app/module/admin
+	url = https://github.com/WitteStier/BMC_Module_Admin.git
