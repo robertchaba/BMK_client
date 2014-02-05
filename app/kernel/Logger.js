@@ -45,10 +45,12 @@ Ext.define('BM.kernel.Logger', {
     initLogger : function (cfg)
     {
         cfg = cfg || {};
+
         var me = this;
+
         me.maxLogs = cfg.maxLogs || 50;
-        me.logs = [
-        ];
+        me.logs = [];
+
         // End.
         return me;
     },
@@ -99,9 +101,11 @@ Ext.define('BM.kernel.Logger', {
     {
         level = level || 'log';
         dump = dump || {};
+
         var me = this,
             date = new Date(),
             logObject;
+
         if (typeof msg !== 'string') {
             // End, msg need to be an string.
             return false;
@@ -114,11 +118,13 @@ Ext.define('BM.kernel.Logger', {
             date : date
         };
         me.logConsole(logObject);
+
         if (me.logs.length >= me.maxLogs) {
             me.logs.shift();
         }
 
         me.logs.push(logObject);
+
         // End.
         return true;
     },
@@ -171,17 +177,17 @@ Ext.define('BM.kernel.Logger', {
      * Log an error message.  
      * Do not use this method, if an error is expected, use 
      * {@link Ext.Error.raise} to throw errors. Thrown error will be catched and
-     * the error message will be logged useing this method.
+     * the error message will be logged using this method.
      * 
      * @param {String} msg Log message
-     * @param {Mixed} [dump] Log dump
+     * @param {Object} [dump] Log dump
      * @return {Boolean} True is message is logged, false otherwise.
      */
     logError : function (msg, dump)
     {
         dump = dump || {};
         dump.callHistory = BM.getApplication().getCallTrace(true);
-        
+
         var me = this;
         // End.
         return me.log(msg, 'error', dump);
@@ -196,16 +202,14 @@ Ext.define('BM.kernel.Logger', {
     logConsole : function (log)
     {
         log = log || {};
+
         var con = Ext.global.console,
             msg = log.msg,
             level = log.level,
             dump = log.dump;
+
         msg = level.toUpperCase() + ': ' + msg + ' =>';
-//        if (level && con[level]) {
-//            con[level](msg, dump);
-//        } else {
-            con.log(msg, dump);
-//        }
+        con.log(msg, dump);
 
         // End.
         return true;

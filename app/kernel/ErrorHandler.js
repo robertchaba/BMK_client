@@ -103,6 +103,7 @@ Ext.define('BM.kernel.ErrorHandler', {
      * Handle the error message action.
      * Map the message buttons to there corresponding action methods.
      * 
+     * @private
      * @param {String} buttonId Possible values are `yes`, `no` and `cancel`.
      * @return {Boolean} Void.
      */
@@ -129,6 +130,7 @@ Ext.define('BM.kernel.ErrorHandler', {
      * Show the error reporting window and let the errorController handle it
      * from here on.
      * 
+     * @private
      * @return {Boolean} Void.
      */
     onErrorReport : function ()

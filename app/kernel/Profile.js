@@ -8,22 +8,22 @@ Ext.define('BM.kernel.Profile', {
     ],
     /**
      * @private
-     * @property {BM.model.user.Profile} profileModel.
+     * @property {User.model.Profile} profileModel.
      */
 
     /**
      * @private
-     * @property {BM.model.user.Person} personModel
+     * @property {User.model.Person} personModel
      */
 
     /**
      * @private
-     * @property {BM.model.user.Setting} settingsModel
+     * @property {User.model.Setting} settingsModel
      */
 
     /**
      * @private
-     * @property {BM.model.user.Locale} localeModel
+     * @property {User.model.Locale} localeModel
      */
 
     /**
@@ -33,7 +33,6 @@ Ext.define('BM.kernel.Profile', {
     initProfile : function ()
     {
         var me = this;
-
         // End.
         return me;
     },
@@ -41,8 +40,8 @@ Ext.define('BM.kernel.Profile', {
      * Try to load the user profile.
      *
      * The given callback will be cancelled if the profile is not loaded.
-     * Else if the profile is loaded, the profile will be populated and the given
-     * callback will be called.
+     * Otherwise if the profile is loaded, the profile will be populated and the
+     * given callback will be called.
      *
      * @param {Function} callback
      * @param {Object} [scope] description
@@ -64,13 +63,13 @@ Ext.define('BM.kernel.Profile', {
             }
         });
 
-        BM.model.user.Profile.load(0, config);
+        User.model.Profile.load(0, config);
 
         // End.
         return true;
     },
     /**
-     * Chekc if the user is authenticated and if all required profile data is present.
+     * Check if the user is authenticated and if all required profile data is present.
      *
      * @return {Boolean} Whether the user is authenticated.
      */
@@ -93,9 +92,9 @@ Ext.define('BM.kernel.Profile', {
         return true;
     },
     /**
-     * Set a {BM.model.user.Profile} model instance and set all associated models.
+     * Set a {User.model.Profile} model instance and populate all associated models.
      *
-     * @param {BM.model.user.Profile} profile
+     * @param {User.model.Profile} profile
      * @chainable
      */
     setProfileModel : function (profile)
@@ -111,9 +110,9 @@ Ext.define('BM.kernel.Profile', {
         return me;
     },
     /**
-     * Return a {BM.model.user.Profile} model instance.
+     * Return a {User.model.Profile} model instance.
      *
-     * @return {BM.model.user.Profile}
+     * @return {User.model.Profile}
      */
     getProfileModel : function ()
     {
@@ -130,9 +129,9 @@ Ext.define('BM.kernel.Profile', {
         return profile;
     },
     /**
-     * Set a {BM.model.user.Person} model instance.
+     * Set a {User.model.Person} model instance.
      *
-     * @param {BM.model.user.Person} person
+     * @param {User.model.Person} person
      * @chainable
      */
     setPersonModel : function (person)
@@ -143,9 +142,9 @@ Ext.define('BM.kernel.Profile', {
         return me;
     },
     /**
-     * Return a {BM.model.user.Person} model instance.
+     * Return a {User.model.Person} model instance.
      *
-     * @return {BM.model.user.Person}
+     * @return {User.model.Person}
      */
     getPersonModel : function ()
     {
@@ -162,9 +161,9 @@ Ext.define('BM.kernel.Profile', {
         return person;
     },
     /**
-     * Set a {BM.model.user.Setting} model instance.
+     * Set a {User.model.Setting} model instance.
      *
-     * @param {BM.model.user.Setting} settings
+     * @param {User.model.Setting} settings
      * @chainable
      */
     setSettingsModel : function (settings)
@@ -176,9 +175,9 @@ Ext.define('BM.kernel.Profile', {
 
     },
     /**
-     * Return a {BM.model.user.Setting} model instance.
+     * Return a {User.model.Setting} model instance.
      *
-     * @return {BM.model.user.Setting}
+     * @return {User.model.Setting}
      */
     getSettingsModel : function ()
     {
@@ -199,6 +198,9 @@ Ext.define('BM.kernel.Profile', {
      * {@link #setProfileModel populated}.
      *
      * @private
+     * @param {User.model.Profile} profile Profile model
+     * @param {Ext.data.Operation} operation
+     * @param {Boolean} isSuccess
      * @return {Boolean} False if the profile is not loaded, True otherwise.
      */
     onProfileLoaded : function (profile, operation, isSuccess)

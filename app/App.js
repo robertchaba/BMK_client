@@ -1,8 +1,3 @@
-// TMP used for testing untill this classes are loaded elsewhere.
-Ext.require([
-//    'BM.kernel.ns.Store'
-]);
-
 Ext.define('BM.App', {
     namespaces : [
         'User',
@@ -77,8 +72,7 @@ Ext.define('BM.App', {
 
 //        me.initSniffer();
         me.initErrorHandler();
-//        me.initStateHandler();
-
+        me.initStateHandler();
         me.initProfile();
 
         // End.
@@ -93,7 +87,7 @@ Ext.define('BM.App', {
     launch : function ()
     {
         var me = this;
-//        me.loadProfile(me.logon, me);
+        me.loadProfile(me.logon, me);
         // End.
         return false;
     },

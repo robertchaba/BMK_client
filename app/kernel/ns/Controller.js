@@ -201,7 +201,7 @@ Ext.define('BM.kernel.ns.Controller', {
             nameSegments = fullname.split('.'),
             sLen = nameSegments.length;
 
-        if (4 !== sLen) {
+        if (3 !== sLen) {
             // End, No namespace found.
             BM.getApplication().logNotice('No namespace found', {
                 controllerName : fullname
@@ -210,7 +210,7 @@ Ext.define('BM.kernel.ns.Controller', {
         }
 
         // End, return the namespace.
-        return nameSegments[2];
+        return nameSegments[0];
     },
     /**
      * Returns a {@link BM.kernel.ns.Model model} class, matching the given name
@@ -233,7 +233,7 @@ Ext.define('BM.kernel.ns.Controller', {
             return false;
         }
 
-        name = me.getNS() + '.' + name;
+        name = me.getNS() + '.model.' + name;
         model = me.getModel(name);
         if (!model || !(model.isNSModel || model.prototype.isNSModel)) {
             // End.
@@ -271,7 +271,7 @@ Ext.define('BM.kernel.ns.Controller', {
             return false;
         }
 
-        name = me.getNS() + '.' + name;
+        name = me.getNS() + '.store.' + name;
 
         store = me.getStore(name);
 
@@ -426,11 +426,11 @@ Ext.define('BM.kernel.ns.Controller', {
         }
 
         form = form.create(config);
-        
+
         if (config.model) {
             model = config.model;
         }
-        
+
         if (typeof model === 'string') {
             model = me.getNSModel(model);
         }
@@ -470,7 +470,7 @@ Ext.define('BM.kernel.ns.Controller', {
             // End.
             return NSWindow;
         }
-        
+
         NSWindow = NSWindow.create(config);
 
         // End.
@@ -597,11 +597,10 @@ Ext.define('BM.kernel.ns.Controller', {
             view,
             viewId;
 
-        name = me.getNS() + '.' +
+        name = me.getNS() + '.view.' +
             me.getControllerName().toLowerCase() + '.' +
             type + '.' +
             Ext.String.capitalize(name.toLowerCase());
-
         view = me.getView(name);
 
         if (!view) {
