@@ -4,7 +4,7 @@
  * This class catches errors trown with {@link Ext.Error.raise}
  * and shows a error message.  
  * By default the error message window will have 3 buttons:  
- * - `Report issue`         Open a report issue window, handled by the {@link BM.controller.application.Error}.  
+ * - `Report issue`         Open a report issue window.  
  * - `Relaunch application` Simple reload the page.  
  * - `Continue`             Close the window and let the user continue.
  */

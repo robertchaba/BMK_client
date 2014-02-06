@@ -1,5 +1,5 @@
 /**
- * A {@link BM.Application} mixin for setting up and handling common workspace
+ * A {@link BM.App} mixin for setting up and handling common workspace
  * functionalities.
  * 
  * The workspace is is basically a {@link Ext.tab.Panel} with a

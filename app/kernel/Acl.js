@@ -1,5 +1,5 @@
 /**
- * A {@link BM.Application} mixin for supplying access information and allowed
+ * A {@link BM.App} mixin for supplying access information and allowed
  * classes or configuration.
  */
 Ext.define('BM.kernel.Acl', {
@@ -157,7 +157,7 @@ Ext.define('BM.kernel.Acl', {
      * FIXME
      * 
      * Return a array with all allowed 
-     * {@link BM.kernel.Controller controller instances}.  
+     * {@link BM.kernel.ns.Controller controller instances}.  
      * If a module name is given only the controllers in this module will be
      * returned.
      * 

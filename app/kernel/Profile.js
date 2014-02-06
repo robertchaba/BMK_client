@@ -1,5 +1,5 @@
 /**
- * A {@link BM.Application} mixin for accessing all user personal data, collect
+ * A {@link BM.App} mixin for accessing all user personal data, collect
  * logs and bootstrap the appliction after the user is authenticated.
  */
 Ext.define('BM.kernel.Profile', {

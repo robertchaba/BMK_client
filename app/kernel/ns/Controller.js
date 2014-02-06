@@ -582,7 +582,7 @@ Ext.define('BM.kernel.ns.Controller', {
      * @private
      * @param {String} name View filename.
      * @param {String} [type=panel] View type.
-     * @return {BM.view.Panel}
+     * @return {BM.kernel.ns.Panel}
      */
     getNSView : function (name, type)
     {

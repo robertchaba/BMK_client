@@ -1,5 +1,5 @@
 /**
- * A {@link BM.Application} mixin for setting up and handling common navigation
+ * A {@link BM.App} mixin for setting up and handling common navigation
  * actions.
  */
 Ext.define('BM.kernel.Navigation', {
