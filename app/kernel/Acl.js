@@ -29,6 +29,9 @@ Ext.define('BM.kernel.Acl', {
         // End.
         return true;
     },
+    /**
+     * COMMENTME
+     */
     destroyAcl : function ()
     {
         var me = this;

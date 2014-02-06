@@ -18,7 +18,7 @@ Ext.define('BM.App', {
     extend : 'Ext.app.Application',
     name : 'BM',
     appFolder : 'app',
-    autoCreateViewport : false,
+    autoCreateViewport : true,
     enableQuickTips : true,
     refs : [
         {
@@ -186,7 +186,7 @@ Ext.define('BM.App', {
     /**
      * TMP
      */
-    createMaximizableWindow : function (item)
+    _createMaximizableWindow : function (item)
     {
         var me = this,
             center = me.getCenterRegion();

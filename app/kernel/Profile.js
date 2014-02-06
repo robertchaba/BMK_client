@@ -102,6 +102,7 @@ Ext.define('BM.kernel.Profile', {
         var me = this;
 
         me.profileModel = profile;
+        
         me.setPersonModel(profile.getPerson());
         me.setSettingsModel(profile.getSetting());
         BM.getApplication().setACLPermissions(profile.raw.permissions);
@@ -121,7 +122,7 @@ Ext.define('BM.kernel.Profile', {
 
         if (!profile || !profile.isNSModel) {
             // End.
-            BM.getApplication().logError('User model is not loaded.');
+            BM.getApplication().logError('Profile model is not loaded.');
             return false;
         }
 
