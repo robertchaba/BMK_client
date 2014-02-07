@@ -35,10 +35,10 @@ Ext.define('BM.kernel.Acl', {
     destroyAcl : function ()
     {
         var me = this;
-        
+
         me.allowedControllers = null;
         me.ACLPermissions = null;
-        
+
         // End.
         return true;
     },
@@ -170,27 +170,19 @@ Ext.define('BM.kernel.Acl', {
             modules = me.getACLPermissions(),
             loadedControllers = me.controllers,
             controllers = me.allowedControllers,
-//            moduleName = module,
-            controllerName,
             controller;
 
-//        if (!moduleName && me.allowedControllers.getCount() > 0) {
-//            // End, Return all allowed controller.
-//            return me.allowedControllers;
-//        }
-
-        // FIXME filter does not work because modules is a object not a data model.
-//        if (moduleName) {
-//            modules.filter('name', moduleName);
-//            controllers.clear();
-//        }
+        if (controllers.getCount() > 0) {
+            // End, return cache.
+            return controllers;
+        }
 
         Ext.Object.each(modules, function (moduleName, module)
         {
             Ext.Object.each(module.controllers, function (controllerName)
             {
-                controllerName = moduleName + '.' +
-                    Ext.String.capitalize(controllerName);
+                controllerName = Ext.String.capitalize(moduleName) +
+                    '.controller.' + Ext.String.capitalize(controllerName);
 
                 if (!loadedControllers.containsKey(controllerName)) {
                     // End.
@@ -212,10 +204,6 @@ Ext.define('BM.kernel.Acl', {
             }, me);
             // End.
         }, me);
-
-//        if (!moduleName) {
-//            me.allowedControllers = controllers;
-//        }
 
         // End.
         return controllers;
@@ -244,7 +232,8 @@ Ext.define('BM.kernel.Acl', {
         start = start || 0;
 
         var me = this,
-            menu = [];
+            menu = [
+            ];
 
         permissions = permissions || me.getACLPermissions();
 

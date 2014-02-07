@@ -213,5 +213,5 @@ Ext.define('BM.kernel.ErrorHandler', {
 
         // End.
         return trace;
-    },
+    }
 });
