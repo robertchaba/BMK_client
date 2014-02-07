@@ -183,5 +183,35 @@ Ext.define('BM.kernel.ErrorHandler', {
 
         // End.
         return true;
-    }
+    },
+    /**
+     * Get the caller method call tace.
+     * 
+     * @param {Boolean} withCallerFunc ...
+     * @return {Array} Array with all caller names and optional the caller functions.
+     */
+    getCallTrace : function (withCallerFunc)
+    {
+        withCallerFunc = withCallerFunc || false;
+        
+        var me = this,
+            callee = arguments.callee,
+            item,
+            trace = [];
+        
+        while(callee = callee.caller) {
+            item = {
+                name : callee.displayName || callee.name || callee.$name || null
+            };
+            
+            if (withCallerFunc) {
+                item.caller = callee;
+            }
+            
+            trace.push(item);
+        }
+
+        // End.
+        return trace;
+    },
 });

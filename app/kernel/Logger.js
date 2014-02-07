@@ -186,7 +186,7 @@ Ext.define('BM.kernel.Logger', {
     logError : function (msg, dump)
     {
         dump = dump || {};
-        dump.callHistory = BM.getApplication().getCallTrace(true);
+        dump.callHistory = 'Disabled';//BM.getApplication().getCallTrace(true);
 
         var me = this;
         // End.

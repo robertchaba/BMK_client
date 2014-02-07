@@ -47,7 +47,7 @@ Ext.define('BM.App', {
     },
     mixins : {
         acl : 'BM.kernel.Acl',
-//        contextmenu : 'BM.kernel.ContextMenu',
+        contextmenu : 'BM.kernel.Contextmenu',
         errorHandler : 'BM.kernel.ErrorHandler',
         logger : 'BM.kernel.Logger',
         navigation : 'BM.kernel.Navigation',
@@ -111,19 +111,7 @@ Ext.define('BM.App', {
         me.initNavigation();
 
         me.getThrobber().hide();
-//        me.initPortal();
-//        me.initContextmenu(); // To many issues for now.
-//        me.initNotification();
-
-
-        // TODO Try to find local stored last dispatched action and dispatch it again.
-        // if not found, dispatch a Welcome page with some application info.
-
-
-
-
-
-        // Dispatch action, get from local storage.
+        me.initContextmenu();
 
         // Hide the Powerd by element.
         Ext.fly('BM-PB').hide({
