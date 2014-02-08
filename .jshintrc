@@ -1,0 +1,9 @@
+{
+    "predef": ["Ext", "BM", "User", "Admin"],
+    "browser": true,
+    "evil": true,
+    "strict": false,
+    "indent": 4,
+    "quotmark": "single",
+    "undef": true
+}
