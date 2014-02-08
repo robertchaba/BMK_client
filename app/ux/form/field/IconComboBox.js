@@ -2,8 +2,7 @@ function getIconsStore ()
 {
     var sheets = document.styleSheets,
         iconsStore,
-        iconClsNames = [
-        ],
+        iconClsNames = [],
         cssRules;
 
     // Find font-awesome style

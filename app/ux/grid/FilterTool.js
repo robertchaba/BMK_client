@@ -126,8 +126,7 @@ Ext.define('BM.ux.grid.FilterTool', {
     createSearchFilterConfig : function (filterQuery, fields)
     {
         var me = this,
-            filter = [
-            ];
+            filter = [];
 
         Ext.Object.each(fields, function (fieldName, active)
         {

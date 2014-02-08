@@ -232,8 +232,7 @@ Ext.define('BM.kernel.Acl', {
         start = start || 0;
 
         var me = this,
-            menu = [
-            ];
+            menu = [];
 
         permissions = permissions || me.getACLPermissions();
 

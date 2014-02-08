@@ -362,7 +362,8 @@ Ext.define('BM.kernel.ns.Form', {
         // Model can be a dataModel, Operation or dataBatch
         if (model instanceof Ext.data.Batch) {
             operations = model.operations;
-            model = (operations && operations.length > 0) ? operations[0] : null;
+            model = (operations && operations.length > 0) ? operations[0] :
+                null;
         }
 
         if (model instanceof Ext.data.Operation) {
@@ -405,8 +406,7 @@ Ext.define('BM.kernel.ns.Form', {
         var me = this,
             basic = me.getForm(),
             model = me.getModel(),
-            validations = model.validations || [
-            ],
+            validations = model.validations || [],
             target,
             field;
 
@@ -425,9 +425,9 @@ Ext.define('BM.kernel.ns.Form', {
                     field.afterLabelTextTpl = '*';
                     break;
                 case 'length':
-                    target = (Ext.isDefined(field.maxValue) || Ext.isDefined(field.minValue))
-                        ? 'Value'
-                        : 'Length';
+                    target = (Ext.isDefined(field.maxValue) || Ext.isDefined(field.minValue)) ?
+                        'Value' :
+                        'Length';
 
                     if (validation.min) {
                         field['min' + target] = validation.min;

@@ -236,7 +236,8 @@ Ext.define('BM.App', {
             callback = config.callback,
             mitm = config.mitm,
             mitmScope = mitm.scope,
-            mitmCallback = mitm.callback;
+            mitmCallback = mitm.callback,
+            mitmArguments = mitm.arguments;
 
         if (typeof mitmCallback !== 'function') {
             // End.
@@ -249,7 +250,10 @@ Ext.define('BM.App', {
         config.scope = me;
         config.callback = function ()
         {
-            var mitmReturn = Ext.callback(mitmCallback, mitmScope, arguments);
+            var mitmReturn,
+                args;
+
+            mitmReturn = Ext.callback(mitmCallback, mitmScope, mitmArguments);
 
             if (mitmReturn === false) {
                 // End, do not call the original callback.
@@ -262,10 +266,10 @@ Ext.define('BM.App', {
             }
 
             if (Ext.isArray(mitmReturn) === true) {
-                arguments = mitmReturn;
+                args = mitmReturn;
             }
 
-            Ext.callback(callback, scope, arguments);
+            Ext.callback(callback, scope, args);
             // End.
         };
 

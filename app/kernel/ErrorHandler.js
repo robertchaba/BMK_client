@@ -195,11 +195,11 @@ Ext.define('BM.kernel.ErrorHandler', {
         withCallerFunc = withCallerFunc || false;
         
         var me = this,
-            callee = arguments.callee,
+            callee = arguments.callee.caller,
             item,
             trace = [];
         
-        while(callee = callee.caller) {
+        while(callee) {
             item = {
                 name : callee.displayName || callee.name || callee.$name || null
             };
@@ -209,6 +209,8 @@ Ext.define('BM.kernel.ErrorHandler', {
             }
             
             trace.push(item);
+            
+            callee = callee.caller;
         }
 
         // End.

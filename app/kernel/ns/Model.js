@@ -22,7 +22,7 @@ Ext.define('BM.kernel.ns.Model', {
             association = associations.get(name),
             model;
 
-        if (!association || !(typeof association.associatedModel === 'function')) {
+        if (!association || (typeof association.associatedModel !== 'function')) {
             // End, Association not 
             return false;
         }

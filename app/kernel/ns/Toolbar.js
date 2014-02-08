@@ -215,7 +215,6 @@ Ext.define('BM.kernel.ns.Toolbar', {
         // End.
         return true;
     },
-
     /**
      * COMMENTME
      * 
@@ -225,8 +224,7 @@ Ext.define('BM.kernel.ns.Toolbar', {
     {
         var me = this,
             pagingItems = me.getPagingItems(),
-            userItems = me.items || me.buttons || [
-            ];
+            userItems = me.items || me.buttons || [];
 
         if (me.prependButtons) {
             userItems.push('->');
@@ -364,8 +362,8 @@ Ext.define('BM.kernel.ns.Toolbar', {
         var me = this,
             current = me.store.currentPage,
             store = me.store;
-        
-            store.clearFilter(true);
+
+        store.clearFilter(true);
 
         if (me.fireEvent('beforechange', me, current) !== false) {
             me.store.loadPage(current);
@@ -431,9 +429,7 @@ Ext.define('BM.kernel.ns.Toolbar', {
             pageCount = pageData.pageCount;
             afterText = Ext.String.format(
                 me.afterPageText,
-                isNaN(pageCount)
-                ? 1
-                : pageCount
+                isNaN(pageCount) ? 1 : pageCount
                 );
         } else {
             currPage = 0;
@@ -616,9 +612,7 @@ Ext.define('BM.kernel.ns.Toolbar', {
         var me = this,
             k = e.getKey(),
             pageData = me.getPageData(),
-            increment = e.shiftKey
-            ? 10
-            : 1,
+            increment = e.shiftKey ? 10 : 1,
             pageNum;
 
         if (k === e.RETURN) {
@@ -635,9 +629,7 @@ Ext.define('BM.kernel.ns.Toolbar', {
         } else if ((k === e.HOME) || (k === e.END)) {
             e.stopEvent();
 
-            pageNum = (k === e.HOME)
-                ? 1
-                : pageData.pageCount;
+            pageNum = (k === e.HOME) ? 1 : pageData.pageCount;
 
             field.setValue(pageNum);
         } else if ((k === e.UP) || (k === e.PAGE_UP) || (k === e.DOWN) || (k === e.PAGE_DOWN)) {

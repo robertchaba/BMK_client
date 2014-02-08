@@ -77,15 +77,15 @@ Ext.define('BM.kernel.Navigation', {
     destroyNavigation : function ()
     {
         var me = this;
-        
+
         me.navigation.getEl().slideOut('l', {
             duration : 50,
-            callback : function()
+            callback : function ()
             {
                 me.navigation.destroy();
             }
         });
-        
+
         // End.
         return true;
     },
@@ -142,9 +142,7 @@ Ext.define('BM.kernel.Navigation', {
         return new Ext.toolbar.Toolbar({
             id : 'BM-navigation',
             vertical : vertical,
-            height : (vertical)
-                ? '100%'
-                : undefined,
+            height : vertical ? '100%' : undefined,
             defaults : {
                 arrowAlign : 'bottom',
                 iconAlign : 'top',

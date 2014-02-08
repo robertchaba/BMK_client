@@ -178,7 +178,7 @@ Ext.define('BM.kernel.ns.Controller', {
      */
     disableComponent : function (component)
     {
-        if (!component || !(typeof component.disable === 'function')) {
+        if (!component || (typeof component.disable !== 'function')) {
             // End.
             return false;
         }

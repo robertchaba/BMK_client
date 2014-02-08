@@ -302,7 +302,5 @@ Ext.define('BM.kernel.ns.Grid', {
     {
         var me = this,
             docked = me.getDockedItems('[dock=top]');
-
-        console.log(docked);
     }
 });
