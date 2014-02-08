@@ -43,7 +43,9 @@ Ext.define('BM.App', {
         }
     ],
     paths : {
-        'Model' : 'model' // Load generated models.
+        'Model' : 'app/model',
+        'User' : 'app/module/user',
+        'Admin' : 'app/module/admin'
     },
     mixins : {
         acl : 'BM.kernel.Acl',

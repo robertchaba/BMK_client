@@ -1,3 +1,6 @@
-/app/kernel/TODO
-/docs/*
+/_SpecRunner.html
 /.grunt/
+/app/kernel/TODO
+/build/
+/docs/*
+/node_modules/
