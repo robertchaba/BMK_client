@@ -83,7 +83,8 @@ Ext.define('BM.kernel.Contextmenu', {
 
         if (!menu || !menu.isMenu) {
             // End.
-            BM.getApplication().logWarning('Menu in not a menu instance', {
+            BM.getApplication().logInfo('Menu in not a menu instance', {
+                event : e,
                 menu : menu
             });
             return false;

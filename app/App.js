@@ -55,7 +55,7 @@ Ext.define('BM.App', {
 //        portal : 'BM.kernel.Portal',
         profile : 'BM.kernel.Profile',
 //        sniffer : 'BM.kernel.Sniffer',
-        baseView : 'BM.kernel.Workspace'
+        workspace : 'BM.kernel.Workspace'
     },
     /**
      * Initialize the application classes who not depend on a loaded profile.
