@@ -289,7 +289,7 @@ Ext.define('BM.kernel.ns.Grid', {
         }
 
         if (config && config.search) {
-            toolbar.setSearchColumns(me.columns);
+            toolbar.addSearchColumns(me.columns);
         }
 
         // End.

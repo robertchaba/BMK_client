@@ -13,12 +13,12 @@ Ext.define('BM.ux.grid.FilterTool', {
      */
 
     /**
-     * COMMENTME
+     * Add {@link Ext.grid.column.Column columns} to search on.
      * 
      * @property {Array} columns
      * @chainable
      */
-    setSearchColumns : function (columns)
+    addSearchColumns : function (columns)
     {
         var me = this,
             gridSearch = me.down('#grid-search'),
@@ -46,7 +46,7 @@ Ext.define('BM.ux.grid.FilterTool', {
         return me;
     },
     /**
-     * COMMENTME
+     * Return all searchable columns.
      * 
      * @return {Array}
      */
@@ -57,75 +57,77 @@ Ext.define('BM.ux.grid.FilterTool', {
         return me.searchColumns;
     },
     /**
-     * COMMENTME
+     * Return {@link Ext.menu.Menu menu} configuration to create a search menu.
+     * 
+     * @return {Array} Searchmenu configuration.
      */
-    createSearchMenu : function ()
+    createSearchMenuConfig : function ()
     {
-        var me = this,
-            menu = [
-                {
-                    xtype : 'form',
-                    itemId : 'grid-search-form',
-                    indent : false,
-                    fieldDefaults : {
-                        labelAlign : 'top',
-                        labelStyle : 'font-weight:bold',
-                        inputValue : true,
-                        uncheckedValue : false
-                    },
-                    items : [
-                        {
-                            layout : 'hbox',
-                            items : [
+        var me = this;
+        // End.
+        return [
+            {
+                xtype : 'form',
+                itemId : 'grid-search-form',
+                indent : false,
+                fieldDefaults : {
+                    labelAlign : 'top',
+                    labelStyle : 'font-weight:bold',
+                    inputValue : true,
+                    uncheckedValue : false
+                },
+                items : [
+                    {
+                        layout : 'hbox',
+                        items : [
+                            {
+                                xtype : 'triggerfield',
+                                name : 'search',
+                                triggerCls : 'x-form-clear-trigger',
+                                allowBlank : false,
+                                width : 500,
+                                onTriggerClick : function ()
                                 {
-                                    xtype : 'triggerfield',
-                                    name : 'search',
-                                    triggerCls : 'x-form-clear-trigger',
-                                    allowBlank : false,
-                                    width : 500,
-                                    onTriggerClick : function ()
-                                    {
-                                        this.setRawValue('');
-                                        me.store.clearFilter();
-                                    },
-                                    listeners : {
-                                        specialkey : me.onGridSearchSpecialKey,
-                                        scope : me
-                                    }
+                                    this.setRawValue('');
+                                    me.store.clearFilter();
                                 },
-                                {
-                                    xtype : 'button',
-                                    formBind : true,
-                                    iconCls : 'icon-search',
-                                    margin : '0 0 0 3px',
-                                    handler : me.doSearch,
+                                listeners : {
+                                    specialkey : me.onGridSearchSpecialKey,
                                     scope : me
                                 }
-                            ]
-                        },
-                        {
-                            xtype : 'checkboxgroup',
-                            fieldLabel : 'Search in columns',
-                            width : 500,
-                            columns : 3,
-                            items : [
-                            ]
-                        }
-                    ]
-                }
-            ];
-
-        // End.
-        return menu;
+                            },
+                            {
+                                xtype : 'button',
+                                formBind : true,
+                                iconCls : 'icon-search',
+                                margin : '0 0 0 3px',
+                                handler : me.doSearch,
+                                scope : me
+                            }
+                        ]
+                    },
+                    {
+                        xtype : 'checkboxgroup',
+                        fieldLabel : 'Search in columns',
+                        width : 500,
+                        columns : 3,
+                        items : [
+                        ]
+                    }
+                ]
+            }
+        ];
     },
     /**
-     * COMMENTME
+     * Return {@link Ext.util.Filter filter} configuration to filter on.
+     * 
+     * @return {Array} Filter configuration.
      */
-    createSearchFilter : function (filterQuery, fields)
+    createSearchFilterConfig : function (filterQuery, fields)
     {
         var me = this,
             filter = [
-        ];
+            ];
 
         Ext.Object.each(fields, function (fieldName, active)
         {
@@ -176,8 +178,8 @@ Ext.define('BM.ux.grid.FilterTool', {
 
         values = form.getValues();
         filterQuery = values.search; //RegExp(values.search);
-            delete values.search;
-        filter = me.createSearchFilter(filterQuery, values);
+        delete values.search;
+        filter = me.createSearchFilterConfig(filterQuery, values);
         store.remoteFilter = true;
 
         store.clearFilter(true);

@@ -92,7 +92,7 @@ Ext.define('BM.kernel.ns.Toolbar', {
             me.items.push({
                 itemId : 'grid-search',
                 iconCls : 'icon-search',
-                menu : me.createSearchMenu()
+                menu : me.createSearchMenuConfig()
             });
         }
 
