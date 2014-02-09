@@ -4,11 +4,11 @@ Ext.define('BM.App', {
         'Admin'
     ],
     controllers : [
-        'User.controller.Auth'
-//        'Admin.controller.Resources',
-//        'Admin.controller.Roles',
-//        'Admin.controller.Users',
-//        'Admin.controller.Permissions'
+        'User.controller.Auth',
+        'Admin.controller.Resources',
+        'Admin.controller.Roles',
+        'Admin.controller.Users',
+        'Admin.controller.Permissions'
     ],
     views : [
     ],
