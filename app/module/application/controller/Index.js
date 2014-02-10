@@ -42,110 +42,45 @@ Ext.define('Application.controller.Index', {
                 }
             }
         ],
-        'grid' : [
+        'gridview' : [
             {
                 text : 'Search for this value', // Text
                 handler : function (menuItem)
                 {
                     var cellElement = new Ext.dom.Element(menuItem.parentMenu.contextmenuTarget),
                         searchValue = cellElement.getHTML(),
-                        gridView = Ext.getCmp(cellElement.up('table').id.slice(0, -6)),
-                        grid = gridView.up('grid'),
-                        toolbar,gridSearch,
-                        searchMenu, searchField
-                        gridFilter;
+                        gridElement = cellElement.up('table'),
+                        gridView,
+                        grid,
+                        toolbar,
+                        searchButton,
+                        searchField;
 
-                    if (!grid || !grid.isNSGrid) {
-                        // End, Grid not found or is not a NSGrid.
+                    if (!gridElement || !searchValue) {
+                        // End, No table element found.
+                        Ext.Msg.alert('Error', 'No value found to search on.'); // TEXT
                         return false;
                     }
 
-                    if (!grid.toolbarCfg || !grid.toolbarCfg.search) {
+                    gridView = Ext.getCmp(cellElement.up('table').id.slice(0, -6));
+                    grid = gridView.up('grid');
+
+                    if (!grid.isNSGrid || !grid.toolbarCfg || !grid.toolbarCfg.search) {
                         // End. Grid is not searchable.
-                        Ext.Msg.alert('Grid is not searchable');
+                        Ext.Msg.alert('Error', 'Grid is not searchable.'); // TEXT
                         return false;
                     }
-                    
+
                     toolbar = grid.getToolbar();
-                    
-                    gridSearch = toolbar.down('#grid-search');
-                    searchMenu = gridSearch.menu;
-                    searchField = searchMenu
-                    
-                    
-                    console.log(searchMenu);
-                    
-                    
-//                    filterMenu.show();
-//                    
-//                    gridFilter = toolbar.mixins.gridFilter;
-//                    gridFilter.setSearchValue(searchValue);
-//                    gridFilter.doSearch();
+                    searchButton = toolbar.down('#grid-search');
+                    searchField = searchButton.menu.down('[name=search]');
+                    searchField.setValue(searchValue);
+                    toolbar.doSearch();
 
                     // End.
                     return true;
                 }
             }
         ]
-    },
-    /**
-     * @inheritdoc
-     */
-    listeners : {
-    },
-    /**
-     * @inheritdoc
-     */
-    init : function (application)
-    {
-        var me = this;
-
-        // Add listeners to components.
-        this.control({});
-    },
-    /**
-     * @inheritdoc
-     */
-    onLaunch : function (application)
-    {
-    },
-    /**
-     * @inheritdoc
-     */
-    onPortal : function (portal)
-    {
-    },
-    /**
-     * @inheritdoc
-     */
-    onDispatch : function ()
-    {
-    },
-    /**
-     * @private
-     */
-    getAppContextmenus : function ()
-    {
-        var me = this,
-            contextmenuConfig = {
-                'BM-navigation' : [
-                    {
-                        text : 'Header contextmenu item',
-                        handler : function (item, e)
-                        {
-                            // Action code
-                        }
-                    },
-                    {
-                        text : 'Bla',
-                        handler : function ()
-                        {
-                        }
-                    }
-                ]
-            };
-
-        // End.
-        return contextmenuConfig;
     }
 });

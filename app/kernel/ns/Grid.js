@@ -46,10 +46,8 @@ Ext.define('BM.kernel.ns.Grid', {
      */
     toolbarCfg : {
         paging : false,
-        disable : [
-        ],
-        toggleOnSelectionchange : [
-        ]
+        disable : [],
+        toggleOnSelectionchange : []
     },
     /**
      * @inheritdoc
