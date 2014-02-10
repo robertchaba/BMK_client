@@ -14,6 +14,22 @@ Ext.define('BM.kernel.ns.Toolbar', {
         gridFilter : 'BM.ux.grid.FilterTool'
     },
     /**
+     * @cfg {Boolean} paging
+     * Adds a {Ext.toolbar.Paging pagingtoolbar} to the right to the toolbar.
+     */
+
+    /**
+     * @cfg {Boolean} search
+     * When true {@link BM.ux.grid.FilterTool} will be initialized and a search
+     * filter button added to the toolbar.
+     */
+
+    /**
+     * @property {Ext.data.Store} store
+     * The {@link Ext.data.Store} the paging toolbar should use as its data source.
+     */
+
+    /**
      * @cfg {Boolean} displayInfo
      * true to display the displayMsg
      */
@@ -55,22 +71,6 @@ Ext.define('BM.kernel.ns.Toolbar', {
      * @property {Boolean} isNSToolbar true to identify this class as namespace toolbar.
      */
     isNSToolbar : true,
-    /**
-     * @cfg {Boolean} paging
-     * Adds a {Ext.toolbar.Paging pagingtoolbar} to the right to the toolbar.
-     */
-
-    /**
-     * @cfg {Boolean} search
-     * When true {@link BM.ux.grid.FilterTool} will be initialized and a search
-     * filter button added to the toolbar.
-     */
-
-    /**
-     * @property {Ext.data.Store} store
-     * The {@link Ext.data.Store} the paging toolbar should use as its data source.
-     */
-
     /**
      * 
      */
@@ -429,7 +429,9 @@ Ext.define('BM.kernel.ns.Toolbar', {
             pageCount = pageData.pageCount;
             afterText = Ext.String.format(
                 me.afterPageText,
-                isNaN(pageCount) ? 1 : pageCount
+                isNaN(pageCount)
+                ? 1
+                : pageCount
                 );
         } else {
             currPage = 0;
@@ -612,7 +614,9 @@ Ext.define('BM.kernel.ns.Toolbar', {
         var me = this,
             k = e.getKey(),
             pageData = me.getPageData(),
-            increment = e.shiftKey ? 10 : 1,
+            increment = e.shiftKey
+            ? 10
+            : 1,
             pageNum;
 
         if (k === e.RETURN) {
@@ -629,7 +633,9 @@ Ext.define('BM.kernel.ns.Toolbar', {
         } else if ((k === e.HOME) || (k === e.END)) {
             e.stopEvent();
 
-            pageNum = (k === e.HOME) ? 1 : pageData.pageCount;
+            pageNum = (k === e.HOME)
+                ? 1
+                : pageData.pageCount;
 
             field.setValue(pageNum);
         } else if ((k === e.UP) || (k === e.PAGE_UP) || (k === e.DOWN) || (k === e.PAGE_DOWN)) {

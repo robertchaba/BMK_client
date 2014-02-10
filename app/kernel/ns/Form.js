@@ -471,6 +471,9 @@ Ext.define('BM.kernel.ns.Form', {
         // End.
         return true;
     },
+    /**
+     * COMMENTME
+     */
     onAfterRender : function ()
     { // TODO make sure the enter event is not fired when the form item is multiline like textarea.
         var me = this;

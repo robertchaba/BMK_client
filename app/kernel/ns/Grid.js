@@ -5,6 +5,11 @@
  */
 Ext.define('BM.kernel.ns.Grid', {
     extend : 'Ext.grid.Panel',
+    
+    /**
+     * @property {BM.kernel.ns.Toolbar} gridToolbar Grid toolbar instance.
+     */
+    
     /**
      * @property {Boolean} isNSGrid true to identify this class as namespace grid panel.
      */
@@ -278,6 +283,7 @@ Ext.define('BM.kernel.ns.Grid', {
             return false;
         }
 
+        me.gridToolbar = toolbar;
         me.addDocked(toolbar);
 
         if (config && Ext.isArray(config.disable)) {
@@ -300,7 +306,8 @@ Ext.define('BM.kernel.ns.Grid', {
      */
     getToolbar : function ()
     {
-        var me = this,
-            docked = me.getDockedItems('[dock=top]');
+        var me = this;
+        // End.
+        return me.gridToolbar;
     }
 });

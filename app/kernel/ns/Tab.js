@@ -112,10 +112,9 @@ Ext.define('BM.kernel.ns.Tab', {
             var model = form.getModel(update),
                 names = model.modelName.split('.'),
                 name;
-
-            names.splice(0, 2);
-            name = names.join('');
-
+                
+            delete names[1];
+            name = Ext.String.uncapitalize(names.join(''));
             models[name] = model;
             // End.
         }, me);
