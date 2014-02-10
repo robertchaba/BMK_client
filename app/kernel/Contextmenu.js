@@ -90,6 +90,9 @@ Ext.define('BM.kernel.Contextmenu', {
             return false;
         }
 
+        // Add the contextmenu terget.
+        menu.contextmenuTarget = e.getTarget();
+
         menu.showAt(e.getXY());
 
         // End.
@@ -119,22 +122,35 @@ Ext.define('BM.kernel.Contextmenu', {
     {
         var me = this,
             menus = me.contextmenus,
-            menu = false,
-            el;
+            menu = false;
 
-        Ext.Object.each(menus, function (el, menuItems)
+        Ext.Object.each(menus, function (target, menuItems)
         {
-            if (Ext.fly(el) && e.within(el, false, true)) {
-                menu = menus[el];
+            var els = [// Elements
+                Ext.fly(target)
+            ];
 
-                if (!menu.isMenu) {
-                    menu = menus[el] = me.createContextmenu(menuItems);
+            Ext.Array.each(Ext.ComponentQuery.query(target), function (cmp)
+            {
+                if (cmp && cmp.isComponent) {
+                    els.push(cmp.getId());
                 }
+            }, me);
 
+            Ext.Array.each(els, function (el)
+            {
+                if (el && e.within(el, false, true)) {
+                    menu = menus[target];
+
+                    if (!menu || !menu.isMenu) {
+                        menu = menus[target] = me.createContextmenu(menuItems);
+                    }
+
+                    // End.
+                    return;
+                }
                 // End.
-                return;
-            }
-
+            }, me);
             // End.
         }, me);
 

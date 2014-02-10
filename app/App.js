@@ -1,9 +1,11 @@
 Ext.define('BM.App', {
     namespaces : [
+        'Application',
         'User',
         'Admin'
     ],
     controllers : [
+        'Application.controller.Index',
         'User.controller.Auth',
         'Admin.controller.Resources',
         'Admin.controller.Roles',
@@ -44,6 +46,7 @@ Ext.define('BM.App', {
     ],
     paths : {
         'Model' : 'app/model',
+        'Application' : 'app/module/application',
         'User' : 'app/module/user',
         'Admin' : 'app/module/admin'
     },
