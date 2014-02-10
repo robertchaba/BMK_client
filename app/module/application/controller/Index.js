@@ -28,6 +28,27 @@ Ext.define('Application.controller.Index', {
      * @inheritdoc
      */
     contextmenus : {
+        'BM-workspace-toolbar' : [
+            {
+                text : 'Close all tabs',
+                handler : function (menuItem)
+                {
+                    var WSToolbarElement = new Ext.dom.Element(menuItem.parentMenu.contextmenuTarget).up('#BM-workspace-toolbar'),
+                        WSToolbar = Ext.getCmp(WSToolbarElement.id),
+                        WSTabbar = WSToolbar.down('tabbar'),
+                        activeTab = WSTabbar.activeTab;
+                    
+                    while (activeTab) {
+                        nextToClose = WSTabbar.findNextActivatable(activeTab);    
+                        WSTabbar.closeTab(activeTab);
+                        activeTab = nextToClose;
+                    }
+                    
+                    // End.
+                    return true;
+                }
+            }
+        ],
         'combobox' : [
             {
                 text : 'Reload list', // Text
@@ -48,7 +69,7 @@ Ext.define('Application.controller.Index', {
                 handler : function (menuItem)
                 {
                     var cellElement = new Ext.dom.Element(menuItem.parentMenu.contextmenuTarget),
-                        searchValue = cellElement.getHTML(),
+                        searchValue = cellElement.getHTML().replace(/&(nbsp|amp|quot|lt|gt);/g, ''),
                         gridElement = cellElement.up('table'),
                         gridView,
                         grid,
@@ -75,6 +96,7 @@ Ext.define('Application.controller.Index', {
                     searchButton = toolbar.down('#grid-search');
                     searchField = searchButton.menu.down('[name=search]');
                     searchField.setValue(searchValue);
+                    searchButton.showMenu();
                     toolbar.doSearch();
 
                     // End.
