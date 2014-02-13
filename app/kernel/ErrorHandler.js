@@ -27,7 +27,7 @@ Ext.define('BM.kernel.ErrorHandler', {
     {
         var me = this;
 
-        // Raise an error if the response seccess property equals false.
+        Ext.Ajax.on('requestexception', me.onRequestcomplete, me);
         Ext.Ajax.on('requestcomplete', me.onRequestcomplete, me);
 
         // Dont lose the scope.
