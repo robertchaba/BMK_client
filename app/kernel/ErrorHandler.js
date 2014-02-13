@@ -27,6 +27,9 @@ Ext.define('BM.kernel.ErrorHandler', {
     {
         var me = this;
 
+        // Raise an error if the response seccess property equals false.
+        Ext.Ajax.on('requestcomplete', me.onRequestexception, me);
+
         // Dont lose the scope.
         Ext.Error.handle = function (error)
         {
@@ -36,6 +39,42 @@ Ext.define('BM.kernel.ErrorHandler', {
 
         // End.
         return me;
+    },
+    /**
+     * Raise an error if the response seccess property equals false and a 
+     * message is defined.
+     * 
+     * @private
+     * @param {Ext.data.Connection} conn
+     * @param {Object} response
+     * @return {Boolean} True when an error is raised, false otherwise.s
+     */
+    requestcomplete : function (conn, response)
+    {
+        var me = this,
+            responseText = response.responseText,
+            responseObj = Ext.JSON.decode(responseText),
+            errorMsg;
+
+        if (response && (response.status === 401)) {
+            // End, Already handled by {@link User.controller.Auth#onRequestException}.
+            return false;
+        }
+
+        if (!responseObj || !!responseObj.success || !responseObj.message) {
+            // End, No negative success or error message found.
+            return false;
+        }
+
+        errorMsg = responseObj.message;
+
+        Ext.Error.raise({
+            title : 'Network or server error',
+            msg : errorMsg
+        });
+
+        // End.
+        return true;
     },
     /**
      * Catch a raised error and show a error message.
@@ -193,23 +232,24 @@ Ext.define('BM.kernel.ErrorHandler', {
     getCallTrace : function (withCallerFunc)
     {
         withCallerFunc = withCallerFunc || false;
-        
+
         var me = this,
             callee = arguments.callee.caller,
             item,
-            trace = [];
-        
-        while(callee) {
+            trace = [
+            ];
+
+        while (callee) {
             item = {
                 name : callee.displayName || callee.name || callee.$name || null
             };
-            
+
             if (withCallerFunc) {
                 item.caller = callee;
             }
-            
+
             trace.push(item);
-            
+
             callee = callee.caller;
         }
 
