@@ -70,7 +70,7 @@ Ext.define('BM.kernel.ErrorHandler', {
 
         if (!responseObj || !!responseObj.success || !responseObj.message) {
             // End, No negative success or error message found.
-            return false;
+            return;
         }
 
         errorMsg = responseObj.message;
