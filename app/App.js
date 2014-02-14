@@ -2,15 +2,20 @@ Ext.define('BM.App', {
     namespaces : [
         'Application',
         'User',
-        'Admin'
+        'Admin',
+        'File'
     ],
     controllers : [
         'Application.controller.Index',
+        'User.controller.Index',
         'User.controller.Auth',
+        'Admin.controller.Index',
         'Admin.controller.Resources',
         'Admin.controller.Roles',
         'Admin.controller.Users',
-        'Admin.controller.Permissions'
+        'Admin.controller.Permissions',
+        'File.controller.Index',
+        'File.controller.Manager'
     ],
     views : [
     ],
@@ -48,7 +53,8 @@ Ext.define('BM.App', {
         'Model' : 'app/model',
         'Application' : 'app/module/application',
         'User' : 'app/module/user',
-        'Admin' : 'app/module/admin'
+        'Admin' : 'app/module/admin',
+        'File' : 'app/module/file'
     },
     mixins : {
         acl : 'BM.kernel.Acl',
@@ -93,6 +99,7 @@ Ext.define('BM.App', {
     {
         var me = this;
         me.loadProfile(me.logon, me);
+        
         // End.
         return false;
     },
@@ -276,5 +283,22 @@ Ext.define('BM.App', {
 
         // End.
         return config;
+    },
+    /**
+     * Returns true is the given module is loaded, modules need to be registered
+     * in {@link Ext.app.Application#namespaces}
+     * 
+     * @param {String} module Module name
+     * @return {Booleand} True is the module has at least loaded one allowed controller.
+     */
+    isModuleLoaded : function(module)
+    {
+        module = module.toLowerCase();
+        
+        var me = this,
+            allowedController = me.getAllowedControllers(module);
+        
+        // End.
+        return (allowedController.length > 0);
     }
 });
