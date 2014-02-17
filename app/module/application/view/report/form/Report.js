@@ -31,51 +31,33 @@ Ext.define('Application.view.report.form.Report', {
                     items : [
                         {
                             xtype : 'combobox',
-                            name : '',
-                            fieldLabel : 'Classification'
+                            store : 'Application.store.data.Classifications',
+                            name : 'classificationsId',
+                            displayField : 'name',
+                            valueField : 'id',
+                            fieldLabel : 'Classification',
+                            editable : false,
+                            queryMode : 'local',
+                            listeners : {
+                                render : function(combo)
+                                {
+                                    combo.store.load();
+                                }
+                            }
                         },
-                        {
-                            xtype : 'datefield',
-                            name : '',
-                            fieldLabel : 'Date'
-                        }
-                    ]
-                },
-                {
-                    layout : 'hbox',
-                    items : [
                         {
                             layout : 'vbox',
                             items : [
                                 {
                                     xtype : 'checkbox',
-                                    name : '',
+                                    name : 'reportback',
                                     boxLabel : 'Keep me informed'
                                 },
                                 {
                                     xtype : 'checkbox',
-                                    name : '',
-                                    boxLabel : 'Reproducable'
-                                }
-                            ]
-                        },
-                        {
-                            layout : 'vbox',
-                            items : [
-                                {
-                                    xtype : 'textfield',
-                                    name : '',
-                                    fieldLabel : 'Reported by'
-                                },
-                                {
-                                    xtype : 'combobox',
-                                    name : '',
-                                    fieldLabel : 'OS'
-                                },
-                                {
-                                    xtype : 'combobox',
-                                    name : '',
-                                    fieldLabel : 'Browser'
+                                    name : 'reproducable',
+                                    boxLabel : 'Reproducable',
+                                    hidden : true
                                 }
                             ]
                         }
@@ -86,7 +68,7 @@ Ext.define('Application.view.report.form.Report', {
                     items : [
                         {
                             xtype : 'textareafield',
-                            name : '',
+                            name : 'descr',
                             fieldLabel : 'Description / Feedback',
                             width : 500
                         }
@@ -97,8 +79,9 @@ Ext.define('Application.view.report.form.Report', {
                     items : [
                         {
                             xtype : 'textareafield',
-                            name : '',
+                            name : 'expected',
                             fieldLabel : 'What did you expect?',
+                            hidden : true,
                             width : 500
                         }
                     ]
@@ -108,8 +91,9 @@ Ext.define('Application.view.report.form.Report', {
                     items : [
                         {
                             xtype : 'textareafield',
-                            name : '',
+                            name : 'reproduce',
                             fieldLabel : 'How to reproduce?',
+                            hidden : true,
                             width : 500
                         }
                     ]
@@ -119,8 +103,9 @@ Ext.define('Application.view.report.form.Report', {
                     items : [
                         {
                             xtype : 'textareafield',
-                            name : '',
+                            name : 'workaround',
                             fieldLabel : 'Do you know a workaround?',
+                            hidden : true,
                             width : 500
                         }
                     ]

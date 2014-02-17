@@ -14,19 +14,43 @@ Ext.define('Application.controller.Report', {
         {
             ref : 'ReportForm',
             selector : '#applicationReportReportForm'
+        },
+        {
+            ref : 'ReportWindow',
+            selector : '#applicationReportReportWindow'
+        },
+        {
+            ref : 'ClassificationField',
+            selector : '#applicationReportReportWindow checkbox[name=reproducable]'
+        },
+        {
+            ref : 'ReproducableField',
+            selector : '#applicationReportReportWindow checkbox[name=reproducable]'
+        },
+        {
+            ref : 'ExpectField',
+            selector : '#applicationReportReportWindow textareafield[name=expected]'
+        },
+        {
+            ref : 'ReproduceField',
+            selector : '#applicationReportReportWindow textareafield[name=reproduce]'
+        },
+        {
+            ref : 'WorkaroundField',
+            selector : '#applicationReportReportWindow textareafield[name=workaround]'
         }
     ],
     /**
      * @inheritdoc
      */
     stores : [
-//        'Application.store.Report'
+        'Application.store.data.Classifications'
     ],
     /**
      * @inheritdoc
      */
     models : [
-//        'Application.model.Report'
+        'Application.model.Report'
     ],
     /**
      * @inheritdoc
@@ -51,6 +75,18 @@ Ext.define('Application.controller.Report', {
         me.control({
             '#BM-quickmenu-application-report-index' : {
                 click : me.onDispatch
+            },
+            '#applicationReportReportForm combobox[name=classificationsId]' : {
+                change : me.onClassificationChange
+            },
+            '#applicationReportReportForm checkbox[name=reproducable]' : {
+                change : me.onReproducableChange
+            },
+            '#applicationReportReportForm button[action=cancel]' : {
+                click : me.hideNSWindow
+            },
+            '#applicationReportReportForm button[action=report]' : {
+                click : me.onReportSave
             }
         });
     },
@@ -78,10 +114,99 @@ Ext.define('Application.controller.Report', {
     onDispatch : function ()
     {
         var me = this,
-//            model = me.getNSModel('Report'),
-            form = me.getNSForm('Report', true);
+            model = me.getNSModel('Report'),
+            form = me.getNSForm('Report', {
+                model : model,
+                buttons : [
+                    {
+                        text : 'Cancel',
+                        action : 'cancel'
+                    },
+                    {
+                        text : 'Report',
+                        action : 'report',
+                        formBind : true
+                    }
+                ]
+            });
 
         me.showNSWindow('Report', form);
+
+        // End.
+        return true;
+    },
+    onReportSave : function ()
+    {
+        var me = this,
+            form = me.getReportForm();
+
+        if (form.isValid()) {
+            form.saveModel({
+                loadMaskMsg : 'Reporting...', // TEXT
+                scope : me,
+                callback : me.onReportSaveResponse
+            });
+        }
+        
+        // End.
+        return true;
+    },
+    onReportSaveResponse : function (report, operation, success)
+    {
+        var me = this,
+            window = me.getReportWindow();
+        
+        if (success && window) {
+            window.close();
+        }
+        
+        Ext.Msg.alert('Thanks', 'Thank, we appreciate your feedback. Please don\'t be shy to report some more feedback.'); // TEXT
+        
+        // End.
+    },
+    onClassificationChange : function (combo, newValue)
+    {
+        var me = this,
+            expectField = me.getExpectField(),
+            reproduceField = me.getReproduceField(),
+            workaroundField = me.getWorkaroundField(),
+            reproducableField = me.getReproducableField();
+
+        expectField.show();
+        reproduceField.show();
+        workaroundField.show();
+        reproducableField.show();
+
+        switch (newValue) {
+            case 1:
+            case 2:
+                reproducableField.hide();
+                expectField.hide();
+                reproduceField.hide();
+                workaroundField.hide();
+                reproducableField.setValue(false);
+                break;
+            case 3:
+                reproduceField.hide();
+                workaroundField.hide();
+                reproducableField.setValue(false);
+                break;
+        }
+
+        // End.
+        return true;
+    },
+    onReproducableChange : function (checkbox, checked)
+    {
+        var me = this,
+            classificationField = me.getClassificationField(),
+            reproduceField = me.getReproduceField();
+
+        if (checked) {
+            reproduceField.show();
+        } else if (classificationField.getValue() <= 3) {
+            reproduceField.hide();
+        }
 
         // End.
         return true;

@@ -7,6 +7,7 @@ Ext.define('BM.App', {
     ],
     controllers : [
         'Application.controller.Index',
+        'Application.controller.Report',
         'User.controller.Index',
         'User.controller.Auth',
         'Admin.controller.Index',
