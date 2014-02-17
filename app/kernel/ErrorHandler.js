@@ -18,7 +18,7 @@ Ext.define('BM.kernel.ErrorHandler', {
      * @private
      * @property {Object} lastError
      */
-
+    
     /**
      * @param {BM.App} app
      * @chainable
@@ -27,8 +27,8 @@ Ext.define('BM.kernel.ErrorHandler', {
     {
         var me = this;
 
-        Ext.Ajax.on('requestexception', me.onRequestcomplete, me);
-        Ext.Ajax.on('requestcomplete', me.onRequestcomplete, me);
+        Ext.Ajax.on('requestexception', me.onRequestexception, me);
+        Ext.Ajax.on('requestcomplete', me.onRequestexception, me);
 
         // Dont lose the scope.
         Ext.Error.handle = function (error)
@@ -44,26 +44,33 @@ Ext.define('BM.kernel.ErrorHandler', {
      * Raise an error if the response seccess property equals false and a 
      * message is defined.
      * 
+     * Or call the {@link User.controller.Auth#onUnauthorized user controller} 
+     * 
      * @private
      * @param {Ext.data.Connection} conn
      * @param {Object} response
      * @return {Boolean} True when an error is raised, false otherwise.s
      */
-    onRequestcomplete : function (conn, response)
+    onRequestexception : function (conn, response)
     {
         var me = this,
+            app = me.getApplication(),
             responseText = response.responseText,
             responseObj = Ext.JSON.decode(responseText),
             errorMsg;
 
+        /*
+         * Call the {@link #unauthorizedControllerName}#{@link #unauthorizedMethodName}
+         * action when a 401 header is found.
+         */
         if (response && (response.status === 401)) {
-            // End, Already handled by {@link User.controller.Auth#onRequestException}.
-            return false;
+            // End.
+            return;
         }
 
         if (!responseObj || !!responseObj.success || !responseObj.message) {
             // End, No negative success or error message found.
-            return false;
+            return;
         }
 
         errorMsg = responseObj.message;
@@ -214,7 +221,8 @@ Ext.define('BM.kernel.ErrorHandler', {
     {
         var me = this;
 
-        BM.getApplication().logInfo('Continue using the application after error.');
+        BM.getApplication()
+            .logInfo('Continue using the application after error.');
 
         // TODO Call the error report controller
         // and collect and save a error report.

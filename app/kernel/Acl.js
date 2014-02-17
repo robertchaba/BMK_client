@@ -131,7 +131,7 @@ Ext.define('BM.kernel.Acl', {
      * 
      * @return {Array} Portlets
      */
-    getAllowedPortlets : function ()
+    _getAllowedPortlets : function ()
     {
         // Use me.getAllowed controllers to get the portlets.
         // I dont think we need this method.
@@ -162,16 +162,20 @@ Ext.define('BM.kernel.Acl', {
      * If a module name is given only the controllers in this module will be
      * returned.
      * 
-     * @param {String} [module] Modulename.
+     * @param {String} [inModule] Return controller in module.
      * @return {Array} Controllers.
      */
-    getAllowedControllers : function (module)
+    getAllowedControllers : function (inModule)
     {
         var me = this,
             modules = me.getACLPermissions(),
             loadedControllers = me.controllers,
             controllers = me.allowedControllers,
             controller;
+
+        if (inModule) {
+            controllers = new Ext.util.HashMap();
+        }
 
         if (controllers.getCount() > 0) {
             // End, return cache.
@@ -180,6 +184,11 @@ Ext.define('BM.kernel.Acl', {
 
         Ext.Object.each(modules, function (moduleName, module)
         {
+            if (inModule && (inModule !== moduleName)) {
+                // End, Controller is not in the given module.
+                return;
+            }
+
             Ext.Object.each(module.controllers, function (controllerName)
             {
                 controllerName = Ext.String.capitalize(moduleName) +

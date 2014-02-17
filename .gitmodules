@@ -4,3 +4,6 @@
 [submodule "app/module/admin"]
 	path = app/module/admin
 	url = https://github.com/WitteStier/BMC_Module_Admin.git
+[submodule "app/module/file"]
+	path = app/module/file
+	url = https://github.com/WitteStier/BMC_Module_File.git
