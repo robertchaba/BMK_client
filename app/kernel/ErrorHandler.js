@@ -27,7 +27,7 @@ Ext.define('BM.kernel.ErrorHandler', {
     {
         var me = this;
 
-//        Ext.Ajax.on('requestexception', me.onRequestcomplete, me);
+        Ext.Ajax.on('requestexception', me.onRequestcomplete, me);
         Ext.Ajax.on('requestcomplete', me.onRequestcomplete, me);
 
         // Dont lose the scope.
@@ -174,16 +174,15 @@ Ext.define('BM.kernel.ErrorHandler', {
      */
     onErrorReport : function ()
     {
-        var me = this;
+        var me = this,
+            reportController = me.getController('Application.controller.Report');
 
         BM.getApplication().logInfo('Report issue after application error.');
 
-        Ext.Msg.show({
-            msg : 'Please report errors on https://github.com/WitteStier/BMKernel_client/issues.'
-        });
-        // TODO Open the error report window.
-        // TODO Implement a error report controller and views.
+        reportController.onDispatch();
+        
         // End.
+        return true;
     },
     /**
      * Save the catched error report and re-launch the application.

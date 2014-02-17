@@ -213,6 +213,40 @@ Ext.define('BM.kernel.ns.Controller', {
         return nameSegments[0];
     },
     /**
+     * @param {String} name Controller name
+     * @param {String} module Module name
+     * @return {BM.kernel.ns.Controller} NS Controller instance.
+     */
+    getNSController : function (name, module)
+    {
+        var me = this,
+            controller;
+
+        module = module || me.getNS();
+
+        if (typeof name !== 'string') {
+            // End.
+            BM.getApplication().logError('No controller classname given.', {
+                modelName : name
+            });
+            return false;
+        }
+
+        name = module + '.controller.' + name;
+        controller = me.getController(name);
+
+        if (!controller || !(controller.isNSController || controller.prototype.isNSController)) {
+            // End.
+            BM.getApplication().logError('NSController is not loaded.', {
+                controllerName : name
+            });
+            return false;
+        }
+
+        // End.
+        return controller;
+    },
+    /**
      * Returns a {@link BM.kernel.ns.Model model} class, matching the given name
      * for the current controller namespace.
      *
