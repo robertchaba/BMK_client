@@ -122,6 +122,7 @@ Ext.define('BM.kernel.ErrorHandler', {
                 closable : false,
                 modal : true,
                 icon : Ext.Msg.ERROR,
+                iconCls : 'icon-bug',
                 buttons : Ext.Msg.YESNOCANCEL,
                 title : 'Application error', // TEXT
                 msg : 'Undefined error message', // TEXT
