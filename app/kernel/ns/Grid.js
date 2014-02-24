@@ -82,7 +82,8 @@ Ext.define('BM.kernel.ns.Grid', {
     addModel : function (model)
     {
         var me = this,
-            store = me.getStore();
+            store = me.getStore(),
+            oldModel;
 
         if (!model || !model.isNSModel) {
             // End.
@@ -92,9 +93,19 @@ Ext.define('BM.kernel.ns.Grid', {
                 });
             return false;
         }
-
-        store.remove(model);
-        store.add(model);
+        
+        oldModel = store.findRecord('id', model.getId());
+        
+        if (oldModel) {
+            oldModel.beginEdit();
+            oldModel.set(model.data);
+            oldModel.endEdit(true);
+            oldModel.commit();
+        } else {
+            store.add(model);
+        }
+        me.getView().refresh();
+        
         // End.
         return me;
     },
