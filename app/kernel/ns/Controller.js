@@ -407,7 +407,8 @@ Ext.define('BM.kernel.ns.Controller', {
             ns = me.getNS(),
             controllerName = me.getControllerName(),
             app = BM.getApplication(),
-            toolbarItems;
+            items,
+            allowedItems;
 
         if (!toolbar.prototype.isNSToolbar) {
             // End.
@@ -415,10 +416,14 @@ Ext.define('BM.kernel.ns.Controller', {
                 toolbar : toolbar
             });
         }
-
-        toolbarItems = app.getAllowedToolbar(ns, controllerName.toLowerCase());
-        if (toolbar.prototype && toolbar.prototype.items) {
-            toolbarItems = Ext.Array.merge(toolbar.prototype.items, toolbarItems);
+        
+        items = toolbar.prototype.items;
+        
+        if (toolbar.prototype.allowedButtons !== false) {
+            allowedItems = app.getAllowedToolbar(ns, controllerName.toLowerCase());
+            items = (toolbar.prototype.beforeAllowed)
+                ? Ext.Array.merge(items, allowedItems)
+                : Ext.Array.merge(allowedItems, items);
         }
 
         if (config) {
@@ -426,7 +431,7 @@ Ext.define('BM.kernel.ns.Controller', {
                 paging : config.paging,
                 store : config.store,
                 search : config.search,
-                items : toolbarItems
+                items : items
             });
         }
 

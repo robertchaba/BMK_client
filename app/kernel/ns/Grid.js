@@ -5,11 +5,23 @@
  */
 Ext.define('BM.kernel.ns.Grid', {
     extend : 'Ext.grid.Panel',
-    
+    /**
+     * @cfg {Boolean} editable
+     * True to add the {@link Ext.grid.plugin.RowEditing} plugin.
+     */
+
+    /**
+     * @cfg {Object} {@link Ext.grid.plugin.RowEditing} configuration.
+     */
+    editConfig : {
+        clicksToMoveEditor : 1,
+        errorSummary : false,
+        triggerEvent : 'none'
+    },
     /**
      * @property {BM.kernel.ns.Toolbar} gridToolbar Grid toolbar instance.
      */
-    
+
     /**
      * @property {Boolean} isNSGrid true to identify this class as namespace grid panel.
      */
@@ -46,8 +58,10 @@ Ext.define('BM.kernel.ns.Grid', {
      */
     toolbarCfg : {
         paging : false,
-        disable : [],
-        toggleOnSelectionchange : []
+        disable : [
+        ],
+        toggleOnSelectionchange : [
+        ]
     },
     /**
      * @inheritdoc
@@ -56,10 +70,24 @@ Ext.define('BM.kernel.ns.Grid', {
     {
         var me = this;
 
+        if (me.editable) {
+            me.initRowEditing(me.editConfig);
+        }
+
         me.callParent();
 
         // End.
         return true;
+    },
+    initRowEditing : function (config)
+    {
+        var me = this,
+            plugin;
+
+        config = config || me.editConfig;
+        plugin = Ext.create('Ext.grid.plugin.RowEditing', config);
+
+        me.addPlugin(plugin);
     },
     /**
      * TODO
@@ -70,8 +98,14 @@ Ext.define('BM.kernel.ns.Grid', {
     /**
      * TODO
      */
-    editRow : function (rowId)
+    editRow : function ()
     {
+        var me = this,
+            selectionModel = me.getSelectionModel().getLastSelected(),
+            plugin = me.findPlugin('rowediting');
+
+        plugin.cancelEdit();
+        plugin.startEdit(selectionModel, 0);
     },
     /**
      * Add a model, to the store bind to this grid.
@@ -93,9 +127,9 @@ Ext.define('BM.kernel.ns.Grid', {
                 });
             return false;
         }
-        
+
         oldModel = store.findRecord('id', model.getId());
-        
+
         if (oldModel) {
             oldModel.beginEdit();
             oldModel.set(model.data);
@@ -105,7 +139,7 @@ Ext.define('BM.kernel.ns.Grid', {
             store.add(model);
         }
         me.getView().refresh();
-        
+
         // End.
         return me;
     },
@@ -280,10 +314,13 @@ Ext.define('BM.kernel.ns.Grid', {
      * Set a toolbar and apply the toolbar configuration.
      * 
      * @param {BM.kernel.ns.Toolbar} toolbar
+     * @param {Boolean} [cache=true]
      * @chainable
      */
-    setToolbar : function (toolbar)
+    setToolbar : function (toolbar, cache)
     {
+        cache = cache || true;
+
         var me = this,
             config = me.toolbarCfg;
 
@@ -292,7 +329,9 @@ Ext.define('BM.kernel.ns.Grid', {
             return false;
         }
 
-        me.gridToolbar = toolbar;
+        if (cache) {
+            me.gridToolbar = toolbar;
+        }
         me.addDocked(toolbar);
 
         if (config && Ext.isArray(config.disable)) {

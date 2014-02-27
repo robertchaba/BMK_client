@@ -1,10 +1,21 @@
-Ext.define('BM.App', {
-    namespaces : [
-        'Application',
-        'User',
-        'Admin',
-        'File'
-    ],
+/**
+ * Move below code to /public/application.js
+ * -- From here -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
+Ext.Loader.setConfig({
+    enable : true,
+    paths : {
+        BM : 'app',
+        Model : 'app/model',
+        Application : 'app/module/application',
+        User : 'app/module/user',
+        Admin : 'app/module/admin',
+        File : 'app/module/file'
+    }
+});
+
+Ext.application({
+    extend : 'BM.App',
+    name : 'BM',
     controllers : [
         'Application.controller.Index',
         'Application.controller.Report',
@@ -17,12 +28,23 @@ Ext.define('BM.App', {
         'Admin.controller.Permissions',
         'File.controller.Index',
         'File.controller.Manager'
-    ],
-    views : [
-    ],
-    models : [
-    ],
-    /* Do not edit below */
+    ]
+});
+ * -- Until here -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+ */
+
+/**
+ * BackendManager bootstrap class.
+ * 
+ * BackendManager is an HTML5 web application original design as base for fully
+ * scalable custom backend applications.
+ * 
+ * Out of the box BackendManager comes with several modules for example:
+ * User  : Responsible for authentication, application profile and settings, self registering.
+ * Admin : Responsible for user and permission management.
+ * File  : Responsible for file management, upload and download.
+ */
+Ext.define('BM.App', {
     extend : 'Ext.app.Application',
     name : 'BM',
     appFolder : 'app',
@@ -50,13 +72,6 @@ Ext.define('BM.App', {
             selector : 'viewport [region=center]'
         }
     ],
-    paths : {
-        'Model' : 'app/model',
-        'Application' : 'app/module/application',
-        'User' : 'app/module/user',
-        'Admin' : 'app/module/admin',
-        'File' : 'app/module/file'
-    },
     mixins : {
         acl : 'BM.kernel.Acl',
         contextmenu : 'BM.kernel.Contextmenu',

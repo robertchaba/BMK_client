@@ -23,6 +23,16 @@ Ext.define('BM.kernel.ns.Toolbar', {
      * When true {@link BM.ux.grid.FilterTool} will be initialized and a search
      * filter button added to the toolbar.
      */
+    
+    /**
+     * @cfg {Boolean} allowedButtons
+     * Add by {@link BM.kernel.Acl} allowed toolbar buttons.
+     */
+    
+    /**
+     * @cfg {Boolean} beforeAllowed
+     * True to add the defined items before the allowed buttons.
+     */
 
     /**
      * @property {Ext.data.Store} store
