@@ -467,7 +467,7 @@ Ext.define('BM.kernel.ns.Form', {
             basic = me.getForm(),
             model = me.getModel();
         
-        if (data) {
+        if (data && !model) {
             basic.setValues(data);
         } else {
             basic.setValues(model.getData());

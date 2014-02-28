@@ -110,9 +110,16 @@ Ext.define('BM.kernel.ns.Tab', {
         Ext.Array.each(forms, function (form)
         {
             var model = form.getModel(update),
-                names = model.modelName.split('.'),
+                names,
                 name;
-                
+
+            if (!model) {
+                // End loop.
+                return;
+            }
+
+            names = model.modelName.split('.');
+
             delete names[1];
             name = Ext.String.uncapitalize(names.join(''));
             models[name] = model;
@@ -138,12 +145,12 @@ Ext.define('BM.kernel.ns.Tab', {
             // End.
             BM.getApplication()
                 .logError('Unable to load a model from a tab item which is not a NSForm', {
-                child : child,
-                form : form
-            });
+                    child : child,
+                    form : form
+                });
             return false;
         }
-        
+
         tabbar.disable();
 
         // TODO Show all loadmasks or disable tabs while loading
