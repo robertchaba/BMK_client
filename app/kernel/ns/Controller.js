@@ -430,9 +430,9 @@ Ext.define('BM.kernel.ns.Controller', {
         
         if (toolbar.prototype.allowedButtons !== false) {
             allowedItems = app.getAllowedToolbar(ns, controllerName.toLowerCase());
-            items = (toolbar.prototype.beforeAllowed)
-                ? Ext.Array.merge(items, allowedItems)
-                : Ext.Array.merge(allowedItems, items);
+            items = (toolbar.prototype.beforeAllowed) ? 
+                Ext.Array.merge(items, allowedItems) : 
+                Ext.Array.merge(allowedItems, items);
         }
 
         if (config) {

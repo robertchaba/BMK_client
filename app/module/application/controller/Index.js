@@ -36,7 +36,8 @@ Ext.define('Application.controller.Index', {
                     var WSToolbarElement = new Ext.dom.Element(menuItem.parentMenu.contextmenuTarget).up('#BM-workspace-toolbar'),
                         WSToolbar = Ext.getCmp(WSToolbarElement.id),
                         WSTabbar = WSToolbar.down('tabbar'),
-                        activeTab = WSTabbar.activeTab;
+                        activeTab = WSTabbar.activeTab,
+                        nextToClose;
                     
                     while (activeTab) {
                         nextToClose = WSTabbar.findNextActivatable(activeTab);    

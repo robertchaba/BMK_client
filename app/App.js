@@ -41,7 +41,7 @@ Ext.application({
  * 
  * Out of the box BackendManager comes with several modules for example:
  * User  : Responsible for authentication, application profile and settings, self registering.
- * Admin : Responsible for user and permission management.
+ * Admin : Responsible for user authentication and authorization.
  * File  : Responsible for file management, upload and download.
  */
 Ext.define('BM.App', {

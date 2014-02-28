@@ -18,7 +18,7 @@ Ext.define('BM.kernel.ErrorHandler', {
      * @private
      * @property {Object} lastError
      */
-    
+
     /**
      * @param {BM.App} app
      * @chainable
@@ -188,7 +188,7 @@ Ext.define('BM.kernel.ErrorHandler', {
         BM.getApplication().logInfo('Report issue after application error.');
 
         reportController.onDispatch();
-        
+
         // End.
         return true;
     },
@@ -244,8 +244,7 @@ Ext.define('BM.kernel.ErrorHandler', {
         var me = this,
             callee = arguments.callee.caller,
             item,
-            trace = [
-            ];
+            trace = [];
 
         while (callee) {
             item = {
