@@ -458,15 +458,20 @@ Ext.define('BM.kernel.ns.Form', {
      * {@link Ext.form.field.Field fields}.
      * 
      * @private
+     * @param {Mixed} [data] 
      * @return {Boolean} Void.
      */
-    applyModelValues : function ()
+    applyModelValues : function (data)
     {
         var me = this,
             basic = me.getForm(),
             model = me.getModel();
-
-        basic.setValues(model.getData());
+        
+        if (data) {
+            basic.setValues(data);
+        } else {
+            basic.setValues(model.getData());
+        }
 
         // End.
         return true;
