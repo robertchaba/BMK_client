@@ -188,6 +188,15 @@ Ext.define('BM.kernel.ns.Controller', {
         // End.
         return true;
     },
+    loadComponentStore : function (component)
+    {
+        if (component && component.store && component.store.isStore && !component.store.loaded) {
+            component.store.load();
+            component.store.loaded = true;
+        }
+        // End.
+        return true;
+    },
     /**
      * Returns the current controller namespace.
      *
@@ -217,13 +226,13 @@ Ext.define('BM.kernel.ns.Controller', {
      * @param {String} module Module name
      * @return {BM.kernel.ns.Controller} NS Controller instance.
      */
-    getNSController : function(name, module)
-    {   
+    getNSController : function (name, module)
+    {
         var me = this,
             controller;
-        
+
         module = module || me.getNS();
-        
+
         if (typeof name !== 'string') {
             // End.
             BM.getApplication().logError('No controller classname given.', {
@@ -231,10 +240,10 @@ Ext.define('BM.kernel.ns.Controller', {
             });
             return false;
         }
-        
+
         name = module + '.controller.' + name;
         controller = me.getController(name);
-        
+
         if (!controller || !(controller.isNSController || controller.prototype.isNSController)) {
             // End.
             BM.getApplication().logError('NSController is not loaded.', {
@@ -242,7 +251,7 @@ Ext.define('BM.kernel.ns.Controller', {
             });
             return false;
         }
-        
+
         // End.
         return controller;
     },

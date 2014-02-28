@@ -5,11 +5,10 @@
  */
 Ext.define('BM.kernel.ns.Grid', {
     extend : 'Ext.grid.Panel',
-    
     /**
      * @property {BM.kernel.ns.Toolbar} gridToolbar Grid toolbar instance.
      */
-    
+
     /**
      * @property {Boolean} isNSGrid true to identify this class as namespace grid panel.
      */
@@ -83,7 +82,7 @@ Ext.define('BM.kernel.ns.Grid', {
     {
         var me = this,
             store = me.getStore(),
-            oldModel;
+            i;
 
         if (!model || !model.isNSModel) {
             // End.
@@ -93,19 +92,16 @@ Ext.define('BM.kernel.ns.Grid', {
                 });
             return false;
         }
-        
-        oldModel = store.findRecord('id', model.getId());
-        
-        if (oldModel) {
-            oldModel.beginEdit();
-            oldModel.set(model.data);
-            oldModel.endEdit(true);
-            oldModel.commit();
+        i = store.find('id', model.getId());
+
+        if (i >= 0) {
+            store.removeAt(i);
+            store.insert(i, model);
         } else {
             store.add(model);
         }
         me.getView().refresh();
-        
+
         // End.
         return me;
     },
@@ -137,7 +133,8 @@ Ext.define('BM.kernel.ns.Grid', {
             destFields;
 
         if (!destModel) {
-            BM.getApplication().logWarning('Model is not found in the store, maybe a wrong refFieldname or desFieldName', {
+            BM.getApplication()
+                .logWarning('Model is not found in the store, maybe a wrong refFieldname or desFieldName', {
                 store : store,
                 refFieldname : refFieldname,
                 destFieldname : destFieldname
