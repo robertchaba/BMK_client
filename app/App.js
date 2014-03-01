@@ -1,35 +1,35 @@
 /**
  * Move below code to /public/application.js
  * -- From here -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
-Ext.Loader.setConfig({
-    enable : true,
-    paths : {
-        BM : 'app',
-        Model : 'app/model',
-        Application : 'app/module/application',
-        User : 'app/module/user',
-        Admin : 'app/module/admin',
-        File : 'app/module/file'
-    }
-});
-
-Ext.application({
-    extend : 'BM.App',
-    name : 'BM',
-    controllers : [
-        'Application.controller.Index',
-        'Application.controller.Report',
-        'User.controller.Index',
-        'User.controller.Auth',
-        'Admin.controller.Index',
-        'Admin.controller.Resources',
-        'Admin.controller.Roles',
-        'Admin.controller.Users',
-        'Admin.controller.Permissions',
-        'File.controller.Index',
-        'File.controller.Manager'
-    ]
-});
+ Ext.Loader.setConfig({
+ enable : true,
+ paths : {
+ BM : 'app',
+ Model : 'app/model',
+ Application : 'app/module/application',
+ User : 'app/module/user',
+ Admin : 'app/module/admin',
+ File : 'app/module/file'
+ }
+ });
+ 
+ Ext.application({
+ extend : 'BM.App',
+ name : 'BM',
+ controllers : [
+ 'Application.controller.Index',
+ 'Application.controller.Report',
+ 'User.controller.Index',
+ 'User.controller.Auth',
+ 'Admin.controller.Index',
+ 'Admin.controller.Resources',
+ 'Admin.controller.Roles',
+ 'Admin.controller.Users',
+ 'Admin.controller.Permissions',
+ 'File.controller.Index',
+ 'File.controller.Manager'
+ ]
+ });
  * -- Until here -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
  */
 
@@ -92,6 +92,11 @@ Ext.define('BM.App', {
      */
     init : function ()
     {
+        if (jasmine) {
+            // End, Do not init the application while testing.
+            return;
+        }
+
         var me = this;
 
         me.initLogger();
@@ -113,9 +118,15 @@ Ext.define('BM.App', {
      */
     launch : function ()
     {
+        if (jasmine) {
+            // End, Do not launch the application while testing.
+            return;
+        }
+
         var me = this;
-        me.loadProfile(me.logon, me);
-        
+
+        me.loadProfile(me.logon, me); // TODO Disable during testing. Use a profile file for testing.
+
         // End.
         return false;
     },
@@ -307,13 +318,13 @@ Ext.define('BM.App', {
      * @param {String} module Module name
      * @return {Booleand} True is the module has at least loaded one allowed controller.
      */
-    isModuleLoaded : function(module)
+    isModuleLoaded : function (module)
     {
         module = module.toLowerCase();
-        
+
         var me = this,
             allowedController = me.getAllowedControllers(module);
-        
+
         // End.
         return (allowedController.length > 0);
     }

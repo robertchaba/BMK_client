@@ -1,5 +1,5 @@
 {
-    "predef": ["Ext", "BM", "User", "Admin"],
+    "predef": ["Ext", "BM", "Admin", "File", "User", "jasmine"],
     "browser": true,
     "evil": true,
     "strict": false,
