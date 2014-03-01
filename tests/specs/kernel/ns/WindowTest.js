@@ -1,6 +1,7 @@
 describe('Test BM.kernel.ns.Window', function () {
 
     beforeEach(function () {
+        Ext.syncRequire('BM.kernel.ns.Window');
         Ext.syncRequire('BM.App');
         Ext.application('BM.App');
     });

@@ -1,16 +1,17 @@
 describe('Test BM.kernel.ns.Store', function () {
 
-//    beforeEach(function () {
-//        Ext.syncRequire('BM.App');
-//        Ext.application('BM.App');
-//    });
-//
-//    afterEach(function () {
-//        Ext.ComponentQuery.query('viewport')[0].destroy();
-//    });
-//
-//    it('Class should be loaded', function ()
-//    {
-//        expect(BM.kernel.ns.Store).toBeDefined();
-//    });
+    beforeEach(function () {
+        Ext.syncRequire('BM.kernel.ns.Store');
+        Ext.syncRequire('BM.App');
+        Ext.application('BM.App');
+    });
+
+    afterEach(function () {
+        Ext.ComponentQuery.query('viewport')[0].destroy();
+    });
+
+    it('Class should be loaded', function ()
+    {
+        expect(BM.kernel.ns.Store).toBeDefined();
+    });
 });

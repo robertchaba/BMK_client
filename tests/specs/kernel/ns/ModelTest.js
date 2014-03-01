@@ -1,6 +1,7 @@
 describe('Test BM.kernel.ns.Model', function () {
 
     beforeEach(function () {
+        Ext.syncRequire('BM.kernel.ns.Model');
         Ext.syncRequire('BM.App');
         Ext.application('BM.App');
     });

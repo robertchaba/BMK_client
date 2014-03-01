@@ -39,7 +39,6 @@ Ext.define('BM.kernel.Workspace', {
         var me = this,
             center = BM.getApplication().getCenterRegion(),
             toolbar;
-
         me.workspace = workspace;
 
         center.removeAll();
@@ -111,14 +110,14 @@ Ext.define('BM.kernel.Workspace', {
      * @private
      * @chainable
      */
-    initRequestListeners : function()
+    initRequestListeners : function ()
     {
         var me = this,
             throbber = me.getThrobber();
-        
+
         Ext.Ajax.on('beforerequest', throbber.show, throbber);
         Ext.Ajax.on('requestcomplete', throbber.hide, throbber);
-        
+
         // End.
         return me;
     },
@@ -134,7 +133,7 @@ Ext.define('BM.kernel.Workspace', {
             workspace = me.getWorkspace(),
             tabBar = workspace.dockedItems.first(),
             throbber = me.getThrobber();
-        
+
         Ext.Ajax.un('beforerequest', throbber.show, throbber);
         Ext.Ajax.un('requestcomplete', throbber.hide, throbber);
 
@@ -162,7 +161,6 @@ Ext.define('BM.kernel.Workspace', {
         // End.
         return new Ext.tab.Panel({
             id : 'BM-workspace-tab',
-   
             tabPosition : 'top',
             tabBar : {
                 flex : 1

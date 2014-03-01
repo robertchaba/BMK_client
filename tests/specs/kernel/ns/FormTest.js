@@ -1,6 +1,7 @@
 describe('Test BM.kernel.ns.Form', function () {
 
     beforeEach(function () {
+        Ext.syncRequire('BM.kernel.ns.Form');
         Ext.syncRequire('BM.App');
         Ext.application('BM.App');
     });

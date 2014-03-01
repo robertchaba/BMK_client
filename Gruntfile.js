@@ -22,6 +22,7 @@ module.exports = function (grunt) {
         jshint : {
             all : [
                 'Gruntfile.js',
+                'application.js',
                 'app/**/*.js',
                 '!app/model/**/*.js'
             ],
@@ -119,14 +120,6 @@ module.exports = function (grunt) {
                     {
                         expand : true,
                         src : [
-                            'resources/css/layout.css'
-                        ],
-                        dest : 'build/public',
-                        cwd : '.'
-                    },
-                    {
-                        expand : true,
-                        src : [
                             'libs/ext/ext-theme-neptune.js'
                         ],
                         dest : 'build/public',
@@ -136,6 +129,14 @@ module.exports = function (grunt) {
                         expand : true,
                         src : [
                             'libs/ext/locale/ext-lang-en.js'
+                        ],
+                        dest : 'build/public',
+                        cwd : '.'
+                    },
+                    {
+                        expand : true,
+                        src : [
+                            'resources/css/layout.css'
                         ],
                         dest : 'build/public',
                         cwd : '.'
@@ -164,6 +165,14 @@ module.exports = function (grunt) {
 //                        dest : 'build/public',
 //                        cwd : '.'
 //                    },
+                    {
+                        expand : true,
+                        src : [
+                            'application.js'
+                        ],
+                        dest : 'build/public',
+                        cwd : '.'
+                    },
                     {
                         expand : true,
                         src : [
@@ -217,9 +226,10 @@ module.exports = function (grunt) {
                 options : {
                     extLoaderPaths : {
                         'BM' : 'build/output/coverage/app',
-                        'model' : 'build/output/coverage/app/model',
+                        'Model' : 'build/output/coverage/app/model',
                         'User' : 'build/output/coverage/app/module/user',
-                        'Admin' : 'build/output/coverage/app/module/admin'
+                        'Admin' : 'build/output/coverage/app/module/admin',
+                        'File' : 'build/output/coverage/app/module/file'
                     }
                 }
             }

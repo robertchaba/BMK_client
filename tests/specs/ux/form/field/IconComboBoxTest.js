@@ -1,6 +1,7 @@
 describe('Test BM.ux.grid.IconComboBox', function () {
 
 //    beforeEach(function () {
+//        Ext.syncRequire('BM.ux.grid.IconComboBox');
 //        Ext.syncRequire('BM.App');
 //        Ext.application('BM.App');
 //    });
