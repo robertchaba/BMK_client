@@ -15,8 +15,7 @@ Ext.define('BM.kernel.ns.Grid', {
      */
     editConfig : {
         clicksToMoveEditor : 1,
-        errorSummary : false,
-        triggerEvent : 'none'
+        errorSummary : false
     },
     /**
      * @property {BM.kernel.ns.Toolbar} gridToolbar Grid toolbar instance.

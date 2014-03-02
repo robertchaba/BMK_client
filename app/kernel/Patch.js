@@ -179,3 +179,25 @@ Ext.override(Ext.data.association.HasOne, {
         };
     }
 });
+
+/**
+ * Fix {@link Ext.data.validations#length Length validation} replace the given
+ * value with a empty string if the values is undefined or null.
+ */
+Ext.override(Ext.data.validations, {
+    length: function(config, value) {
+        if (value === undefined || value === null) {
+            value = '';
+        }
+        
+        var length = value.length,
+            min    = config.min,
+            max    = config.max;
+        
+        if ((min && length < min) || (max && length > max)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+});

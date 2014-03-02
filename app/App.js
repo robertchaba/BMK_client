@@ -92,7 +92,7 @@ Ext.define('BM.App', {
      */
     init : function ()
     {
-        if (jasmine) {
+        if (typeof jasmine !== 'undefined') {
             // End, Do not init the application while testing.
             return;
         }
@@ -118,7 +118,7 @@ Ext.define('BM.App', {
      */
     launch : function ()
     {
-        if (jasmine) {
+        if (typeof jasmine !== 'undefined') {
             // End, Do not launch the application while testing.
             return;
         }
