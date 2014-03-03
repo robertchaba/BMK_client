@@ -23,7 +23,9 @@ Ext.application({
         'Admin.controller.Roles',
         'Admin.controller.Users',
         'Admin.controller.Permissions',
+        'File.controller.Download',
         'File.controller.Index',
-        'File.controller.Manager'
+        'File.controller.Manager',
+        'File.controller.Upload'
     ]
 });
