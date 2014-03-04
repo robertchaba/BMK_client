@@ -57,7 +57,8 @@ Ext.define('BM.kernel.ErrorHandler', {
             app = me.getApplication(),
             responseText = response.responseText,
             responseObj = Ext.JSON.decode(responseText),
-            errorMsg;
+            errorMsg,
+            exceptionMsg;
 
         /*
          * Call the {@link #unauthorizedControllerName}#{@link #unauthorizedMethodName}
@@ -68,16 +69,40 @@ Ext.define('BM.kernel.ErrorHandler', {
             return;
         }
 
-        if (!responseObj || !!responseObj.success || !responseObj.message) {
-            // End, No negative success or error message found.
+        if (!responseObj) {
+            // End. No response object found, this can be normal.
             return;
         }
 
         errorMsg = responseObj.message;
+        exceptionMsg = responseObj.exception;
+
+        if (!!responseObj.success || !responseObj.message) {
+            if (errorMsg) {
+                console.log('test');
+                me.onErrorCatch({
+                    isError : false,
+                    title : 'Server message.',
+                    msg : errorMsg,
+                    addSuffix : false,
+                    closable : true,
+                    icon : Ext.Msg.INFO,
+                    iconCls : 'icon-exclamation',
+                    buttons : Ext.Msg.YESNO,
+                    buttonText : {
+                        yes : 'Report this message', // TEXT
+                        no : 'Ok' // TEXT
+                    }
+                });
+            }
+            // End, No negative success or error message found.
+            return;
+        }
 
         Ext.Error.raise({
             title : 'Network or server error',
-            msg : errorMsg
+            msg : errorMsg,
+            exception : exceptionMsg
         });
 
         // End.
@@ -93,10 +118,7 @@ Ext.define('BM.kernel.ErrorHandler', {
     onErrorCatch : function (error)
     {
         var me = this;
-
-        me.lastError = error;
         me.showErrorMessage(error);
-
         // End.
         return true;
     },
@@ -117,6 +139,7 @@ Ext.define('BM.kernel.ErrorHandler', {
         var me = this,
             msgSuffix = '<br>\'Report issue\' to help debugging this system. \'Continue\' otherwise.',  // TEXT
             defaults = {
+                isError : true,
                 scope : me,
                 addSuffix : true,
                 closable : false,
@@ -129,13 +152,15 @@ Ext.define('BM.kernel.ErrorHandler', {
                 cls : 'x-fix-msg-msg',
                 buttonText : {
                     yes : 'Report issue', // TEXT
-                    no : 'Relaunch System', // TEXT
-                    cancel : 'Continue' // TEXT
+                    no : 'Continue', // TEXT
+                    cancel : 'Relaunch System' // TEXT
                 },
                 fn : me.handleMessageAction
             };
 
         Ext.apply(defaults, error);
+
+        me.lastError = Ext.clone(defaults);
 
         if (defaults.addSuffix && (defaults.msg.indexOf(msgSuffix) === -1)) {
             defaults.msg += msgSuffix;
@@ -163,10 +188,10 @@ Ext.define('BM.kernel.ErrorHandler', {
                 me.onErrorReport();
                 break;
             case 'no':
-                me.onErrorRelaunch();
+                me.onErrorContinue();
                 break;
             case 'cancel':
-                me.onErrorContinue();
+                me.onErrorRelaunch();
                 break;
         }
 
@@ -183,11 +208,16 @@ Ext.define('BM.kernel.ErrorHandler', {
     onErrorReport : function ()
     {
         var me = this,
-            reportController = me.getController('Application.controller.Report');
+            reportController = me.getController('Application.controller.Report'),
+            error = me.lastError,
+            isError = error.isError,
+            subject = error.title || null,
+            descr = error.msg || null,
+            exception = error.exception || null;
 
         BM.getApplication().logInfo('Report issue after application error.');
 
-        reportController.onDispatch();
+        reportController.report(isError ? 4 : 3, subject, descr, exception);
 
         // End.
         return true;
@@ -225,9 +255,6 @@ Ext.define('BM.kernel.ErrorHandler', {
         BM.getApplication()
             .logInfo('Continue using the application after error.');
 
-        // TODO Call the error report controller
-        // and collect and save a error report.
-
         // End.
         return true;
     },
@@ -244,7 +271,8 @@ Ext.define('BM.kernel.ErrorHandler', {
         var me = this,
             callee = arguments.callee.caller,
             item,
-            trace = [];
+            trace = [
+            ];
 
         while (callee) {
             item = {

@@ -20,12 +20,20 @@ Ext.define('Application.controller.Report', {
             selector : '#applicationReportReportWindow'
         },
         {
+            ref : 'SubjectField',
+            selector : '#applicationReportReportForm textfield[name=subject]'
+        },
+        {
             ref : 'ClassificationField',
-            selector : '#applicationReportReportWindow checkbox[name=reproducable]'
+            selector : '#applicationReportReportForm combobox[name=classificationsId]'
         },
         {
             ref : 'ReproducableField',
             selector : '#applicationReportReportWindow checkbox[name=reproducable]'
+        },
+        {
+            ref : 'DescriptionField',
+            selector : '#applicationReportReportWindow textareafield[name=descr]'
         },
         {
             ref : 'ExpectField',
@@ -91,6 +99,52 @@ Ext.define('Application.controller.Report', {
         });
     },
     /**
+     * @param {Number} [classificationsId]
+     * @param {String} [subject]
+     * @param {String} [descr]
+     * @param {String} [reproduce]
+     * @return {Boolean} Void.
+     */
+    report : function (classificationsId, subject, descr, reproduce)
+    {
+        var me = this,
+            model = me.getNSModel('Report'),
+            form = me.getNSForm('Report', {
+                model : model,
+                buttons : [
+                    {
+                        text : 'Cancel',
+                        action : 'cancel'
+                    },
+                    {
+                        text : 'Report',
+                        action : 'report',
+                        formBind : true
+                    }
+                ]
+            });
+        me.showNSWindow('Report', form);
+
+        if (Ext.isString(subject)) {
+            me.getSubjectField().setValue(subject);
+        }
+
+        if (Ext.isNumber(classificationsId)) {
+            me.getClassificationField().setValue(classificationsId);
+        }
+
+        if (Ext.isString(descr)) {
+            me.getDescriptionField().setValue(descr);
+        }
+
+        if (Ext.isString(reproduce)) {
+            me.getReproduceField().setValue(reproduce);
+        }
+
+        // End.
+        return true;
+    },
+    /**
      * @inheritdoc
      */
     onLaunch : function (application)
@@ -113,25 +167,8 @@ Ext.define('Application.controller.Report', {
      */
     onDispatch : function ()
     {
-        var me = this,
-            model = me.getNSModel('Report'),
-            form = me.getNSForm('Report', {
-                model : model,
-                buttons : [
-                    {
-                        text : 'Cancel',
-                        action : 'cancel'
-                    },
-                    {
-                        text : 'Report',
-                        action : 'report',
-                        formBind : true
-                    }
-                ]
-            });
-
-        me.showNSWindow('Report', form);
-
+        var me = this;
+        me.report(1); // Feedback
         // End.
         return true;
     },
@@ -147,7 +184,7 @@ Ext.define('Application.controller.Report', {
                 callback : me.onReportSaveResponse
             });
         }
-        
+
         // End.
         return true;
     },
@@ -155,13 +192,13 @@ Ext.define('Application.controller.Report', {
     {
         var me = this,
             window = me.getReportWindow();
-        
+
         if (success && window) {
             window.close();
         }
-        
+
         Ext.Msg.alert('Thanks', 'Thank, we appreciate your feedback. Please don\'t be shy to report some more feedback.'); // TEXT
-        
+
         // End.
     },
     onClassificationChange : function (combo, newValue)
@@ -172,25 +209,26 @@ Ext.define('Application.controller.Report', {
             workaroundField = me.getWorkaroundField(),
             reproducableField = me.getReproducableField();
 
-        expectField.show();
-        reproduceField.show();
-        workaroundField.show();
-        reproducableField.show();
+        expectField.hide();
+        reproduceField.hide();
+        workaroundField.hide();
+        reproducableField.hide();
 
         switch (newValue) {
             case 1:
             case 2:
-                reproducableField.hide();
-                expectField.hide();
-                reproduceField.hide();
-                workaroundField.hide();
                 reproducableField.setValue(false);
                 break;
             case 3:
-                reproduceField.hide();
-                workaroundField.hide();
+                reproducableField.show();
+                expectField.show();
                 reproducableField.setValue(false);
                 break;
+            default:
+                expectField.show();
+                reproduceField.show();
+                workaroundField.show();
+                reproducableField.show();
         }
 
         // End.
