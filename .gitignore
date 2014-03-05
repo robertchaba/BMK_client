@@ -2,5 +2,5 @@
 /.grunt/
 /app/kernel/TODO
 /build/
-/docs/*
+/docs/
 /node_modules/
