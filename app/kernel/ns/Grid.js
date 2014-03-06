@@ -122,7 +122,7 @@ Ext.define('BM.kernel.ns.Grid', {
             // End.
             BM.getApplication()
                 .logError('Model need to be a instance of BM.kernel.ns.Model.', {
-                    modelName : name
+                    model : model
                 });
             return false;
         }
@@ -169,10 +169,10 @@ Ext.define('BM.kernel.ns.Grid', {
         if (!destModel) {
             BM.getApplication()
                 .logWarning('Model is not found in the store, maybe a wrong refFieldname or desFieldName', {
-                store : store,
-                refFieldname : refFieldname,
-                destFieldname : destFieldname
-            });
+                    store : store,
+                    refFieldname : refFieldname,
+                    destFieldname : destFieldname
+                });
         }
 
         model.fields.each(function (field)
@@ -208,12 +208,13 @@ Ext.define('BM.kernel.ns.Grid', {
         if (!store || !store.isNSStore) {
             BM.getApplication()
                 .logError('Store need to be a instance of BM.kernel.ns.Store.', {
-                    modelName : name
+                    store : store
                 });
         }
 
         var me = this;
         me.store = store;
+        me.reconfigure(store);
 
         // End.
         return true;
