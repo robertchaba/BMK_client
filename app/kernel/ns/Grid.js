@@ -57,10 +57,9 @@ Ext.define('BM.kernel.ns.Grid', {
      */
     toolbarCfg : {
         paging : false,
-        disable : [
-        ],
-        toggleOnSelectionchange : [
-        ]
+        search : false,
+        disable : [],
+        toggleOnSelectionchange : []
     },
     /**
      * @inheritdoc
@@ -87,6 +86,15 @@ Ext.define('BM.kernel.ns.Grid', {
         plugin = Ext.create('Ext.grid.plugin.RowEditing', config);
 
         me.addPlugin(plugin);
+    },
+    /**
+     * 
+     */
+    getLastSelected : function()
+    {
+        var me = this;
+        // End.
+        return me.getSelectionModel().getLastSelected();
     },
     /**
      * TODO
@@ -190,6 +198,9 @@ Ext.define('BM.kernel.ns.Grid', {
         });
         destModel.commit();
     },
+    /**
+     * 
+     */
     removeModel : function (model)
     {
         var me = this;

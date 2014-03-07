@@ -223,15 +223,15 @@ Ext.define('BM.kernel.ns.Controller', {
     },
     /**
      * @param {String} name Controller name
-     * @param {String} module Module name
+     * @param {String} ns Controller namespace
      * @return {BM.kernel.ns.Controller} NS Controller instance.
      */
-    getNSController : function (name, module)
+    getNSController : function (name, ns)
     {
         var me = this,
             controller;
 
-        module = module || me.getNS();
+        ns = ns || me.getNS();
 
         if (typeof name !== 'string') {
             // End.
@@ -241,7 +241,7 @@ Ext.define('BM.kernel.ns.Controller', {
             return false;
         }
 
-        name = module + '.controller.' + name;
+        name = ns + '.controller.' + name;
         controller = me.getController(name);
 
         if (!controller || !(controller.isNSController || controller.prototype.isNSController)) {
@@ -416,6 +416,7 @@ Ext.define('BM.kernel.ns.Controller', {
             ns = me.getNS(),
             controllerName = me.getControllerName(),
             app = BM.getApplication(),
+            addAllowed = toolbar.prototype.allowedButtons,
             items,
             allowedItems;
 
@@ -428,7 +429,10 @@ Ext.define('BM.kernel.ns.Controller', {
         
         items = toolbar.prototype.items;
         
-        if (toolbar.prototype.allowedButtons !== false) {
+        if (addAllowed !== false) {
+            if (Ext.isString(addAllowed)) {
+                controllerName = addAllowed;
+            }
             allowedItems = app.getAllowedToolbar(ns, controllerName.toLowerCase());
             items = (toolbar.prototype.beforeAllowed) ? 
                 Ext.Array.merge(items, allowedItems) : 
@@ -637,7 +641,7 @@ Ext.define('BM.kernel.ns.Controller', {
         type = type || 'panel';
 
         // Make sure name is an string.
-        if (typeof name !== 'string') {
+        if (!Ext.isString(name)) {
             name = '';
         }
 

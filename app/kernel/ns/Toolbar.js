@@ -25,8 +25,9 @@ Ext.define('BM.kernel.ns.Toolbar', {
      */
 
     /**
-     * @cfg {Boolean} allowedButtons
-     * Add by {@link BM.kernel.Acl} allowed toolbar buttons.
+     * @cfg {Boolean|String} allowedButtons
+     * False to not add allowed buttons.
+     * String (Controllername) to add allowed buttons from an other controller.
      */
 
     /**
