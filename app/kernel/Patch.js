@@ -105,7 +105,7 @@ Ext.override(Ext.data.writer.Writer, {
             data[record.idProperty] = record.getId();
         }
 
-        Ext.apply(data, record.getAssociatedData());
+        Ext.applyIf(data, record.getAssociatedData());
 
         return data;
     }
