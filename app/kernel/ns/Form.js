@@ -9,7 +9,7 @@ Ext.define('BM.kernel.ns.Form', {
      * @private
      * @property {BM.kernel.ns.Model} formModel To the form bind model.
      */
-
+    
     /**
      * @property {Boolean} isNSForm True to identify that this class and all 
      * subclasses can be used as namespace form view.
@@ -49,6 +49,8 @@ Ext.define('BM.kernel.ns.Form', {
         width : 245,
         inputValue : true,
         uncheckedValue : false,
+        typeAhead : true,
+        forceSelection : true,
         style : {
             marginRight : '5px',
             marginLeft : '5px'
@@ -60,18 +62,18 @@ Ext.define('BM.kernel.ns.Form', {
     initComponent : function ()
     {
         var me = this;
-
+        
         me.addEvents('enter');
-
+        
         // Submit the form on enter/ return press.
         Ext.apply(me, {
             listeners : {
                 afterRender : me.onAfterRender
             }
         });
-
+        
         me.callParent();
-
+        
         // End.
         return true;
     },
@@ -86,7 +88,7 @@ Ext.define('BM.kernel.ns.Form', {
     {
         var me = this,
             form = me.getForm();
-
+        
         // End.
         return form.reset(resetRecord);
     },
@@ -102,7 +104,7 @@ Ext.define('BM.kernel.ns.Form', {
         var me = this,
             basic = me.getForm(),
             field = basic.findField(name);
-
+        
         if (!field) {
             // End.
             BM.getApplication().logError('field is not found', {
@@ -111,9 +113,9 @@ Ext.define('BM.kernel.ns.Form', {
             });
             return false;
         }
-
+        
         field.focus();
-
+        
         // End.
         return true;
     },
@@ -130,11 +132,11 @@ Ext.define('BM.kernel.ns.Form', {
     setModel : function (model)
     {
         var me = this;
-
+        
         if (typeof model === 'function') {
             model = model.create();
         }
-
+        
         if (!model || !model.isNSModel) {
             // End.
             BM.getApplication()
@@ -143,11 +145,11 @@ Ext.define('BM.kernel.ns.Form', {
                 });
             return false;
         }
-
+        
         me.formModel = model;
         me.applyModelValidations();
         me.applyModelValues();
-
+        
         // End.
         return me;
     },
@@ -161,10 +163,10 @@ Ext.define('BM.kernel.ns.Form', {
     getModel : function (update)
     {
         update = update || false;
-
+        
         var me = this,
             model = me.formModel;
-
+        
         if (!model || !model.isNSModel) {
             // End.
             BM.getApplication()
@@ -173,11 +175,11 @@ Ext.define('BM.kernel.ns.Form', {
                 });
             return false;
         }
-
+        
         if (update !== false) {
             model.set(me.getValues());
         }
-
+        
         // End.
         return model;
     },
@@ -192,13 +194,13 @@ Ext.define('BM.kernel.ns.Form', {
     loadModel : function (config)
     {
         config = config || {};
-
+        
         var me = this,
             model = me.getModel(),
             operation,
             proxy,
             callback;
-
+        
         if (!model) {
             // End.
             BM.getApplication().logError('No model found to load.', {
@@ -206,7 +208,7 @@ Ext.define('BM.kernel.ns.Form', {
             });
             return false;
         }
-
+        
         config = Ext.applyIf(config, {
             action : 'read',
             mitm : {
@@ -220,9 +222,9 @@ Ext.define('BM.kernel.ns.Form', {
         proxy = model.getProxy();
         proxy.setConfig(config);
         me.showLoadMask(config);
-
+        
         model.getProxy().read(operation, callback, me);
-
+        
         // End.
         return true;
     },
@@ -236,10 +238,10 @@ Ext.define('BM.kernel.ns.Form', {
     saveModel : function (config)
     {
         config = config || {};
-
+        
         var me = this,
             model = me.getModel(true);
-
+        
         if (!model) {
             // End.
             BM.getApplication().logError('No model found to save.', {
@@ -247,7 +249,7 @@ Ext.define('BM.kernel.ns.Form', {
             });
             return false;
         }
-
+        
         config = Ext.applyIf(config, {
             mitm : {
                 scope : me,
@@ -257,8 +259,20 @@ Ext.define('BM.kernel.ns.Form', {
         config = BM.getApplication().captureCallback(config);
         me.showLoadMask(config);
         me.disableButtons();
-
+        
         model.save(config);
+        // End.
+        return true;
+    },
+    /**
+     * Used to load the store of comboboxes
+     * 
+     * @param {Ext.form.field.ComboBox} combo
+     * @return {Boolean} Void.
+     */
+    loadStore : function (combo)
+    {
+        combo.store.load();
         // End.
         return true;
     },
@@ -271,24 +285,24 @@ Ext.define('BM.kernel.ns.Form', {
     showLoadMask : function (config)
     {
         config = config || {};
-
+        
         var me = this,
             showLoadMask = config.showLoadMask || true,
             loadMaskMsg = config.loadMaskMsg;
-
+        
         if (config.showLoadMask === false) {
             // End, Configured cancel.
             return false;
         }
-
+        
         if (loadMaskMsg) {
             config.msg = loadMaskMsg;
         }
-
+        
         if (showLoadMask) {
             me.setLoading(config, true);
         }
-
+        
         // End.
         return true;
     },
@@ -300,9 +314,9 @@ Ext.define('BM.kernel.ns.Form', {
     hideLoadMask : function ()
     {
         var me = this;
-
+        
         me.setLoading(false);
-
+        
         // End.
         return true;
     },
@@ -315,7 +329,7 @@ Ext.define('BM.kernel.ns.Form', {
     {
         var me = this,
             buttonsToolbar = me.getDockedItems('[dock=bottom]')[0];
-
+        
         if (buttonsToolbar && buttonsToolbar.items) {
             buttonsToolbar.items.each(function (button)
             {
@@ -323,7 +337,7 @@ Ext.define('BM.kernel.ns.Form', {
                 // End.
             });
         }
-
+        
         // End.
         return true;
     },
@@ -336,13 +350,13 @@ Ext.define('BM.kernel.ns.Form', {
     {
         var me = this,
             buttonsToolbar = me.getDockedItems('[dock=bottom]')[0];
-
+        
         buttonsToolbar.items.each(function (button)
         {
             button.enable();
             // End.
         });
-
+        
         // End.
         return true;
     },
@@ -358,21 +372,25 @@ Ext.define('BM.kernel.ns.Form', {
         var me = this,
             operations,
             records;
-
+        
         // Model can be a dataModel, Operation or dataBatch
         if (model instanceof Ext.data.Batch) {
             operations = model.operations;
-            model = (operations && operations.length > 0) ? operations[0] :
+            model = (operations && operations.length > 0)
+                ? operations[0]
+                :
                 null;
         }
-
+        
         if (model instanceof Ext.data.Operation) {
             records = model.getRecords();
-            model = (records && records.length > 0) ? records[0] : null;
+            model = (records && records.length > 0)
+                ? records[0]
+                : null;
         }
-
+        
         me.hideLoadMask();
-
+        
         if (!model) {
             BM.getApplication()
                 .logNotice('Model is loaded but does not contain data', {
@@ -381,11 +399,11 @@ Ext.define('BM.kernel.ns.Form', {
             // End.
             return false;
         }
-
+        
         // This breaks the Login window, and form applyValidations with formBind.
 //        me.enableButtons();
         me.setModel(model);
-
+        
         // End.
         return true;
     },
@@ -409,31 +427,33 @@ Ext.define('BM.kernel.ns.Form', {
             validations = model.validations || [],
             target,
             field;
-
+        
         Ext.Array.each(validations, function (validation)
         {
             field = basic.findField(validation.field);
-
+            
             if (!field) {
                 // End iteration.
                 return;
             }
-
+            
             switch (validation.type) {
                 case 'presence':
                     field.allowBlank = false;
                     field.afterLabelTextTpl = '*';
                     break;
                 case 'length':
-                    target = (Ext.isDefined(field.maxValue) || Ext.isDefined(field.minValue)) ?
-                        'Value' :
+                    target = (Ext.isDefined(field.maxValue) || Ext.isDefined(field.minValue))
+                        ?
+                        'Value'
+                        :
                         'Length';
-
+                    
                     if (validation.min) {
                         field['min' + target] = validation.min;
                         field.afterLabelTextTpl = '*';
                     }
-
+                    
                     if (validation.max) {
                         field['max' + target] = validation.max;
                     }
@@ -449,7 +469,7 @@ Ext.define('BM.kernel.ns.Form', {
             }
             // End.
         });
-
+        
         // End.
         return true;
     },
@@ -472,7 +492,7 @@ Ext.define('BM.kernel.ns.Form', {
         } else {
             basic.setValues(model.getData());
         }
-
+        
         // End.
         return true;
     },
@@ -482,7 +502,7 @@ Ext.define('BM.kernel.ns.Form', {
     onAfterRender : function ()
     { // TODO make sure the enter event is not fired when the form item is multiline like textarea.
         var me = this;
-
+        
         Ext.create('Ext.util.KeyNav', me.el, {
             scope : me,
             enter : function (e)

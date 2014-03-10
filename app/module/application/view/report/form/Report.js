@@ -36,7 +36,6 @@ Ext.define('Application.view.report.form.Report', {
                             displayField : 'name',
                             valueField : 'id',
                             fieldLabel : 'Classification',
-                            editable : false,
                             queryMode : 'local',
                             listeners : {
                                 render : function(combo)
