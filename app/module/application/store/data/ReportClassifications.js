@@ -1,9 +1,9 @@
-Ext.define('Application.store.data.Classifications', {
+Ext.define('Application.store.data.ReportClassifications', {
     extend: 'BM.kernel.ns.Store',
-    model : 'Model.application.Classification',
+    model : 'Model.application.ReportClassification',
     proxy : {
         type : 'ajax',
-        url : '/data/classification/id',
+        url : '/data/report-classification/id',
         reader : {
             type : 'json',
             root : 'data',

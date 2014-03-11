@@ -25,7 +25,7 @@ Ext.define('Application.controller.Report', {
         },
         {
             ref : 'ClassificationField',
-            selector : '#applicationReportReportForm combobox[name=classificationsId]'
+            selector : '#applicationReportReportForm combobox[name=classificationId]'
         },
         {
             ref : 'ReproducableField',
@@ -52,7 +52,7 @@ Ext.define('Application.controller.Report', {
      * @inheritdoc
      */
     stores : [
-        'Application.store.data.Classifications'
+        'Application.store.data.ReportClassifications'
     ],
     /**
      * @inheritdoc

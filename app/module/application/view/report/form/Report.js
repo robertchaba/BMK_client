@@ -31,12 +31,13 @@ Ext.define('Application.view.report.form.Report', {
                     items : [
                         {
                             xtype : 'combobox',
-                            store : 'Application.store.data.Classifications',
-                            name : 'classificationsId',
+                            store : 'Application.store.data.ReportClassifications',
+                            name : 'classificationId',
                             displayField : 'name',
                             valueField : 'id',
                             fieldLabel : 'Classification',
                             queryMode : 'local',
+                            editable : false,
                             listeners : {
                                 render : function(combo)
                                 {
