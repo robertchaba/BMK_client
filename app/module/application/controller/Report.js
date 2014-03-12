@@ -25,7 +25,7 @@ Ext.define('Application.controller.Report', {
         },
         {
             ref : 'ClassificationField',
-            selector : '#applicationReportReportForm combobox[name=classificationId]'
+            selector : '#applicationReportReportForm combobox[name=reportClassificationId]'
         },
         {
             ref : 'ReproducableField',
@@ -84,7 +84,7 @@ Ext.define('Application.controller.Report', {
             '#BM-quickmenu-application-report-index' : {
                 click : me.onDispatch
             },
-            '#applicationReportReportForm combobox[name=classificationsId]' : {
+            '#applicationReportReportForm combobox[name=reportClassificationId]' : {
                 change : me.onClassificationChange
             },
             '#applicationReportReportForm checkbox[name=reproducable]' : {

@@ -32,7 +32,7 @@ Ext.define('Application.view.report.form.Report', {
                         {
                             xtype : 'combobox',
                             store : 'Application.store.data.ReportClassifications',
-                            name : 'classificationId',
+                            name : 'reportClassificationId',
                             displayField : 'name',
                             valueField : 'id',
                             fieldLabel : 'Classification',
