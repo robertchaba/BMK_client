@@ -79,7 +79,6 @@ Ext.define('BM.kernel.ErrorHandler', {
 
         if (!!responseObj.success || !responseObj.message) {
             if (errorMsg) {
-                console.log('test');
                 me.onErrorCatch({
                     isError : false,
                     title : 'Server message.',
@@ -217,7 +216,9 @@ Ext.define('BM.kernel.ErrorHandler', {
 
         BM.getApplication().logInfo('Report issue after application error.');
 
-        reportController.report(isError ? 4 : 3, subject, descr, exception);
+        reportController.report(isError
+            ? 4
+            : 3, subject, descr, exception);
 
         // End.
         return true;
