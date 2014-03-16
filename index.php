@@ -1,13 +1,14 @@
 <?php
 
 define('APP_VERSION', '0.0.0.1');
+define('DOWNLOAD_URI', '/download');
+define('DOWNLOAD_PATH', __DIR__ . DOWNLOAD_URI);
+define('FILE_DIR_MODE', 0775);
 
 /**
  * This makes our life easier when dealing with paths. Everything is relative
  * to the application root now.
  */
-//chdir(dirname(__DIR__ . '/../'));
-
 chdir(__DIR__ . '/../private');
 
 // Decline static file requests back to the PHP built-in webserver
