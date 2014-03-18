@@ -179,8 +179,9 @@ Ext.define('BM.kernel.Workspace', {
             workspace = me.getWorkspace(),
             tabBar = workspace.getTabBar(),
             app = BM.getApplication(),
-            avatar = app.getPersonModel().getAvatar(),
-            userName = app.getPersonModel().getFullname(),
+            person = app.getPersonModel(),
+            avatar = person.getAvatar(),
+            userName = person.getFullname(),
             quickmenu = app.getAllowedQuickmenu(),
             items = [
                 {

@@ -103,7 +103,9 @@ Ext.define('BM.App', {
 
         me.initLogger();
         me.log('Initialize application.');
-
+        
+        Ext.data.Store.prototype.pageSize = 35;
+        
 //        me.initSniffer();
         me.initErrorHandler();
         me.initStateHandler();
