@@ -9,6 +9,20 @@ Ext.define('BM.kernel.ns.Model', {
      * @property {Boolean} isNSModel true to identify this class as namespace model.
      */
     isNSModel : true,
+    fields : [
+        {
+            name : 'cdate',
+            mapping : 'cdate.date',
+            type : 'date',
+            persist : false
+        },
+        {
+            name : 'udate',
+            mapping : 'udate.date',
+            type : 'date',
+            persist : false
+        }
+    ],
     /**
      * Return a associated model by name.
      * 
