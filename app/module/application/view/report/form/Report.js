@@ -16,15 +16,10 @@ Ext.define('Application.view.report.form.Report', {
             width : 520, //((3 * 245) + (2 * 10)) + (2 * 5),
             items : [
                 {
-                    layout : 'hbox',
-                    items : [
-                        {
-                            xtype : 'textfield',
-                            name : 'subject',
-                            fieldLabel : 'Subject',
-                            width : 500
-                        }
-                    ]
+                    xtype : 'textfield',
+                    name : 'subject',
+                    fieldLabel : 'Subject',
+                    width : 500
                 },
                 {
                     layout : 'hbox',
@@ -39,7 +34,7 @@ Ext.define('Application.view.report.form.Report', {
                             queryMode : 'local',
                             editable : false,
                             listeners : {
-                                render : function(combo)
+                                render : function (combo)
                                 {
                                     combo.store.load();
                                 }
@@ -55,8 +50,8 @@ Ext.define('Application.view.report.form.Report', {
                                 },
                                 {
                                     xtype : 'checkbox',
-                                    name : 'reproducable',
-                                    boxLabel : 'Reproducable',
+                                    name : 'showDump',
+                                    boxLabel : 'Show dump',
                                     hidden : true
                                 }
                             ]
@@ -64,51 +59,39 @@ Ext.define('Application.view.report.form.Report', {
                     ]
                 },
                 {
-                    layout : 'hbox',
-                    items : [
-                        {
-                            xtype : 'textareafield',
-                            name : 'descr',
-                            fieldLabel : 'Description / Feedback',
-                            width : 500
-                        }
-                    ]
+                    xtype : 'textareafield',
+                    name : 'descr',
+                    fieldLabel : 'Description / Feedback',
+                    width : 500
                 },
                 {
-                    layout : 'hbox',
-                    items : [
-                        {
-                            xtype : 'textareafield',
-                            name : 'expected',
-                            fieldLabel : 'What did you expect?',
-                            hidden : true,
-                            width : 500
-                        }
-                    ]
+                    xtype : 'textareafield',
+                    name : 'expected',
+                    fieldLabel : 'What did you expect?',
+                    hidden : true,
+                    width : 500
                 },
                 {
-                    layout : 'hbox',
-                    items : [
-                        {
-                            xtype : 'textareafield',
-                            name : 'reproduce',
-                            fieldLabel : 'How to reproduce?',
-                            hidden : true,
-                            width : 500
-                        }
-                    ]
+                    xtype : 'textareafield',
+                    name : 'reproduce',
+                    fieldLabel : 'How to reproduce?',
+                    hidden : true,
+                    width : 500
                 },
                 {
-                    layout : 'hbox',
-                    items : [
-                        {
-                            xtype : 'textareafield',
-                            name : 'workaround',
-                            fieldLabel : 'Do you know a workaround?',
-                            hidden : true,
-                            width : 500
-                        }
-                    ]
+                    xtype : 'textareafield',
+                    name : 'workaround',
+                    fieldLabel : 'Do you know a workaround?',
+                    hidden : true,
+                    width : 500
+                },
+                {
+                    xtype : 'textareafield',
+                    name : 'dump',
+                    fieldLabel : 'System dump',
+                    hidden : true,
+                    readOnly : true,
+                    width : 500
                 }
             ]
         });

@@ -28,8 +28,8 @@ Ext.define('Application.controller.Report', {
             selector : '#applicationReportReportForm combobox[name=reportClassificationId]'
         },
         {
-            ref : 'ReproducableField',
-            selector : '#applicationReportReportWindow checkbox[name=reproducable]'
+            ref : 'showDumpField',
+            selector : '#applicationReportReportWindow checkbox[name=showDump]'
         },
         {
             ref : 'DescriptionField',
@@ -46,6 +46,10 @@ Ext.define('Application.controller.Report', {
         {
             ref : 'WorkaroundField',
             selector : '#applicationReportReportWindow textareafield[name=workaround]'
+        },
+        {
+            ref : 'DumpField',
+            selector : '#applicationReportReportWindow textareafield[name=dump]'
         }
     ],
     /**
@@ -87,8 +91,8 @@ Ext.define('Application.controller.Report', {
             '#applicationReportReportForm combobox[name=reportClassificationId]' : {
                 change : me.onClassificationChange
             },
-            '#applicationReportReportForm checkbox[name=reproducable]' : {
-                change : me.onReproducableChange
+            '#applicationReportReportForm checkbox[name=showDump]' : {
+                change : me.onshowDumpChange
             },
             '#applicationReportReportForm button[action=cancel]' : {
                 click : me.hideNSWindow
@@ -105,7 +109,7 @@ Ext.define('Application.controller.Report', {
      * @param {String} [reproduce]
      * @return {Boolean} Void.
      */
-    report : function (classificationsId, subject, descr, reproduce)
+    report : function (classificationsId, subject, descr, reproduce, dump)
     {
         var me = this,
             model = me.getNSModel('Report'),
@@ -139,6 +143,14 @@ Ext.define('Application.controller.Report', {
 
         if (Ext.isString(reproduce)) {
             me.getReproduceField().setValue(reproduce);
+        }
+
+        if (dump === true) {
+            dump = dump = me.getDump();
+        }
+
+        if (Ext.isString(dump)) {
+            me.getDumpField().setValue(dump);
         }
 
         // End.
@@ -207,46 +219,60 @@ Ext.define('Application.controller.Report', {
             expectField = me.getExpectField(),
             reproduceField = me.getReproduceField(),
             workaroundField = me.getWorkaroundField(),
-            reproducableField = me.getReproducableField();
+            dumpField = me.getDumpField();
+        showDumpField = me.getShowDumpField();
 
         expectField.hide();
         reproduceField.hide();
         workaroundField.hide();
-        reproducableField.hide();
+        showDumpField.hide();
 
         switch (newValue) {
             case 1:
+                dumpField.hide();
+                showDumpField.setValue(false);
+                break;
             case 2:
-                reproducableField.setValue(false);
-                break;
             case 3:
-                reproducableField.show();
+                showDumpField.show();
                 expectField.show();
-                reproducableField.setValue(false);
                 break;
-            default:
+            case 4:
+            case 5:
+            case 6:
+                showDumpField.show();
                 expectField.show();
                 reproduceField.show();
                 workaroundField.show();
-                reproducableField.show();
         }
 
         // End.
         return true;
     },
-    onReproducableChange : function (checkbox, checked)
+    onshowDumpChange : function (checkbox, checked)
     {
         var me = this,
             classificationField = me.getClassificationField(),
-            reproduceField = me.getReproduceField();
+            dumpField = me.getDumpField();
 
         if (checked) {
-            reproduceField.show();
+            dumpField.show();
         } else if (classificationField.getValue() <= 3) {
-            reproduceField.hide();
+            dumpField.hide();
         }
 
         // End.
         return true;
+    },
+    /**
+     * @private
+     */
+    getDump : function ()
+    {
+        var me = this,
+            dump = 'Doom';
+
+        // End.
+        return dump;
     }
 });
