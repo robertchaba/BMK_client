@@ -426,16 +426,16 @@ Ext.define('BM.kernel.ns.Controller', {
                 toolbar : toolbar
             });
         }
-        
+
         items = toolbar.prototype.items;
-        
+
         if (addAllowed !== false) {
             if (Ext.isString(addAllowed)) {
                 controllerName = addAllowed;
             }
             allowedItems = app.getAllowedToolbar(ns, controllerName.toLowerCase());
-            items = (toolbar.prototype.beforeAllowed) ? 
-                Ext.Array.merge(items, allowedItems) : 
+            items = (toolbar.prototype.beforeAllowed) ?
+                Ext.Array.merge(items, allowedItems) :
                 Ext.Array.merge(allowedItems, items);
         }
 
@@ -626,6 +626,25 @@ Ext.define('BM.kernel.ns.Controller', {
 
         // End.
         return tab;
+    },
+    /**
+     * Check if a action is allowed.
+     * 
+     * @param {String} action
+     * @param {String} [controller=*] * = Current controller name.
+     * @param {String} [module=*] * = Current module name or namespace.
+     * @return {Boolean} True if the action is allowed.
+     */
+    isNSActionAllowed : function (action, controller, module)
+    {
+        var me = this,
+            app = me.getApplication();
+
+        controller = controller || me.getControllerName();
+        module = module || me.getNS();
+
+        // End.
+        return app.allowed(module, controller, action);
     },
     /**
      * Returns the view class, matching the given name and type for the current

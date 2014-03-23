@@ -98,8 +98,18 @@ Ext.define('BM.kernel.Acl', {
      * @param {String} assertion
      * @return {Boolean}
      */
-    allowed : function (resource, privilge, assertion)
+    allowed : function (module, controller, action)
     {
+        var me = this,
+            permissions = me.getACLPermissions(module, controller),
+            allowed = false;
+        
+        if (permissions[module].controllers[controller].actions &&
+            permissions[module].controllers[controller].actions[action]) {
+            allowed = true;
+        }
+        
+        return allowed;
     },
     /**
      * Return a array with all allowed {@link Ext.toolbar.Item navigation items}.  
