@@ -104,7 +104,7 @@ Ext.define('BM.kernel.Profile', {
         me.profileModel = profile;
         
         me.setPersonModel(profile.getPerson());
-        me.setSettingsModel(profile.getSetting());
+//        me.setSettingsModel(profile.getSetting());
         BM.getApplication().setACLPermissions(profile.raw.permissions);
 
         // End.
