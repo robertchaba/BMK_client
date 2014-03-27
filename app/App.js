@@ -105,7 +105,7 @@ Ext.define('BM.App', {
         me.log('Initialize application.');
         
         Ext.data.Store.prototype.pageSize = 35;
-        Ext.data.writer.Json.prototype.writeAllFields = false;
+//        Ext.data.writer.Json.prototype.writeAllFields = false;
         
 //        me.initSniffer();
         me.initErrorHandler();
