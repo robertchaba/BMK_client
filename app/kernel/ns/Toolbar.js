@@ -10,19 +10,19 @@ Ext.define('BM.kernel.ns.Toolbar', {
         'Ext.form.field.Number'
     ],
     mixins : {
-        bindable : 'Ext.util.Bindable',
-        gridFilter : 'BM.ux.grid.FilterTool'
+        bindable : 'Ext.util.Bindable'
     },
     /**
      * @cfg {Boolean} paging
      * Adds a {Ext.toolbar.Paging pagingtoolbar} to the right to the toolbar.
      */
 
-    /**
-     * @cfg {Boolean} search
-     * When true {@link BM.ux.grid.FilterTool} will be initialized and a search
-     * filter button added to the toolbar.
-     */
+// TODO Remove me, filter replacement.
+//    /**
+//     * @cfg {Boolean} search
+//     * When true {@link BM.ux.grid.FilterTool} will be initialized and a search
+//     * filter button added to the toolbar.
+//     */
 
     /**
      * @cfg {Boolean|String} allowedButtons
@@ -93,19 +93,20 @@ Ext.define('BM.kernel.ns.Toolbar', {
             me.initPaging();
         }
 
-        if (me.search) {
-            if (Ext.Array.contains(me.items, '->')) {
-                me.items.push('-');
-            } else {
-                me.items.push('->');
-            }
-
-            me.items.push({
-                itemId : 'grid-search',
-                iconCls : 'icon-search',
-                menu : me.createSearchMenuConfig()
-            });
-        }
+// TODO Remove me, filter replacement.
+//        if (me.search) {
+//            if (Ext.Array.contains(me.items, '->')) {
+//                me.items.push('-');
+//            } else {
+//                me.items.push('->');
+//            }
+//
+//            me.items.push({
+//                itemId : 'grid-search',
+//                iconCls : 'icon-search',
+//                menu : me.createSearchMenuConfig()
+//            });
+//        }
 
         me.callParent();
 

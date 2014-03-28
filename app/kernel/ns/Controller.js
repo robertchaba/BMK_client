@@ -443,7 +443,7 @@ Ext.define('BM.kernel.ns.Controller', {
             toolbar = toolbar.create({
                 paging : config.paging,
                 store : config.store,
-                search : config.search,
+//                search : config.search, // TODO Remove me, filter replacement.
                 items : items
             });
         }

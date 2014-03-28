@@ -5,6 +5,15 @@
  */
 Ext.define('BM.kernel.ns.Grid', {
     extend : 'Ext.grid.Panel',
+    requires : [
+        'BM.ux.grid.FilterHeader'
+    ],
+    plugins : [{
+            ptype : 'filterheader'
+//            renderHidden : false,
+//            showShowHideButton : true,
+//            showClearAllButton : true
+        }],
     /**
      * @cfg {Boolean} editable
      * True to add the {@link Ext.grid.plugin.RowEditing} plugin.
@@ -57,7 +66,7 @@ Ext.define('BM.kernel.ns.Grid', {
      */
     toolbarCfg : {
         paging : false,
-        search : false,
+//        search : false, // TODO Remove me, filter replacement.
         disable : [],
         toggleOnSelectionchange : []
     },
@@ -90,7 +99,7 @@ Ext.define('BM.kernel.ns.Grid', {
     /**
      * 
      */
-    getLastSelected : function()
+    getLastSelected : function ()
     {
         var me = this;
         // End.
@@ -351,9 +360,10 @@ Ext.define('BM.kernel.ns.Grid', {
             toolbar.toggleItemsOnSelectionchnage(config.toggleOnSelectionchange, me);
         }
 
-        if (config && config.search) {
-            toolbar.addSearchColumns(me.columns);
-        }
+        // TODO Remove me, filter replacement.
+//        if (config && config.search) {
+//            toolbar.addSearchColumns(me.columns);
+//        }
 
         // End.
         return me;

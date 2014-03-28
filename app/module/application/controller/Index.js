@@ -63,47 +63,47 @@ Ext.define('Application.controller.Index', {
                     return true;
                 }
             }
-        ],
-        'gridview' : [
-            {
-                text : 'Search for this value', // Text
-                handler : function (menuItem)
-                {
-                    var cellElement = new Ext.dom.Element(menuItem.parentMenu.contextmenuTarget),
-                        searchValue = cellElement.getHTML().replace(/&(nbsp|amp|quot|lt|gt);/g, ''),
-                        gridElement = cellElement.up('table'),
-                        gridView,
-                        grid,
-                        toolbar,
-                        searchButton,
-                        searchField;
-
-                    if (!gridElement || !searchValue) {
-                        // End, No table element found.
-                        Ext.Msg.alert('Error', 'No value found to search on.'); // TEXT
-                        return false;
-                    }
-
-                    gridView = Ext.getCmp(cellElement.up('table').id.slice(0, -6));
-                    grid = gridView.up('grid');
-
-                    if (!grid.isNSGrid || !grid.toolbarCfg || !grid.toolbarCfg.search) {
-                        // End. Grid is not searchable.
-                        Ext.Msg.alert('Error', 'Grid is not searchable.'); // TEXT
-                        return false;
-                    }
-
-                    toolbar = grid.getToolbar();
-                    searchButton = toolbar.down('#grid-search');
-                    searchField = searchButton.menu.down('[name=search]');
-                    searchField.setValue(searchValue);
-                    searchButton.showMenu();
-                    toolbar.doSearch();
-
-                    // End.
-                    return true;
-                }
-            }
+//        ],
+//        'gridview' : [
+//            {
+//                text : 'Search for this value', // Text
+//                handler : function (menuItem)
+//                {
+//                    var cellElement = new Ext.dom.Element(menuItem.parentMenu.contextmenuTarget),
+//                        searchValue = cellElement.getHTML().replace(/&(nbsp|amp|quot|lt|gt);/g, ''),
+//                        gridElement = cellElement.up('table'),
+//                        gridView,
+//                        grid,
+//                        toolbar,
+//                        searchButton,
+//                        searchField;
+//
+//                    if (!gridElement || !searchValue) {
+//                        // End, No table element found.
+//                        Ext.Msg.alert('Error', 'No value found to search on.'); // TEXT
+//                        return false;
+//                    }
+//
+//                    gridView = Ext.getCmp(cellElement.up('table').id.slice(0, -6));
+//                    grid = gridView.up('grid');
+//
+//                    if (!grid.isNSGrid || !grid.toolbarCfg || !grid.toolbarCfg.search) {
+//                        // End. Grid is not searchable.
+//                        Ext.Msg.alert('Error', 'Grid is not searchable.'); // TEXT
+//                        return false;
+//                    }
+//
+//                    toolbar = grid.getToolbar();
+//                    searchButton = toolbar.down('#grid-search');
+//                    searchField = searchButton.menu.down('[name=search]');
+//                    searchField.setValue(searchValue);
+//                    searchButton.showMenu();
+//                    toolbar.doSearch();
+//
+//                    // End.
+//                    return true;
+//                }
+//            }
         ]
     }
 });
