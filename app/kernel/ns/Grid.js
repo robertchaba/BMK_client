@@ -6,17 +6,12 @@
 Ext.define('BM.kernel.ns.Grid', {
     extend : 'Ext.grid.Panel',
     requires : [
-        'BM.ux.grid.FilterHeader'
+        'Ext.grid.plugin.RowEditing',
+        'Ext.ux.grid.FilterBar'
     ],
-    plugins : [{
-            ptype : 'filterheader'
-//            renderHidden : false,
-//            showShowHideButton : true,
-//            showClearAllButton : true
-        }],
     /**
      * @cfg {Boolean} editable
-     * True to add the {@link Ext.grid.plugin.RowEditing} plugin.
+     * True to activate the {@link Ext.grid.plugin.RowEditing} plugin.
      */
 
     /**
@@ -25,6 +20,19 @@ Ext.define('BM.kernel.ns.Grid', {
     editConfig : {
         clicksToMoveEditor : 1,
         errorSummary : false
+    },
+    /**
+     * @cfg {Boolean} filterable
+     * True to activate the {@link Ext.ux.grid.FilterBar} plugin.
+     */
+
+    /**
+     * @cfg {Object} {@link Ext.ux.grid.FilterBar} configuration.
+     */
+    filterConfig : {
+        renderHidden : false,
+        showShowHideButton : true,
+        showClearAllButton : true
     },
     /**
      * @property {BM.kernel.ns.Toolbar} gridToolbar Grid toolbar instance.
@@ -61,14 +69,14 @@ Ext.define('BM.kernel.ns.Grid', {
     /**
      * Grid toolbar configuration
      * 
-     * @private
      * @cfg {Object} toolbarCfg
      */
     toolbarCfg : {
         paging : false,
-//        search : false, // TODO Remove me, filter replacement.
-        disable : [],
-        toggleOnSelectionchange : []
+        disable : [
+        ],
+        toggleOnSelectionchange : [
+        ]
     },
     /**
      * @inheritdoc
@@ -79,6 +87,10 @@ Ext.define('BM.kernel.ns.Grid', {
 
         if (me.editable) {
             me.initRowEditing(me.editConfig);
+        }
+
+        if (me.filterable) {
+            me.initFilterBar(me.filterConfig);
         }
 
         me.callParent();
@@ -93,6 +105,16 @@ Ext.define('BM.kernel.ns.Grid', {
 
         config = config || me.editConfig;
         plugin = Ext.create('Ext.grid.plugin.RowEditing', config);
+
+        me.addPlugin(plugin);
+    },
+    initFilterBar : function (config)
+    {
+        var me = this,
+            plugin;
+
+        config = config || me.filterConfig;
+        plugin = Ext.create('Ext.ux.grid.FilterBar', config);
 
         me.addPlugin(plugin);
     },
@@ -359,11 +381,6 @@ Ext.define('BM.kernel.ns.Grid', {
         if (config && Ext.isArray(config.toggleOnSelectionchange)) {
             toolbar.toggleItemsOnSelectionchnage(config.toggleOnSelectionchange, me);
         }
-
-        // TODO Remove me, filter replacement.
-//        if (config && config.search) {
-//            toolbar.addSearchColumns(me.columns);
-//        }
 
         // End.
         return me;
