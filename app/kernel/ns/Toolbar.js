@@ -125,11 +125,11 @@ Ext.define('BM.kernel.ns.Toolbar', {
              */
             'beforechange'
             );
-//
+
         me.on('beforerender', me.onLoad, me, {
             single : true
         });
-//
+
         me.bindStore(me.store || 'ext-empty-store', true);
 
         // End.
@@ -214,7 +214,8 @@ Ext.define('BM.kernel.ns.Toolbar', {
     {
         var me = this,
             pagingItems = me.getPagingItems(),
-            userItems = me.items || me.buttons || [];
+            userItems = me.items || me.buttons || [
+            ];
 
         if (me.prependButtons) {
             userItems.push('->');

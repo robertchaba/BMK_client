@@ -887,7 +887,7 @@ Ext.define('Ext.ux.grid.FilterBar', {
             field.reset();
             field.resumeEvents();
             var column = me.columns.get(key);
-            if (column.getEl().hasCls(Ext.baseCSSPrefix + 'column-filtered')) {
+            if (column && column.getEl().hasCls(Ext.baseCSSPrefix + 'column-filtered')) {
                 column.getEl().removeCls(Ext.baseCSSPrefix + 'column-filtered');
             }
         }, me);

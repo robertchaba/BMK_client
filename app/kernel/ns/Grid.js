@@ -30,9 +30,9 @@ Ext.define('BM.kernel.ns.Grid', {
      * @cfg {Object} {@link Ext.ux.grid.FilterBar} configuration.
      */
     filterConfig : {
-        renderHidden : false,
-        showShowHideButton : true,
-        showClearAllButton : true
+        renderHidden : true,
+        showShowHideButton : false,
+        showClearAllButton : false
     },
     /**
      * @property {BM.kernel.ns.Toolbar} gridToolbar Grid toolbar instance.

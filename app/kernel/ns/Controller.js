@@ -393,6 +393,16 @@ Ext.define('BM.kernel.ns.Controller', {
 
         if (grid.isNSGrid && grid.toolbarCfg) {
             toolbar = me.getNSToolbar(name, grid.getToolbarCfg());
+            if (grid.filterable) {
+                toolbar.add({
+                    itemId : 'grid-search',
+                    iconCls : 'icon-search',
+                    enableToggle : true,
+                    scope : grid,
+                    toggleHandler : me.onFilterVisibilityChange
+                });
+            }
+
             grid.setToolbar(toolbar);
         }
 
@@ -693,5 +703,35 @@ Ext.define('BM.kernel.ns.Controller', {
 
         // End.
         return view;
+    },
+    /**
+     * @private
+     */
+    onFilterVisibilityChange : function (button, state)
+    {
+        var grid = this,
+            filterbar = grid.findPlugin('filterbar');
+
+        if (!filterbar) {
+            // End, No filterbar plugin found.
+            return false;
+        }
+
+        if (!state && (filterbar.filterArray.length > 0)) {
+            Ext.Msg.confirm('Reset all filters', 'Do you want to reset all filters.', function (buttonId) { // TEXT
+                var filterbar = this;
+                if (buttonId === 'yes') {
+                    filterbar.setVisible(false);
+                    filterbar.clearFilters();
+                } else {
+                    filterbar.setVisible(false);
+                }
+            }, filterbar);
+        } else {
+            filterbar.setVisible(state);
+        }
+
+        // End.
+        return true;
     }
 });
