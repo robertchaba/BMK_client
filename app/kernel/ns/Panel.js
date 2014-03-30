@@ -9,17 +9,8 @@ Ext.define('BM.kernel.ns.Panel', {
      * @property {Boolean} isNSPanel true to identify this class as namespace panel.
      */
     isNSPanel : true,
-    /**
-     * @inheritdoc
-     */
     id : 'nsPanel',
-    /**
-     * @inheritdoc
-     */
     iconCls : 'icon-bug',
-    /**
-     * @inheritdoc
-     */
     title : 'NS panel title',
     /**
      * @inheritdoc

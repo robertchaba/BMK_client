@@ -1,7 +1,7 @@
 /**
  * A {@link BM.App} mixin that handles application errors.
  * 
- * This class catches errors trown with {@link Ext.Error.raise}
+ * This class catches errors trown with {@link Ext.Error#raise}
  * and shows a error message.  
  * By default the error message window will have 3 buttons:  
  * - `Report issue`         Open a report issue window.  

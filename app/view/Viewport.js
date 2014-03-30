@@ -14,48 +14,16 @@ Ext.define('BM.view.Viewport', {
     requires : [
         'Ext.layout.container.Border'
     ],
-    /**
-     * @inheritdoc
-     * @readonly
-     */
     autoDestroy : true,
-    /**
-     * @inheritdoc
-     * @readonly
-     */
     autoScroll : false,
-    /**
-     * @inheritdoc
-     * @readonly
-     */
     autoShow : false,
-    /**
-     * @inheritdoc
-     * @readonly
-     */
     border : false,
-    /**
-     * @inheritdoc
-     * @readonly
-     */
     bubbleEvents : [
     ],
-    /**
-     * @inheritdoc
-     * @readonly
-     */
     defaultType : 'panel',
-    /**
-     * @inheritdoc
-     * @readonly
-     */
     defaults : {
         border : false
     },
-    /**
-     * @inheritdoc
-     * @readonly
-     */
     items : [
         {
             region : 'north'
@@ -74,9 +42,5 @@ Ext.define('BM.view.Viewport', {
             layout: 'fit'
         }
     ],
-    /**
-     * @inheritdoc
-     * @readonly
-     */
     layout : 'border'
 });

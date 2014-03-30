@@ -67,9 +67,6 @@ Ext.define('BM.kernel.Workspace', {
     },
     /**
      * Return {@link Ext.Img} image component.
-     * Use {@link #getThrobber}.{@link Ext.Img#show show()} or
-     * {@link #getThrobber}.{@link Ext.Img#hide hide()} to show or hide the
-     * throbber.
      *
      * @return {Ext.Img}
      */
@@ -80,10 +77,6 @@ Ext.define('BM.kernel.Workspace', {
     },
     /**
      * Return {@link Ext.button.Button} component.
-     * Use {@link #getAvatar}.{@link Ext.button.Button#setIcon setIcon()}
-     * to set the avatar image.
-     * And {@link #getAvatar}.{@link Ext.button.Button#setText setText()}
-     * to set the username.
      *
      * @return {Ext.button.Button}
      */
@@ -94,8 +87,6 @@ Ext.define('BM.kernel.Workspace', {
     },
     /**
      * Return {@link Ext.menu.Menu} component.
-     * Use {@link #getQuickMenu}.{@link Ext.menu.Menu#add add()} to add
-     * actions to the quick menu.
      *
      * @return {Ext.menu.Menu}
      */

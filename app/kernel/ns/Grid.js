@@ -42,29 +42,11 @@ Ext.define('BM.kernel.ns.Grid', {
      * @property {Boolean} isNSGrid true to identify this class as namespace grid panel.
      */
     isNSGrid : true,
-    /**
-     * @inheritdoc
-     */
     id : 'nsGrid',
-    /**
-     * @inheritdoc
-     */
     iconCls : 'icon-bug',
-    /**
-     * @inheritdoc
-     */
     title : 'NS grid title',
-    /**
-     * @inheritdoc
-     */
     emptyText : 'No data loaded.', // TEXT
-    /**
-     * @inheritdoc
-     */
     allowDeselect : false, // DEBUG
-    /**
-     * @inheritdoc
-     */
     forceFit : true,
     /**
      * Grid toolbar configuration
@@ -98,6 +80,9 @@ Ext.define('BM.kernel.ns.Grid', {
         // End.
         return true;
     },
+    /**
+     * 
+     */
     initRowEditing : function (config)
     {
         var me = this,
@@ -108,6 +93,9 @@ Ext.define('BM.kernel.ns.Grid', {
 
         me.addPlugin(plugin);
     },
+    /**
+     * 
+     */
     initFilterBar : function (config)
     {
         var me = this,
@@ -186,7 +174,7 @@ Ext.define('BM.kernel.ns.Grid', {
      * @param {BM.kernel.ns.Model} model
      * @param {String} [destFieldname=id] Destination model field name to find the match against.
      * @param {String} [refFieldname=id] Reference model field name.
-     * @param {Sting} [prefix] Destination model field name prefix.
+     * @param {String} [prefix] Destination model field name prefix.
      * @return {Boolean} Void.
      */
     updateModel : function (model, destFieldname, refFieldname, prefix)

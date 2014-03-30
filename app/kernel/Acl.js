@@ -230,7 +230,7 @@ Ext.define('BM.kernel.Acl', {
     },
     /**
      * Quite a inpressive pease of code to build a
-     * {@link Ext.toolbar.Toolbar toolbar} {@link Ext.toolbar.Toolbar#items items}
+     * {@link Ext.toolbar.Toolbar toolbar}
      * configuration object from the ACL permissions.
      * 
      * @private

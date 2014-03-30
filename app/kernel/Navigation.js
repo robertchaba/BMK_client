@@ -106,8 +106,6 @@ Ext.define('BM.kernel.Navigation', {
      * Return a {@link Ext.toolbar.Toolbar navigation}.
      * 
      * A {@link #createNavigation navigation} instance is created if not navigation is defined.
-     * Use {@link #getNavigation}.{@link Ext.toolbar.Toolbar#add add()} to add
-     * navigation items.
      * 
      * @return {Ext.toolbar.Toolbar} Navigation view instance.
      */

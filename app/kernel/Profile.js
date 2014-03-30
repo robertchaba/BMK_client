@@ -18,12 +18,12 @@ Ext.define('BM.kernel.Profile', {
 
     /**
      * @private
-     * @property {User.model.Setting} settingsModel
+     * @property {Model.user.UserSetting} settingsModel
      */
 
     /**
      * @private
-     * @property {User.model.Locale} localeModel
+     * @property {Model.user.Locale} localeModel
      */
 
     /**
@@ -162,9 +162,9 @@ Ext.define('BM.kernel.Profile', {
         return person;
     },
     /**
-     * Set a {User.model.Setting} model instance.
+     * Set a {Model.user.UserSetting} model instance.
      *
-     * @param {User.model.Setting} settings
+     * @param {Model.user.UserSetting} settings
      * @chainable
      */
     setSettingsModel : function (settings)
@@ -176,9 +176,9 @@ Ext.define('BM.kernel.Profile', {
 
     },
     /**
-     * Return a {User.model.Setting} model instance.
+     * Return a {Model.user.UserSetting} model instance.
      *
-     * @return {User.model.Setting}
+     * @return {Model.user.UserSetting}
      */
     getSettingsModel : function ()
     {

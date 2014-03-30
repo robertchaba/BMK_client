@@ -15,33 +15,15 @@ Ext.define('BM.kernel.ns.Form', {
      * subclasses can be used as namespace form view.
      */
     isNSForm : true,
-    /**
-     * @inheritdoc
-     */
     id : 'nsForm',
-    /**
-     * @inheritdoc
-     */
     iconCls : 'icon-bug',
-    /**
-     * @inheritdoc
-     */
     title : 'NS form title',
-    /**
-     * @inheritdoc
-     */
     defaultType : 'fieldcontainer',
-    /**
-     * @inheritdoc
-     */
     layout : {
         type : 'vbox',
         align : 'stretch'
     },
     padding : '5 0 0 0',
-    /**
-     * @inheritdoc
-     */
     fieldDefaults : {
         labelAlign : 'top',
         labelStyle : 'font-weight:bold',
@@ -355,7 +337,7 @@ Ext.define('BM.kernel.ns.Form', {
         return true;
     },
     /**
-     *  Disable all in the bottom docked {@link Ext.from.Panel#buttons buttons}.
+     *  Disable all in the bottom docked {@link Ext.panel.Panel#buttons buttons}.
      * 
      *  @return {Boolean} Void.
      */
@@ -376,7 +358,7 @@ Ext.define('BM.kernel.ns.Form', {
         return true;
     },
     /**
-     * Enable all in the bottom docked {@link Ext.from.Panel#buttons buttons}.
+     * Enable all in the bottom docked {@link Ext.panel.Panel#buttons buttons}.
      * 
      * @return {Boolean} Void.
      */
@@ -399,7 +381,7 @@ Ext.define('BM.kernel.ns.Form', {
      * 
      * @private
      * @param {BM.kernel.ns.Model} model
-     * @return {Booleand} Void.
+     * @return {Boolean} Void.
      */
     onModelLoaded : function (model)
     {

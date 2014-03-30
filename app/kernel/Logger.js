@@ -176,7 +176,7 @@ Ext.define('BM.kernel.Logger', {
     /**
      * Log an error message.  
      * Do not use this method, if an error is expected, use 
-     * {@link Ext.Error.raise} to throw errors. Thrown error will be catched and
+     * {@link Ext.Error#raise} to throw errors. Thrown error will be catched and
      * the error message will be logged using this method.
      * 
      * @param {String} msg Log message

@@ -76,7 +76,7 @@ Ext.define('BM.kernel.ns.Toolbar', {
      */
     isNSToolbar : true,
     /**
-     * 
+     * @inheritdoc
      */
     initComponent : function ()
     {
@@ -458,8 +458,8 @@ Ext.define('BM.kernel.ns.Toolbar', {
     },
     /**
      * @private
-     * @param {type} selector
-     * @param {type} disabled 
+     * @param {String} selector
+     * @param {Boolean} disabled 
      * @return {Boolean} Void.
      */
     setChildDisabled : function (selector, disabled)
@@ -594,8 +594,8 @@ Ext.define('BM.kernel.ns.Toolbar', {
      * COMMENTME
      * 
      * @private
-     * @param {type} field
-     * @param {type} e
+     * @param {Ext.form.field.Base} field
+     * @param {Ext.util.Event} e
      * @return {Boolean} Void.
      */
     onPagingKeyDown : function (field, e)

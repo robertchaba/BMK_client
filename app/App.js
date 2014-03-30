@@ -321,7 +321,7 @@ Ext.define('BM.App', {
      * in {@link Ext.app.Application#namespaces}
      * 
      * @param {String} module Module name
-     * @return {Booleand} True is the module has at least loaded one allowed controller.
+     * @return {Boolean} True is the module has at least loaded one allowed controller.
      */
     isModuleLoaded : function (module)
     {

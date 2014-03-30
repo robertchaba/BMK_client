@@ -18,21 +18,9 @@ Ext.define('BM.kernel.ns.Tab', {
      * @property {Boolean} isNSTab true to identify this class as namespace tab panel.
      */
     isNSTab : true,
-    /**
-     * @inheritdoc
-     */
     id : 'nsTab',
-    /**
-     * @inheritdoc
-     */
     iconCls : 'icon-bug',
-    /**
-     * @inheritdoc
-     */
     title : 'NS tab title',
-    /**
-     * @inheritdoc
-     */
     activeTab : 0,
     /**
      * @inheritdoc
@@ -169,7 +157,7 @@ Ext.define('BM.kernel.ns.Tab', {
     /**
      * This method is called when one of the form panels validity changes.
      * Once called all form's validity are checked.
-     * If all form's are valid, all {@link Ext.Component.formBind bound} items
+     * If all form's are valid, all {@link Ext.Component#formBind bound} items
      * will be enabled.
      *
      * @private

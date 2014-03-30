@@ -3,13 +3,7 @@
  */
 Ext.define('Application.controller.Report', {
     extend : 'BM.kernel.ns.Controller',
-    /**
-     * @inheritdoc
-     */
     id : 'applicationReportController',
-    /**
-     * @inheritdoc
-     */
     refs : [
         {
             ref : 'ReportForm',
@@ -52,28 +46,16 @@ Ext.define('Application.controller.Report', {
             selector : '#applicationReportReportWindow textareafield[name=dump]'
         }
     ],
-    /**
-     * @inheritdoc
-     */
     stores : [
         'Application.store.data.ReportClassifications'
     ],
-    /**
-     * @inheritdoc
-     */
     models : [
         'Application.model.Report'
     ],
-    /**
-     * @inheritdoc
-     */
     views : [
         'Application.view.report.form.Report',
         'Application.view.report.window.Report'
     ],
-    /**
-     * @inheritdoc
-     */
     listeners : {
     },
     /**

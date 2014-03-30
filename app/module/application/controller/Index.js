@@ -1,32 +1,23 @@
+/**
+ * 
+ */
 Ext.define('Application.controller.Index', {
     extend : 'BM.kernel.ns.Controller',
-    /**
-     * @inheritdoc
-     */
+    
     id : 'applicationIndexController',
-    /**
-     * @inheritdoc
-     */
+    
     refs : [
     ],
-    /**
-     * @inheritdoc
-     */
+    
     stores : [
     ],
-    /**
-     * @inheritdoc
-     */
+    
     models : [
     ],
-    /**
-     * @inheritdoc
-     */
+    
     views : [
     ],
-    /**
-     * @inheritdoc
-     */
+    
     contextmenus : {
         'BM-workspace-toolbar' : [
             {

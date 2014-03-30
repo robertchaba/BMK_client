@@ -1,15 +1,23 @@
 {
     "--title" : "BMKernel client docs",
-    "--welcome" : "welcome.html",
+    "--builtin-classes" : true,
 
     "--" : [
+        "application.js",
         "app",
         "libs/ext/src"
     ],
+    
+    "--warnings" : [
+        "-no_doc:libs/ext/src",
+        "-no_doc_member:libs/ext/src",
+        "-link:libs/ext/src",
+        "-type_name:libs/ext/src"
+    ],
+    
     "--ignore-html" : [
         "locale",
         "debug"
-    ],
-    "--images" : "libs/extjs/docs/images",
-    "--builtin-classes" : true
+    ]
+    
 }
