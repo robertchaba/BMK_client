@@ -216,9 +216,7 @@ Ext.define('BM.kernel.ErrorHandler', {
 
         BM.getApplication().logInfo('Report issue after application error.');
 
-        reportController.report(isError
-            ? 4
-            : 3, subject, descr, exception);
+        reportController.report(isError ? 4 : 3, subject, descr, exception);
 
         // End.
         return true;
@@ -272,8 +270,7 @@ Ext.define('BM.kernel.ErrorHandler', {
         var me = this,
             callee = arguments.callee.caller,
             item,
-            trace = [
-            ];
+            trace = [];
 
         while (callee) {
             item = {

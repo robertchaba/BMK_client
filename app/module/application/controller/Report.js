@@ -201,8 +201,8 @@ Ext.define('Application.controller.Report', {
             expectField = me.getExpectField(),
             reproduceField = me.getReproduceField(),
             workaroundField = me.getWorkaroundField(),
-            dumpField = me.getDumpField();
-        showDumpField = me.getShowDumpField();
+            dumpField = me.getDumpField(),
+            showDumpField = me.getShowDumpField();
 
         expectField.hide();
         reproduceField.hide();

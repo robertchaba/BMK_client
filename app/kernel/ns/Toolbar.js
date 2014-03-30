@@ -214,8 +214,7 @@ Ext.define('BM.kernel.ns.Toolbar', {
     {
         var me = this,
             pagingItems = me.getPagingItems(),
-            userItems = me.items || me.buttons || [
-            ];
+            userItems = me.items || me.buttons || [];
 
         if (me.prependButtons) {
             userItems.push('->');

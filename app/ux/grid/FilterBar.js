@@ -72,22 +72,22 @@ Ext.define('Ext.ux.grid.FilterBar', {
     mixins : {
         observable : 'Ext.util.Observable'
     },
-    updateBuffer : 800,					// buffer time to apply filtering when typing/selecting
-    columnFilteredCls : Ext.baseCSSPrefix + 'column-filtered', // CSS class to apply to the filtered column header
+    updateBuffer : 800,                                         // buffer time to apply filtering when typing/selecting
+    columnFilteredCls : Ext.baseCSSPrefix + 'column-filtered',  // CSS class to apply to the filtered column header
     renderHidden : true,					// renders the filters hidden by default, use in combination with showShowHideButton
     showShowHideButton : true,					// add show/hide button in actioncolumn header if found, if not a new small column is created
-    showHideButtonTooltipDo : 'Show filter bar',	// button tooltip show
-    showHideButtonTooltipUndo : 'Hide filter bar',	// button tooltip hide
-    showHideButtonIconCls : 'icon-search',				// button iconCls
-    showClearButton : true,					// use Ext.ux.form.field.ClearButton to allow user to clear each filter, the same as showShowHideButton
-    showClearAllButton : true,					// add clearAll button in actioncolumn header if found, if not a new small column is created
-    clearAllButtonIconCls : 'icon-remove', 		// css class with the icon of the clear all button
-    clearAllButtonTooltip : 'Clear all filters',	// button tooltip
-    autoStoresRemoteProperty : 'autoStores',			// if no store is configured for a combo filter then stores are created automatically, if remoteFilter is true then use this property to return arrayStores from the server
-    autoStoresNullValue : '###NULL###',			// value send to the server to expecify null filter
-    autoStoresNullText : '[empty]',			// NULL Display Text
-    autoUpdateAutoStores : false,				// if set to true combo autoStores are updated each time that a filter is applied
-    enableOperators : true,					// enable operator selection for number and date filters
+    showHideButtonTooltipDo : 'Show filter bar',                // button tooltip show
+    showHideButtonTooltipUndo : 'Hide filter bar',              // button tooltip hide
+    showHideButtonIconCls : 'icon-search',                      // button iconCls
+    showClearButton : true,                                     // use Ext.ux.form.field.ClearButton to allow user to clear each filter, the same as showShowHideButton
+    showClearAllButton : true,                                  // add clearAll button in actioncolumn header if found, if not a new small column is created
+    clearAllButtonIconCls : 'icon-remove',                      // css class with the icon of the clear all button
+    clearAllButtonTooltip : 'Clear all filters',                // button tooltip
+    autoStoresRemoteProperty : 'autoStores',                    // if no store is configured for a combo filter then stores are created automatically, if remoteFilter is true then use this property to return arrayStores from the server
+    autoStoresNullValue : '###NULL###',                         // value send to the server to expecify null filter
+    autoStoresNullText : '[empty]',                             // NULL Display Text
+    autoUpdateAutoStores : false,                               // if set to true combo autoStores are updated each time that a filter is applied
+    enableOperators : true,                                     // enable operator selection for number and date filters
     boolTpl : {
         xtype : 'combo',
         queryMode : 'local',
@@ -201,9 +201,9 @@ Ext.define('Ext.ux.grid.FilterBar', {
         ];
 
         me.overrideProxy();
-        me.parseFiltersConfig(); 	// sets me.columns and me.autoStores
+        me.parseFiltersConfig();    // sets me.columns and me.autoStores
         me.parseInitialFilters();   // sets me.filterArray with the store previous filters if any (adds operator and type if missing)
-        me.renderExtraColumn(); 	// sets me.extraColumn if applicable
+        me.renderExtraColumn();     // sets me.extraColumn if applicable
 
         // renders the filter's bar
         if (grid.rendered) {
@@ -353,7 +353,7 @@ Ext.define('Ext.ux.grid.FilterBar', {
                                 'float' : 'int');
                             break;
                         default:
-                            column.filter.type = 'string'
+                            column.filter.type = 'string';
                     }
                 }
 
@@ -387,14 +387,17 @@ Ext.define('Ext.ux.grid.FilterBar', {
             return;
 
         me.autoStores.eachKey(function (key, item) {
-            var field = me.fields.get(key);
+            var field = me.fields.get(key),
+                data,
+                records,
+                fieldValue;
             if (field) {
                 field.suspendEvents();
-                var fieldValue = field.getValue();
+                fieldValue = field.getValue();
             }
             if (!store.remoteFilter) { // values from local store
-                var data = store.collect(key, true, false).sort();
-                var records = [
+                data = store.collect(key, true, false).sort();
+                records = [
                 ];
                 Ext.each(data, function (txt) {
                     if (Ext.isEmpty(txt)) {
@@ -414,9 +417,9 @@ Ext.define('Ext.ux.grid.FilterBar', {
                 item.loadData(records);
             } else { // values from server
                 if (store.proxy.reader.rawData[me.autoStoresRemoteProperty]) {
-                    var data = store.proxy.reader.rawData[me.autoStoresRemoteProperty];
+                    data = store.proxy.reader.rawData[me.autoStoresRemoteProperty];
                     if (data[key]) {
-                        var records = [
+                        records = [
                         ];
                         Ext.each(data[key].sort(), function (txt) {
                             if (Ext.isEmpty(txt)) {
@@ -476,9 +479,9 @@ Ext.define('Ext.ux.grid.FilterBar', {
                 style.setAttribute('type', 'text/css');
                 style.setAttribute('id', extraColumnCssClass);
                 document.body.appendChild(style);
-                if (style.styleSheet) {   	// IE
+                if (style.styleSheet) {         // IE
                     style.styleSheet.cssText = css;
-                } else {                	// others
+                } else {                        // others
                     var cssNode = document.createTextNode(css);
                     style.appendChild(cssNode);
                 }
@@ -616,11 +619,13 @@ Ext.define('Ext.ux.grid.FilterBar', {
     },
     //private
     renderButtons : function () {
-        var me = this;
+        var me = this,
+            column,
+            buttonEl;
 
         if (me.showShowHideButton && me.columns.getCount()) {
-            var column = me.actionColumn || me.extraColumn;
-            var buttonEl = column.el.first().first();
+            column = me.actionColumn || me.extraColumn;
+            buttonEl = column.el.first().first();
             me.showHideEl = Ext.get(Ext.core.DomHelper.append(buttonEl, {
                 tag : 'div',
                 style : 'position: absolute; width: 16px; height: 16px; top: 3px; cursor: pointer; left: ' + parseInt((column.el.getWidth() - 16) / 2) + 'px',
@@ -639,8 +644,8 @@ Ext.define('Ext.ux.grid.FilterBar', {
         }
 
         if (me.showClearAllButton && me.columns.getCount()) {
-            var column = me.actionColumn || me.extraColumn;
-            var buttonEl = column.el.first().first();
+            column = me.actionColumn || me.extraColumn;
+            buttonEl = column.el.first().first();
             me.clearAllEl = Ext.get(Ext.core.DomHelper.append(buttonEl, {
                 tag : 'div',
                 style : 'position: absolute; width: 16px; height: 16px; top: 25px; cursor: pointer; left: ' + parseInt((column.el.getWidth() - 16) / 2) + 'px',
@@ -699,10 +704,11 @@ Ext.define('Ext.ux.grid.FilterBar', {
         var me = this,
             grid = me.grid,
             column = me.columns.get(field.dataIndex),
-            newVal = (grid.store.remoteFilter ? field.getSubmitValue() :
-            field.getValue());
+            newVal = (grid.store.remoteFilter ?
+                field.getSubmitValue() :
+                field.getValue());
 
-        if (Ext.isArray(newVal) && newVal.length == 0) {
+        if (Ext.isArray(newVal) && newVal.length === 0) {
             newVal = '';
         }
         var myIndex = -1;
@@ -854,7 +860,7 @@ Ext.define('Ext.ux.grid.FilterBar', {
     //private
     getFirstField : function () {
         var me = this,
-            field = undefined;
+            field;
 
         Ext.each(me.grid.headerCt.getGridColumns(), function (col) {
             if (col.filter) {
@@ -878,7 +884,7 @@ Ext.define('Ext.ux.grid.FilterBar', {
     clearFilters : function () {
         var me = this;
 
-        if (me.filterArray.length == 0)
+        if (me.filterArray.length === 0)
             return;
         me.filterArray = [
         ];
