@@ -8,5 +8,6 @@ Ext.define('BM.kernel.ns.Store', {
     /**
      * @property {Boolean} isNSStore true to identify this class as namespace store.
      */
-    isNSStore : true
+    isNSStore : true,
+    remoteFilter : true
 });

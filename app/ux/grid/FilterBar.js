@@ -793,13 +793,13 @@ Ext.define('Ext.ux.grid.FilterBar', {
                         break;
                 }
                 me.filterArray.push(Ext.create('Ext.util.Filter', {
-                    property : column.dataIndex,
+                    property : column.filter.property || column.dataIndex,
                     filterFn : filterFn,
                     me : me
                 }));
             } else {
                 me.filterArray.push(Ext.create('Ext.util.Filter', {
-                    property : column.dataIndex,
+                    property : column.filter.property || column.dataIndex,
                     value : newVal,
                     type : column.filter.type,
                     operator : (field.operator || column.filter.operator)
