@@ -350,10 +350,7 @@ Ext.define('BM.kernel.ns.Toolbar', {
     doRefresh : function ()
     {
         var me = this,
-            current = me.store.currentPage,
-            store = me.store;
-
-        store.clearFilter(true);
+            current = me.store.currentPage;
 
         if (me.fireEvent('beforechange', me, current) !== false) {
             me.store.loadPage(current);
