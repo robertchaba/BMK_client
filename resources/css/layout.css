@@ -167,21 +167,25 @@ body
 }
 
 /*******************************************************************************
+ * Icon location fix
+ ******************************************************************************/
+.x-menu-item-icon {
+    top: 1px !important;
+}
+
+/*******************************************************************************
  * UX
  ******************************************************************************/
-
 .x-action-col-cell img
 {
     height: 16px;
     width: 16px;
     cursor: pointer;
 }
-
 .x-action-col-img-noaction
 {
     cursor: default !important;
 }
-
 .x-operator-button
 {
     width: 16px;
@@ -195,7 +199,6 @@ body
     margin-top: 6px;
     background-color: white;
 }
-
 .x-operator-button-equal
 {
     background-image: url(../images/operator-equal.gif);
@@ -220,14 +223,14 @@ body
 {
     background-image: url(../images/operator-less-than-equal.gif);
 }
-
-.x-grid-header-ct .x-column-filtered .x-column-header-inner .x-column-header-text {
+.x-grid-header-ct .x-column-filtered .x-column-header-inner .x-column-header-text 
+{
     font-weight: bold;
     font-style: italic;
     color: green;
 }
-
-.ext-ux-clearbutton {
+.ext-ux-clearbutton
+{
     width: 12px;
     height: 12px;
     background-image: url(../images/clear-text-icon.gif);
@@ -240,20 +243,20 @@ body
     margin-top: 5px;
     background-color: white;
 }
-
-.ext-ux-clearbutton-mouse-over-input {
+.ext-ux-clearbutton-mouse-over-input 
+{
     background-position: 0 -12px;
 }
-
-.ext-ux-clearbutton-mouse-over-button {
+.ext-ux-clearbutton-mouse-over-button 
+{
     background-position: 0 -24px;
 }
-
-.ext-ux-clearbutton-mouse-down {
+.ext-ux-clearbutton-mouse-down 
+{
     background-position: 0 -36px;
 }
-
-.ext-ux-clearbutton-on {
+.ext-ux-clearbutton-on 
+{
     opacity: 1;
     visibility: visible;
     transition: opacity .35s linear;
@@ -263,8 +266,8 @@ body
     -ms-transition: opacity .35s linear;
     -khtml-transition: opacity .35s linear;
 }
-
-.ext-ux-clearbutton-off {
+.ext-ux-clearbutton-off 
+{
     opacity: 0;
     visibility: hidden;
     transition: opacity .35s linear, visibility .0s linear .35s;
