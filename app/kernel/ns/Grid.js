@@ -55,6 +55,8 @@ Ext.define('BM.kernel.ns.Grid', {
      */
     toolbarCfg : {
         paging : false,
+        remove : [
+        ],
         disable : [
         ],
         toggleOnSelectionchange : [

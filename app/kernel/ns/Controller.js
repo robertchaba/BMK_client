@@ -447,12 +447,32 @@ Ext.define('BM.kernel.ns.Controller', {
                 controllerName = addAllowed;
             }
             allowedItems = app.getAllowedToolbar(ns, controllerName.toLowerCase());
-            items = (toolbar.prototype.beforeAllowed) ?
-                Ext.Array.merge(items, allowedItems) :
+            items = (toolbar.prototype.beforeAllowed)
+                ?
+                Ext.Array.merge(items, allowedItems)
+                :
                 Ext.Array.merge(allowedItems, items);
         }
 
         if (config) {
+            allowedItems = [];
+            if (config.remove) {
+                Ext.Array.each(items, function (item) {
+                    if (!Ext.isObject(item)) {
+                        // End, item is not a object.
+                        return false;
+                    }
+
+                    var itemId = '#' + item.id;
+
+                    if (!Ext.Array.contains(config.remove, itemId)) {
+                        allowedItems.push(item);
+                    }
+                });
+
+                items = allowedItems;
+            }
+
             toolbar = toolbar.create({
                 paging : config.paging,
                 store : config.store,
@@ -582,7 +602,8 @@ Ext.define('BM.kernel.ns.Controller', {
         NSWindow = me.getNSWindow(name, {
             title : panel.title,
             iconCls : panel.iconCls
-        }, useControllerView);
+        },
+        useControllerView);
 
         panel.title = '';
         panel.iconCls = '';
@@ -685,7 +706,7 @@ Ext.define('BM.kernel.ns.Controller', {
             controllerName,
             view,
             viewId;
-        
+
         if (useControllerView === false) {
             controllerName = '';
         } else {
