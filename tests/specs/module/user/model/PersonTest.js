@@ -1,13 +1,16 @@
-describe('Test User.model.Person', function () {
+describe('Test User.model.Person', function ()
+{
     var personModel;
 
-    beforeEach(function () {
+    beforeEach(function ()
+    {
         Ext.syncRequire('User.model.Person');
 
         personModel = Ext.create('User.model.Person');
     });
 
-    afterEach(function () {
+    afterEach(function ()
+    {
         personModel = undefined;
     });
 
@@ -15,14 +18,16 @@ describe('Test User.model.Person', function () {
     {
         expect(User.model.Person).toBeDefined();
     });
-    
+
     it('Class should be a ns model.', function ()
     {
         expect(personModel.isNSModel).toBeTruthy();
     });
 
-    describe('getFullname', function () {
-        it('Should return a long fullname', function () {
+    describe('getFullname', function ()
+    {
+        it('Should return a long fullname', function ()
+        {
             var name = 'Jan met de Pet',
                 result;
 
@@ -34,7 +39,8 @@ describe('Test User.model.Person', function () {
             expect(result).toBe(name);
         });
 
-        it('Should return a short fullname', function () {
+        it('Should return a short fullname', function ()
+        {
             var name = 'John Doe',
                 result;
 
@@ -46,9 +52,11 @@ describe('Test User.model.Person', function () {
         });
     });
 
-    describe('getAvatar', function () {
+    describe('getAvatar', function ()
+    {
 
-        beforeEach(function () {
+        beforeEach(function ()
+        {
             Ext.syncRequire('Model.user.File');
             Ext.syncRequire('User.model.Person');
 
@@ -56,21 +64,24 @@ describe('Test User.model.Person', function () {
             personModel.setFile(fileModel);
         });
 
-        it('Should return a 35x35 default avatar url.', function () {
+        it('Should return a 35x35 default avatar url.', function ()
+        {
             var url = '/resources/images/application/35x35/default-avatar.png',
                 result = personModel.getAvatar();
 
             expect(result).toBe(url);
         });
 
-        it('Should return a 100x100 default avatar url.', function () {
+        it('Should return a 100x100 default avatar url.', function ()
+        {
             var url = '/resources/images/application/100x100/default-avatar.png',
                 result = personModel.getAvatar('100x100');
 
             expect(result).toBe(url);
         });
 
-        it('Should return a 35x35 custom avatar url.', function () {
+        it('Should return a 35x35 custom avatar url.', function ()
+        {
             var url = '/download/35x35/testfile.png',
                 fileModel = personModel.getFile(),
                 result;
@@ -81,8 +92,9 @@ describe('Test User.model.Person', function () {
 
             expect(result).toBe(url);
         });
-        
-        it('Should return a 120x120 custom avatar url.', function () {
+
+        it('Should return a 120x120 custom avatar url.', function ()
+        {
             var url = '/download/120x120/otherfile.gif',
                 fileModel = personModel.getFile(),
                 result;

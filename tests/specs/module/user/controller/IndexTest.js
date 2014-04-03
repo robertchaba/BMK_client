@@ -1,15 +1,18 @@
-describe('Test User.controller.Index', function () {
+describe('Test User.controller.Index', function ()
+{
     var indexController;
 
-    beforeEach(function () {
+    beforeEach(function ()
+    {
         Ext.syncRequire('User.controller.Index');
         Ext.syncRequire('BM.App');
         Ext.application('BM.App');
-        
+
         indexController = BM.getApplication().getController('User.controller.Index');
     });
 
-    afterEach(function () {
+    afterEach(function ()
+    {
         Ext.ComponentQuery.query('viewport')[0].destroy();
     });
 

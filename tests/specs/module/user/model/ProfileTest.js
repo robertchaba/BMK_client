@@ -1,13 +1,16 @@
-describe('Test User.model.Profile', function () {
+describe('Test User.model.Profile', function ()
+{
     var profileModel;
-    
-    beforeEach(function () {
+
+    beforeEach(function ()
+    {
         Ext.syncRequire('User.model.Profile');
-        
+
         profileModel = Ext.create('User.model.Profile');
     });
-    
-    afterEach(function () {
+
+    afterEach(function ()
+    {
         profileModel = undefined;
     });
 
@@ -15,7 +18,7 @@ describe('Test User.model.Profile', function () {
     {
         expect(User.model.Profile).toBeDefined();
     });
-    
+
     it('Class should be a ns model.', function ()
     {
         expect(profileModel.isNSModel).toBeTruthy();

@@ -447,10 +447,8 @@ Ext.define('BM.kernel.ns.Controller', {
                 controllerName = addAllowed;
             }
             allowedItems = app.getAllowedToolbar(ns, controllerName.toLowerCase());
-            items = (toolbar.prototype.beforeAllowed)
-                ?
-                Ext.Array.merge(items, allowedItems)
-                :
+            items = (toolbar.prototype.beforeAllowed) ?
+                Ext.Array.merge(items, allowedItems) :
                 Ext.Array.merge(allowedItems, items);
         }
 

@@ -1,13 +1,16 @@
-describe('Test User.view.auth.window.Login', function () {
+describe('Test User.view.auth.window.Login', function ()
+{
     var loginWindow;
 
-    beforeEach(function () {
+    beforeEach(function ()
+    {
         Ext.syncRequire('User.view.auth.window.Login');
 
         loginWindow = Ext.create('User.view.auth.window.Login');
     });
 
-    afterEach(function () {
+    afterEach(function ()
+    {
         loginWindow.destroy();
     });
 

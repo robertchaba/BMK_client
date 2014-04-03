@@ -440,6 +440,11 @@ Ext.define('BM.kernel.ns.Form', {
             target,
             field;
 
+        if (!basic.monitor) {
+            // End, The form can be destroyed before the model is loaded.
+            return false;
+        }
+
         Ext.Array.each(validations, function (validation)
         {
             field = basic.findField(validation.field);
@@ -496,6 +501,11 @@ Ext.define('BM.kernel.ns.Form', {
         var me = this,
             basic = me.getForm(),
             model = me.getModel();
+
+        if (!basic.monitor) {
+            // End, The form can be destroyed before the model is loaded.
+            return false;
+        }
 
         if (data && !model) {
             basic.setValues(data);

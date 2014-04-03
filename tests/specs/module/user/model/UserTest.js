@@ -1,13 +1,16 @@
-describe('Test User.model.User', function () {
+describe('Test User.model.User', function ()
+{
     var userModel;
 
-    beforeEach(function () {
+    beforeEach(function ()
+    {
         Ext.syncRequire('User.model.User');
 
         userModel = Ext.create('User.model.User');
     });
     
-    afterEach(function () {
+    afterEach(function ()
+    {
         userModel = undefined;
     });
 

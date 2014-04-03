@@ -105,6 +105,11 @@ Ext.define('BM.kernel.Logger', {
         var me = this,
             date = new Date(),
             logObject;
+        
+        if (!me.logs) {
+            //End, Logger is not initialized. This is possible while running tests.
+            return false;
+        }
 
         if (typeof msg !== 'string') {
             // End, msg need to be an string.
