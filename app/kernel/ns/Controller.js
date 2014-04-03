@@ -339,12 +339,13 @@ Ext.define('BM.kernel.ns.Controller', {
      *
      * @param {String} name Name of the panel.
      * @param {Object|Boolean} [config] The panel configuration or true to create a instance.
+     * @param {Boolean} [useControllerView=true] Load a controller specific view.
      * @return {BM.kernel.ns.Panel} Panel class or instance if config is given.
      */
-    getNSPanel : function (name, config)
+    getNSPanel : function (name, config, useControllerView)
     {
         var me = this,
-            panel = me.getNSView(name, 'panel');
+            panel = me.getNSView(name, 'panel', useControllerView);
 
         if (!panel.prototype.isNSPanel) {
             // End.
@@ -369,12 +370,13 @@ Ext.define('BM.kernel.ns.Controller', {
      *
      * @param {String} name Name of the grid.
      * @param {Object|Boolean} [config] The grid configuration or true to create a instance.
+     * @param {Boolean} [useControllerView=true] Load a controller specific view.
      * @return {BM.kernel.ns.Grid} Grid class or instance if config is given.
      */
-    getNSGrid : function (name, config)
+    getNSGrid : function (name, config, useControllerView)
     {
         var me = this,
-            grid = me.getNSView(name, 'grid'),
+            grid = me.getNSView(name, 'grid', useControllerView),
             toolbar;
 
         if (!grid.prototype.isNSGrid) {
@@ -415,14 +417,15 @@ Ext.define('BM.kernel.ns.Controller', {
      *
      * @param {String} name Name of the toolbar.
      * @param {Object|Boolean} [config] The toolbar configuration or true to create a instance.
+     * @param {Boolean} [useControllerView=true] Load a controller specific view.
      * @return {BM.kernel.ns.Toolbar} Toolbar class or instance if config is given.
      */
-    getNSToolbar : function (name, config)
+    getNSToolbar : function (name, config, useControllerView)
     {
         config = config || {};
 
         var me = this,
-            toolbar = me.getNSView(name, 'toolbar'),
+            toolbar = me.getNSView(name, 'toolbar', useControllerView),
             ns = me.getNS(),
             controllerName = me.getControllerName(),
             app = BM.getApplication(),
@@ -466,12 +469,13 @@ Ext.define('BM.kernel.ns.Controller', {
      *
      * @param {String} name Name of the form.
      * @param {Object|Boolean} [config] The form configuration or true to create a instance.
+     * @param {Boolean} [useControllerView=true] Load a controller specific view.
      * @return {BM.kernel.ns.Form} Form class or instance if config is given.
      */
-    getNSForm : function (name, config)
+    getNSForm : function (name, config, useControllerView)
     {
         var me = this,
-            form = me.getNSView(name, 'form'),
+            form = me.getNSView(name, 'form', useControllerView),
             model;
 
         if (!form.prototype.isNSForm) {
@@ -513,12 +517,13 @@ Ext.define('BM.kernel.ns.Controller', {
      *
      * @param {String} name Name of the window.
      * @param {Object|Boolean} [config] The window configuration or true to create a instance.
+     * @param {Boolean} [useControllerView=true] Load a controller specific view.
      * @return {BM.kernel.ns.Window} Window class or instance if config is given.
      */
-    getNSWindow : function (name, config)
+    getNSWindow : function (name, config, useControllerView)
     {
         var me = this,
-            NSWindow = me.getNSView(name, 'window');
+            NSWindow = me.getNSView(name, 'window', useControllerView);
 
         if (!NSWindow.prototype.isNSWindow) {
             // End.
@@ -544,9 +549,10 @@ Ext.define('BM.kernel.ns.Controller', {
      *
      * @param {String} name Window filename.
      * @param {Ext.panel.Panel} panel Add a panel to this Window.
+     * @param {Boolean} [useControllerView=true] Load a controller specific view.
      * @return {Boolean}
      */
-    showNSWindow : function (name, panel)
+    showNSWindow : function (name, panel, useControllerView)
     {
         var me = this,
             NSWindow;
@@ -576,7 +582,7 @@ Ext.define('BM.kernel.ns.Controller', {
         NSWindow = me.getNSWindow(name, {
             title : panel.title,
             iconCls : panel.iconCls
-        });
+        }, useControllerView);
 
         panel.title = '';
         panel.iconCls = '';
@@ -615,12 +621,13 @@ Ext.define('BM.kernel.ns.Controller', {
      *
      * @param {String} name Name of the tab.
      * @param {Object} [config] The tab configuration.
+     * @param {Boolean} [useControllerView=true] Load a controller specific view.
      * @return {BM.kernel.ns.Tab} Tab class or instance if config is given.
      */
-    getNSTab : function (name, config)
+    getNSTab : function (name, config, useControllerView)
     {
         var me = this,
-            tab = me.getNSView(name, 'tab');
+            tab = me.getNSView(name, 'tab', useControllerView);
 
         if (!tab.prototype.isNSTab) {
             // End.
@@ -662,9 +669,10 @@ Ext.define('BM.kernel.ns.Controller', {
      * @private
      * @param {String} name View filename.
      * @param {String} [type=panel] View type.
+     * @param {Boolean} [useControllerView=true] Load a controller specific view.
      * @return {BM.kernel.ns.Panel}
      */
-    getNSView : function (name, type)
+    getNSView : function (name, type, useControllerView)
     {
         type = type || 'panel';
 
@@ -674,11 +682,18 @@ Ext.define('BM.kernel.ns.Controller', {
         }
 
         var me = this,
+            controllerName,
             view,
             viewId;
+        
+        if (useControllerView === false) {
+            controllerName = '';
+        } else {
+            controllerName = me.getControllerName().toLowerCase() + '.';
+        }
 
         name = me.getNS() + '.view.' +
-            me.getControllerName().toLowerCase() + '.' +
+            controllerName +
             type + '.' +
             Ext.String.capitalize(name.toLowerCase());
         view = me.getView(name);
