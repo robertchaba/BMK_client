@@ -89,7 +89,7 @@ Ext.define('BM.kernel.ns.Tab', {
      * @return {Object} Object with all found models the object keys are the 
      *                  concat names of the model.
      */
-    getNSModels : function (update)
+    getNSModels : function (update) // TODO Update to getModels dont use NS
     {
         var me = this,
             forms = me.getNSForms(),
