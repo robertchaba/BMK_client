@@ -55,9 +55,14 @@ Ext.define('BM.kernel.ns.Model', {
             proxy = me.getProxy(),
             reader = proxy.getReader(),
             raw = reader.rawData,
-            msg = reader.getMessage(raw);
+            msg;
+
+        if (!raw) {
+            // End, No raw data found.
+            return null;
+        }
 
         // End.
-        return msg;
+        return reader.getMessage(raw);
     }
 });

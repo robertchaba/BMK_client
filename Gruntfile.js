@@ -225,6 +225,7 @@ module.exports = function (grunt) {
             coverage : {
                 options : {
                     extLoaderPaths : {
+                        'Ext.ux' : 'build/output/coverage/app/ux',
                         'BM' : 'build/output/coverage/app',
                         'Model' : 'build/output/coverage/app/model',
                         'User' : 'build/output/coverage/app/module/user',
