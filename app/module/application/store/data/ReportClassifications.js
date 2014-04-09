@@ -1,5 +1,5 @@
 Ext.define('Application.store.data.ReportClassifications', {
-    extend: 'BM.kernel.ns.Store',
+    extend : 'BM.kernel.ns.Store',
     model : 'Model.application.ReportClassification',
     remoteFilter : false,
     proxy : {
