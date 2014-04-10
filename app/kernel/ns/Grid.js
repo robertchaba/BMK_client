@@ -120,8 +120,10 @@ Ext.define('BM.kernel.ns.Grid', {
     /**
      * TODO
      */
-    selectRow : function (rowId)
+    selectRow : function (model)
     {
+        var me = this;
+        return me.getSelectionModel().select(model);
     },
     /**
      * TODO
@@ -161,9 +163,11 @@ Ext.define('BM.kernel.ns.Grid', {
             store.removeAt(i);
             store.insert(i, model);
         } else {
-            store.add(model);
+            store.insert(0, model);
         }
+        
         me.getView().refresh();
+        me.selectRow(model);
 
         // End.
         return me;
