@@ -103,10 +103,10 @@ Ext.define('BM.App', {
 
         me.initLogger();
         me.log('Initialize application.');
-        
+
         Ext.data.Store.prototype.pageSize = 35;
 //        Ext.data.writer.Json.prototype.writeAllFields = false;
-        
+
 //        me.initSniffer();
         me.initErrorHandler();
         me.initStateHandler();
@@ -143,7 +143,8 @@ Ext.define('BM.App', {
      */
     logon : function ()
     {
-        var me = this;
+        var me = this,
+            PBElement;
 
         if (!me.isAuthenticated()) {
             // End, User is not authenticated.
@@ -158,10 +159,13 @@ Ext.define('BM.App', {
         me.initContextmenu();
 
         // Hide the Powerd by element.
-        Ext.fly('BM-PB').hide({
-            delay : 5000,
-            duration : 5000
-        });
+        PBElement = Ext.fly('BM-PB');
+        if (PBElement) {
+            PBElement.hide({
+                delay : 5000,
+                duration : 5000
+            });
+        }
 
         // End.
         return true;
@@ -172,8 +176,6 @@ Ext.define('BM.App', {
     logoff : function ()
     {
         var me = this;
-
-        // Destroy open tabs
 
         me.destroyAcl();
         me.destroyNavigation();
@@ -198,49 +200,15 @@ Ext.define('BM.App', {
         };
     },
     /**
-     * Define this method in portal class.
-     * 
-     * TMP
+     * backwards compatibility method.
+     * call's BM.kernel.Workspace#addTab.
      */
     maximize : function (panel)
     {
-        panel.closable = true;
-
-        var me = this,
-            center = me.getCenterRegion().child('tabpanel');
-
-        center.add(panel);
-        center.setActiveTab(panel);
-
+        var me = this;
+        me.addTab(panel);
         // End.
         return true;
-    },
-    /**
-     * TMP
-     */
-    _createMaximizableWindow : function (item)
-    {
-        var me = this,
-            center = me.getCenterRegion();
-
-        // End.
-        return Ext.create('Ext.window.Window', {
-            renderTo : center.body,
-            constrain : true,
-            header : false,
-            title : false,
-            shadow : false,
-            resizable : false,
-            width : 50,
-            height : 50,
-            style : {
-                border : 'none',
-                'border-radius' : 0
-            },
-            items : [
-                item
-            ]
-        });
     },
     /**
      * Initialize a state handle.

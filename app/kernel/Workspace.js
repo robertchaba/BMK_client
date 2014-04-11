@@ -24,6 +24,8 @@ Ext.define('BM.kernel.Workspace', {
 
         me.workspace = me.createWorkspace();
         me.setWorkspace(me.workspace);
+        
+        
         me.initRequestListeners();
         // End.
         return me;
@@ -94,6 +96,24 @@ Ext.define('BM.kernel.Workspace', {
     {
         // End.
         return Ext.ComponentQuery.query('#BM-workspace-toolbar-avatar menu')[0];
+    },
+    /**
+     * 
+     * @param {type} panel
+     * @returns {Boolean}
+     */
+    addTab : function(panel)
+    {
+        panel.closable = true;
+
+        var me = this,
+            workspace = me.getWorkspace();
+
+        workspace.add(panel);
+        workspace.setActiveTab(panel);
+
+        // End.
+        return true;
     },
     /**
      * Initialize ajax request listeners and show or hide the throbber.
