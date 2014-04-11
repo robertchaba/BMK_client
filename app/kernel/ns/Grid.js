@@ -165,7 +165,7 @@ Ext.define('BM.kernel.ns.Grid', {
         } else {
             store.insert(0, model);
         }
-        
+
         me.getView().refresh();
         me.selectRow(model);
 
@@ -387,5 +387,28 @@ Ext.define('BM.kernel.ns.Grid', {
         var me = this;
         // End.
         return me.gridToolbar;
+    },
+    /**
+     * 
+     * @param {array} items
+     * @return {undefined}
+     */
+    disableToolbarItems : function (items)
+    {
+        var me = this,
+            item;
+
+        items = items || me.toolbarCfg.disable;
+        Ext.Array.each(items, function (itemId)
+        {
+            item = Ext.getCmp(itemId.substr(1));
+            if (item) {
+                item.disable();
+            }
+            // End.
+        });
+
+        // End.
+        return true;
     }
 });
