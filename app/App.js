@@ -92,6 +92,7 @@ Ext.define('BM.App', {
      * @private
      * @return {Boolean} Void.
      */
+    /* istanbul ignore next */
     init : function ()
     {
         if (typeof jasmine !== 'undefined') {

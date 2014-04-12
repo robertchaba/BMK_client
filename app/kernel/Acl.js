@@ -92,10 +92,9 @@ Ext.define('BM.kernel.Acl', {
     /**
      * COMMENTME
      * 
-     * TODO rename the params
-     * @param {String} resource
-     * @param {String} privilge
-     * @param {String} assertion
+     * @param {String} module
+     * @param {String} controller
+     * @param {String} action
      * @return {Boolean}
      */
     allowed : function (module, controller, action)
@@ -103,12 +102,13 @@ Ext.define('BM.kernel.Acl', {
         var me = this,
             permissions = me.getACLPermissions(module, controller),
             allowed = false;
-        
-        if (permissions[module].controllers[controller].actions &&
+
+        if (permissions[module] &&
+            permissions[module].controllers[controller] &&
             permissions[module].controllers[controller].actions[action]) {
             allowed = true;
         }
-        
+
         return allowed;
     },
     /**
@@ -135,16 +135,6 @@ Ext.define('BM.kernel.Acl', {
 
         // End.
         return quickmenu;
-    },
-    /**
-     * COMMENTME
-     * 
-     * @return {Array} Portlets
-     */
-    _getAllowedPortlets : function ()
-    {
-        // Use me.getAllowed controllers to get the portlets.
-        // I dont think we need this method.
     },
     /**
      * Return a array with all the, for the given module and controller allowed
@@ -255,7 +245,6 @@ Ext.define('BM.kernel.Acl', {
             menu = [];
 
         permissions = permissions || me.getACLPermissions();
-
 
         start--;
         Ext.Object.each(permissions, function (name, permission)

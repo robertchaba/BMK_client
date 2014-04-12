@@ -220,5 +220,39 @@ describe('Test BM.App', function ()
 
     describe('isModuleLoaded', function ()
     {
+        var getAllowedControllersSpy;
+        beforeEach(function()
+        {
+            // BM.kernel.Acl
+            getAllowedControllersSpy = spyOn(app, 'getAllowedControllers');
+        });
+        
+        it('Should return falsy if the module does not contain controllers', function ()
+        {
+            var result,
+                controllers = [];
+            
+            getAllowedControllersSpy.andReturn(controllers);
+            
+            result = app.isModuleLoaded('foo');
+            
+            expect(result).toBeFalsy();
+            expect(app.getAllowedControllers).toHaveBeenCalledWith('foo');
+        });
+        
+        it('Should return truthy is the module does contain controllers.', function ()
+        {
+            var result,
+                controllers = [
+                    'testController'
+                ];
+            
+            getAllowedControllersSpy.andReturn(controllers);
+            
+            result = app.isModuleLoaded('bar');
+            
+            expect(result).toBeTruthy();
+            expect(app.getAllowedControllers).toHaveBeenCalledWith('bar');
+        });
     });
 });
