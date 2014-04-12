@@ -394,7 +394,7 @@ Ext.define('BM.kernel.ns.Controller', {
         grid = grid.create(config);
 
         if (grid.isNSGrid && grid.toolbarCfg) {
-            toolbar = me.getNSToolbar(name, grid.getToolbarCfg());
+            toolbar = me.getNSToolbar(name, grid.getToolbarCfg(), useControllerView);
             if (grid.filterable) {
                 toolbar.add({
                     itemId : 'grid-search',
