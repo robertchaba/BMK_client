@@ -5,11 +5,6 @@
  * @abstract
  */
 Ext.define('BM.kernel.ns.Controller', {
-    /*
-     * Add a method action
-     * assume that this method gets a event from the navigation
-     * if so depart the item id and call the action.
-     */
     extend : 'Ext.app.Controller',
     /**
      * @property {Boolean} isNSController True to identify that this class and
