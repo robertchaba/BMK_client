@@ -7,3 +7,6 @@
 [submodule "app/module/file"]
 	path = app/module/file
 	url = https://github.com/WitteStier/BMC_Module_File.git
+[submodule "app/module/I18n"]
+	path = app/module/I18n
+	url = https://github.com/WitteStier/BMC_Module_I18n.git
