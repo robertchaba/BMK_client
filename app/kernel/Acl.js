@@ -64,6 +64,9 @@ Ext.define('BM.kernel.Acl', {
      */
     getACLPermissions : function (module, controller)
     {
+        module = module || '';
+        controller = controller || '';
+
         var me = this,
             permissions = Ext.clone(me.ACLPermissions),
             tmp;
@@ -72,13 +75,16 @@ Ext.define('BM.kernel.Acl', {
             permissions = {};
         }
 
-        if (module) {
-            module = module.toLowerCase();
+        module = module.toLowerCase();
+        if (module && permissions[module]) {
             tmp = Ext.clone(permissions[module]) || {};
             permissions = {};
             permissions[module] = tmp;
 
-            if (controller) {
+            controller = controller.toLowerCase();
+            if (controller &&
+                permissions[module].controllers &&
+                permissions[module].controllers[controller]) {
                 controller = controller.toLowerCase();
                 tmp = permissions[module].controllers[controller] || {};
                 permissions[module].controllers = {};

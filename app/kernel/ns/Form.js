@@ -286,9 +286,9 @@ Ext.define('BM.kernel.ns.Form', {
      * @param {Ext.form.field.ComboBox} combo
      * @return {Boolean} Void.
      */
-    loadStore : function (combo)
+    loadStore : function (combo, options)
     {
-        combo.store.load();
+        combo.store.load(options);
         // End.
         return true;
     },
