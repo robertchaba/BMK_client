@@ -18,10 +18,45 @@ Ext.define('BM.kernel.ns.Tab', {
      * @property {Boolean} isNSTab true to identify this class as namespace tab panel.
      */
     isNSTab : true,
+    /**
+     * @cfg {Boolean} wizard True to make the tab panel a wizard.
+     */
+    wizard : false,
+    /**
+     * @cfg {Number}
+     */
+    wizardInfoBoardWidth : 150,
     id : 'nsTab',
     iconCls : 'icon-bug',
     title : 'NS tab title',
     activeTab : 0,
+    /**
+     * @private
+     * @property {Ext.XTemplate} infoBoard
+     */
+
+    /**
+     * @static
+     * @property {Boolean} wizard
+     * @return {Boolean} Currect value.
+     */
+    setIsWizard : function (wizard)
+    {
+        var me = this;
+        me.wizard = wizard;
+        // End.
+        return wizard;
+    },
+    /**
+     * @static
+     * @return {Boolean} Currect value.
+     */
+    getIsWizard : function ()
+    {
+        var me = this;
+        // End.
+        return me.wizard;
+    },
     /**
      * @inheritdoc
      * @chainable
@@ -30,7 +65,30 @@ Ext.define('BM.kernel.ns.Tab', {
     {
         var me = this;
 
+        // Convert this tab panel to a wizard.
+        if (me.wizard) {
+            me.initWizard();
+        } else if (!me.buttons) {
+            me.buttons = [
+                {
+                    text : 'Cancel', // TEXT
+                    action : 'cancel'
+                },
+                {
+                    text : 'Save', // TEXT
+                    action : 'save',
+                    formBind : true
+                }
+            ];
+        }
+
         me.callParent();
+
+        // Hide the tab bar.
+        if (me.wizard) {
+            me.tabBar.hide();
+        }
+
         me.initBoundItems();
         me.onFormValidityChange();
 
@@ -45,7 +103,8 @@ Ext.define('BM.kernel.ns.Tab', {
     getNSForms : function ()
     {
         var me = this,
-            forms = [];
+            forms = [
+            ];
 
         me.items.each(function (item)
         {
@@ -60,7 +119,7 @@ Ext.define('BM.kernel.ns.Tab', {
         return forms;
     },
     /**
-     * Returns true if none of the added form fields are invalid, false otherwise.
+     * Returns true if none of the added form fields are invalid for all tabs, false otherwise.
      * 
      * @return {Boolean}
      */
@@ -80,6 +139,24 @@ Ext.define('BM.kernel.ns.Tab', {
 
         // End.
         return isValid;
+    },
+    /**
+     * Returns true if none of the added form fields are invalid, false otherwise.
+     * 
+     * @return {Boolean}
+     */
+    activeIsValid : function ()
+    {
+        var me = this,
+            active = me.getActiveTab();
+
+        if (!active.isNSForm) {
+            // End, is not a NS form, so have no invalid fields.
+            return true;
+        }
+
+        // End.
+        return !active.hasInvalidField();
     },
     /**
      * Return all {@link BM.kernel.ns.Model NSModels} found in all added
@@ -147,12 +224,60 @@ Ext.define('BM.kernel.ns.Tab', {
         config.callback = function ()
         {
             model = form.getModel();
-            Ext.callback(callback, scope, [model]);
+            Ext.callback(callback, scope, [
+                model
+            ]);
             tabbar.enable();
             // End.
         };
 
         form.loadModel(config);
+    },
+    createInfoBoard : function ()
+    {
+        var me = this;
+
+        me.infoBoard = new Ext.Component({
+            width : me.wizardInfoBoardWidth,
+            padding : '0 5 5 5',
+            tpl : '<h3>{title}</h3><p>{descr}</p>'
+        });
+
+        // End.
+        return me.infoBoard;
+    },
+    initWizard : function ()
+    {
+        var me = this;
+
+        me.buttons = [
+            {
+                text : 'Cancel', // TEXT
+                action : 'cancel'
+            },
+            {
+                text : 'Previous', // TEXT
+                action : 'previous',
+                disabled : true,
+                scope : me,
+                handler : me.onPrevious
+            },
+            {
+                text : 'Continue', // TEXT
+                action : 'continue',
+                formBind : true,
+                scope : me,
+                handler : me.onContinue
+            },
+            {
+                text : 'Finish', // TEXT
+                action : 'finish',
+                formBind : true,
+                hidden : true
+            }
+        ];
+
+        me.on('tabchange', me.onTabChange, me);
     },
     /**
      * This method is called when one of the form panels validity changes.
@@ -167,7 +292,9 @@ Ext.define('BM.kernel.ns.Tab', {
     {
         var me = this,
             boundItems = me.getBoundItems(),
-            isValid = me.isValid();
+            isValid = (me.wizard) ?
+            me.activeIsValid() :
+            me.isValid();
 
         boundItems.each(function (item)
         {
@@ -216,5 +343,70 @@ Ext.define('BM.kernel.ns.Tab', {
 
         // End.
         return me;
+    },
+    onContinue : function ()
+    {
+        var me = this,
+            active = me.getActiveTab(),
+            next = active.nextSibling();
+
+        if (!me.wizard || !next) {
+            // End, Error there is no next wizard sibling.
+            return false;
+        }
+
+        me.setActiveTab(next);
+        me.onFormValidityChange();
+
+        // End.
+        return true;
+    },
+    onPrevious : function ()
+    {
+        var me = this,
+            active = me.getActiveTab(),
+            prev = active.previousSibling();
+
+        if (!me.wizard || !prev) {
+            // End, Error there is no next wizard sibling.
+            return false;
+        }
+
+        me.setActiveTab(prev);
+        me.onFormValidityChange();
+
+        // End.
+        return true;
+    },
+    onTabChange : function ()
+    {
+        var me = this,
+            active = me.getActiveTab(),
+            next = active.nextSibling() ? true : false,
+            prev = active.previousSibling() ? false : true,
+            previousButton,
+            nextButton,
+            finishButton;
+
+        if (!me.wizard) {
+            // End, Not in wizard mode.
+            return false;
+        }
+
+        previousButton = me.down('[action=previous]');
+        nextButton = me.down('[action=continue]');
+        finishButton = me.down('[action=finish]');
+
+        previousButton.setDisabled(prev);
+        nextButton.setVisible(next);
+        finishButton.setVisible(!next);
+
+        me.infoBoard.update({
+            title : active.title,
+            descr : active.wizardInfo || ''
+        });
+
+        // End.
+        return true;
     }
 });

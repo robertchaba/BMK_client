@@ -23,6 +23,10 @@ Ext.define('BM.kernel.ns.Window', {
     initComponent : function ()
     {
         var me = this;
+        
+        me.bodyStyle = {
+            background : '#dfeaf2'
+        };
 
         me.callParent();
 

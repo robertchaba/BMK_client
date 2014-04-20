@@ -448,7 +448,8 @@ Ext.define('BM.kernel.ns.Controller', {
         }
 
         if (config) {
-            allowedItems = [];
+            allowedItems = [
+            ];
             if (config.remove) {
                 Ext.Array.each(items, function (item) {
                     if (!Ext.isObject(item)) {
@@ -593,10 +594,17 @@ Ext.define('BM.kernel.ns.Controller', {
         }
 
         NSWindow = me.getNSWindow(name, {
+            layout : 'hbox',
             title : panel.title,
             iconCls : panel.iconCls
         },
         useControllerView);
+
+        // Add an information panel if the panel is an tab panel in wizard mode.
+        if (panel.isNSTab && panel.wizard) {
+            NSWindow.add(panel.createInfoBoard());
+            panel.onTabChange();
+        }
 
         panel.title = '';
         panel.iconCls = '';

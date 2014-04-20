@@ -15,6 +15,12 @@ Ext.define('BM.kernel.ns.Form', {
      * subclasses can be used as namespace form view.
      */
     isNSForm : true,
+    /**
+     * @cfg {String} wizardInfo Form information shown if this form is rendered
+     * by a {@link BM.kernel.ns.Tab#wizard wizard}.
+     */
+    
+    //
     id : 'nsForm',
     iconCls : 'icon-bug',
     title : 'NS form title',
