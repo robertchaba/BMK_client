@@ -166,6 +166,7 @@ Ext.define('BM.kernel.ns.Grid', {
             store.insert(0, model);
         }
 
+        store.commitChanges();
         me.getView().refresh();
         me.selectRow(model);
 
