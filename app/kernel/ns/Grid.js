@@ -224,6 +224,30 @@ Ext.define('BM.kernel.ns.Grid', {
         destModel.commit();
     },
     /**
+     * Upodate the grid the the model reader's raw data.
+     * 
+     * @param {BM.kernel.ns.Model} model
+     * @return {Boolean}
+     */
+    updateModelFromRaw : function (model)
+    {
+        var me = this,
+            store = me.getStore(),
+            rawData = model.proxy.reader.rawData,
+            result = store.proxy.reader.read(rawData);
+
+        if (!result.success || result.count <= 0) {
+            // End, data read faild.
+            return false;
+        }
+
+        // Update grid row.
+        me.addModel(result.records[0]);
+
+        // End.
+        return true;
+    },
+    /**
      * 
      */
     removeModel : function (model)
