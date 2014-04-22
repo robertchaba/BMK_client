@@ -240,7 +240,7 @@ Ext.define('BM.kernel.ns.Tab', {
         me.infoBoard = new Ext.Component({
             width : me.wizardInfoBoardWidth,
             padding : '0 5 5 5',
-            tpl : '<h3>{title}</h3><p>{descr}</p>'
+            tpl : '<h3>{title}</h3>{html}'
         });
 
         // End.
@@ -403,7 +403,7 @@ Ext.define('BM.kernel.ns.Tab', {
 
         me.infoBoard.update({
             title : active.title,
-            descr : active.wizardInfo || ''
+            html : active.wizardInfo || '<p>...</p>'
         });
 
         // End.
