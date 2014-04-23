@@ -35,6 +35,7 @@ Ext.define('BM.kernel.ns.Form', {
         labelStyle : 'font-weight:bold',
         labelWidth : 245,
         width : 245,
+        hideEmptyLabel : false,
         inputValue : true,
         uncheckedValue : false,
         typeAhead : true,
