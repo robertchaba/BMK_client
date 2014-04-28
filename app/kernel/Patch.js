@@ -163,7 +163,9 @@ Ext.override(Ext.data.association.HasOne, {
                 return instance;
             } else {
                 instance = model[instanceName];
-                args = [instance];
+                args = [
+                    instance
+                ];
                 scope = scope || options.scope || model;
 
                 //TODO: We're duplicating the callback invokation code that the instance.load() call above
@@ -185,19 +187,54 @@ Ext.override(Ext.data.association.HasOne, {
  * value with a empty string if the values is undefined or null.
  */
 Ext.override(Ext.data.validations, {
-    length: function(config, value) {
+    length : function (config, value) {
         if (value === undefined || value === null) {
             value = '';
         }
-        
+
         var length = value.length,
-            min    = config.min,
-            max    = config.max;
-        
+            min = config.min,
+            max = config.max;
+
         if ((min && length < min) || (max && length > max)) {
             return false;
         } else {
             return true;
         }
+    }
+});
+
+/**
+ * Update the {@link Ext.app.Controller#control} method to prefix the view event
+ * selectors with the controller name if the selector starts with a dot (.).
+ * 
+ *     // Application.controller.Foo
+ *     me.control({
+ *         // Navigation
+ *         '#controllerViewId' : {
+ *             click : me.onClick
+ *         },
+ *         '.sharedViewId' : {
+ *             render : me.onSharedRender
+ *         }
+ *     });
+ * 
+ * .sharedViewId will be application_sharedViewId.
+ */
+Ext.override(Ext.app.EventBus, {
+    control : function (selectors, controller) {
+        var controllername;
+
+        Ext.Object.each(selectors, function (selector, listeners)
+        {
+            if (selector.charAt(0) === '.' && controller.isNSController) {
+                delete selectors[selector];
+                controllername = controller.getControllerName().toLowerCase();
+                selector = '#' + (controllername + selector).replace('.', '_');
+                selectors[selector] = listeners;
+            }
+        });
+
+        return this.domains.component.listen(selectors, controller);
     }
 });

@@ -704,18 +704,13 @@ Ext.define('BM.kernel.ns.Controller', {
         }
 
         var me = this,
-            controllerName,
-            view,
-            viewId;
-
-        if (useControllerView === false) {
-            controllerName = '';
-        } else {
-            controllerName = me.getControllerName().toLowerCase() + '.';
-        }
+            controllerName = me.getControllerName().toLowerCase() + '.',
+            viewId,
+            view;
 
         name = me.getNS() + '.view.' +
-            controllerName +
+            ((useControllerView === false) ? '' :
+            controllerName) + // Do not add the controller name to the view classname to get shared views.
             type + '.' +
             Ext.String.capitalize(name.toLowerCase());
         view = me.getView(name);
@@ -728,7 +723,13 @@ Ext.define('BM.kernel.ns.Controller', {
             return false;
         }
 
+        if (useControllerView === false) {
+            // Make the shared view is unique for this controller.
+            view.prototype.id = (controllerName + view.prototype.id.replace(/^.*\_/g, '')).replace('.', '_');
+        }
+
         viewId = view.prototype.id;
+
         if (Ext.ComponentManager.all.containsKey(viewId)) {
             BM.getApplication()
                 .logWarning('View is already registered. The old view will be destroyed to prevent error\'s.', {
