@@ -389,7 +389,7 @@ Ext.define('BM.kernel.ns.Controller', {
         grid = grid.create(config);
 
         if (grid.isNSGrid && grid.toolbarCfg) {
-            toolbar = me.getNSToolbar(name, grid.getToolbarCfg(), useControllerView);
+            toolbar = me.getNSToolbar(name, grid.getToolbarCfg(), useControllerView, grid);
             if (grid.filterable) {
                 toolbar.add({
                     itemId : 'grid-search',
@@ -415,7 +415,7 @@ Ext.define('BM.kernel.ns.Controller', {
      * @param {Boolean} [useControllerView=true] Load a controller specific view.
      * @return {BM.kernel.ns.Toolbar} Toolbar class or instance if config is given.
      */
-    getNSToolbar : function (name, config, useControllerView)
+    getNSToolbar : function (name, config, useControllerView, panel)
     {
         config = config || {};
 
@@ -447,32 +447,66 @@ Ext.define('BM.kernel.ns.Controller', {
                 Ext.Array.merge(allowedItems, items);
         }
 
-        if (config) {
-            allowedItems = [
-            ];
-            if (config.remove) {
-                Ext.Array.each(items, function (item) {
-                    if (!Ext.isObject(item)) {
-                        // End, item is not a object.
-                        return false;
-                    }
+        allowedItems = [];
 
+        Ext.Array.each(items, function (item) {
+            if (Ext.isObject(item)) {
+               allowedItems.push(item); 
+            }
+	});
+
+	items = allowedItems; 
+
+	if ((typeof panel !== 'undefined') && (typeof panel.toolbarCfgCallback === 'function')) {
+            //console.log('using callback');
+	    allowedItems = [];  
+	
+            Ext.Array.each(items, function (item) {
+                if (panel.toolbarCfgCallback(item)===true) {
+                    allowedItems.push(item); 
+		}		    
+            });
+	}
+        else if (config) {
+	   //console.log('using config...'); 	
+		
+	   if (config.add) {   
+		allowedItems = [];   
+                Ext.Array.each(items, function (item) {
                     var itemId = '#' + item.id;
 
-                    if (!Ext.Array.contains(config.remove, itemId)) {
+		    if (Ext.Array.contains(config.add, itemId)) {
+                        allowedItems.push(item);
+                    }
+                });		   
+   
+	   } 
+	   else if (config.remove) {
+		allowedItems = [];   
+                Ext.Array.each(items, function (item) {
+                    var itemId = '#' + item.id;
+
+		    if (!Ext.Array.contains(config.remove, itemId)) {
                         allowedItems.push(item);
                     }
                 });
-
-                items = allowedItems;
             }
+        }
 
-            toolbar = toolbar.create({
+        items = allowedItems;
+
+	if (config) {
+	     toolbar = toolbar.create({
                 paging : config.paging,
                 store : config.store,
                 items : items
-            });
-        }
+             });	    
+	}
+        else {
+             toolbar = toolbar.create({
+             items : items
+             });		    
+	}
 
         // End.
         return toolbar;
